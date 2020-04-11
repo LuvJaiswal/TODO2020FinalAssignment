@@ -4,99 +4,103 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
+    android:padding="10dp"
     tools:context=".RegisterActivity">
 
-
-
-    <EditText
-        android:id="@+id/Reg_ET_name"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name"
-        android:textStyle="bold"
-        android:inputType="text"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@drawable/designs"
-        android:padding="20dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="75dp"
+        android:background="@android:color/white">
 
-    <EditText
-        android:id="@+id/Reg_ET_phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Phone"
-        android:textStyle="bold"
-        android:inputType="number"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@drawable/designs"
-        android:padding="20dp"
-        android:layout_below="@id/Reg_ET_name"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        <EditText
+            android:id="@+id/Reg_ET_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/designs"
+            android:hint="Name"
+            android:inputType="text"
+            android:padding="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/Reg_ET_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:textStyle="bold"
-        android:inputType="textPassword"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@drawable/designs"
-        android:padding="20dp"
-        android:layout_below="@id/Reg_ET_phone"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        <EditText
+            android:id="@+id/Reg_ET_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Reg_ET_name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/designs"
+            android:hint="Email"
+            android:inputType="text"
+            android:padding="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
 
-    <EditText
-        android:id="@+id/Reg_ET_confirm_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Confirm Password"
-        android:textStyle="bold"
-        android:inputType="textPassword"
-        android:textColor="@color/colorPrimaryDark"
-        android:background="@drawable/designs"
-        android:padding="20dp"
-        android:layout_below="@id/Reg_ET_password"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        <EditText
+            android:id="@+id/Reg_ET_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Reg_ET_email"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/designs"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/Reg_ET_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Reg_ET_password"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/designs"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:padding="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold" />
 
 
-    <Button
-        android:id="@+id/Reg_createAcc_Btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Reg_ET_confirm_password"
-        android:padding="20dp"
-        android:text="Create An Account"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:background="@drawable/buttons_design"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
+        <Button
+            android:id="@+id/Reg_createAcc_Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Reg_ET_confirm_password"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/buttons_design"
+            android:padding="20dp"
+            android:text="Create An Account"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Reg_createAcc_Btn"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="180dp"
-        android:layout_marginRight="20dp"
-        android:text="already have an account!"
-        android:textStyle="bold|italic"
-        android:textSize="17sp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Reg_createAcc_Btn"
+            android:layout_marginLeft="180dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:text="already have an account!"
+            android:textSize="17sp"
+            android:textStyle="bold|italic" />
+    </RelativeLayout>
 
 </RelativeLayout>

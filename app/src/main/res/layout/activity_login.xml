@@ -31,13 +31,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rlImage"
-        android:layout_margin="10dp"
-        android:background="@color/login"
+        android:layout_margin="20dp"
+        android:background="@android:color/white"
         android:padding="20dp">
 
 
         <EditText
-            android:id="@+id/login_phone"
+            android:id="@+id/login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -45,8 +45,8 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/designs"
             android:drawableLeft="@drawable/ic_call_black_24dp"
-            android:hint="  Phone Number"
-            android:inputType="number"
+            android:hint="  Username"
+            android:inputType="text"
             android:padding="20dp"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="17sp"
@@ -56,7 +56,7 @@
             android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/login_phone"
+            android:layout_below="@+id/login_username"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
@@ -89,14 +89,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="70dp"
+                android:layout_marginLeft="50dp"
                 android:text="Forgor Password?"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <Button
-            android:id="@+id/LoginBtn"
+            android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/login_password"
