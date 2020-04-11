@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/todoBackground"
     tools:context=".RegisterActivity">
 
 
@@ -56,11 +55,28 @@
         android:layout_marginRight="20dp"
         />
 
+    <EditText
+        android:id="@+id/Reg_ET_confirm_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirm Password"
+        android:textStyle="bold"
+        android:inputType="textPassword"
+        android:textColor="@color/colorPrimaryDark"
+        android:background="@drawable/designs"
+        android:padding="20dp"
+        android:layout_below="@id/Reg_ET_password"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+
     <Button
         android:id="@+id/Reg_createAcc_Btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/Reg_ET_password"
+        android:layout_below="@id/Reg_ET_confirm_password"
         android:padding="20dp"
         android:text="Create An Account"
         android:textStyle="bold"
