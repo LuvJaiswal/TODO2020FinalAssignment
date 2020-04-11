@@ -16,7 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // Database Version
     private static final int DATABASE_VERSION = 1;
 
-    public static final String DATABASE_NAME= "TODO.db";
+    public static final String DATABASE_NAME = "TODO.db";
     private static final String TABLE_USER = "user";
 
     public static final String TABLE_NAME = "register.db";
@@ -214,10 +214,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public long addUser(String user, String pwd) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("name",user);
-        contentValues.put("password",pwd);
-        long res = db.insert("user",null,contentValues);
+        contentValues.put("name", user);
+        contentValues.put("password", pwd);
+        long res = db.insert("user", null, contentValues);
         db.close();
-        return  res;
+        return res;
     }
 }
