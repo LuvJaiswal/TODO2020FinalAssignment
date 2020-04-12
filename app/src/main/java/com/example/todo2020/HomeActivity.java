@@ -57,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Note> notes) {
                 //update Recyclerview
-                adapter.setTodo(notes);
+                adapter.submitList(notes);
 //                Toast.makeText(HomeActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
             }
         });
