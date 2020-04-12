@@ -43,6 +43,10 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
 
     }
 
+    public Note getNoteAt(int position){
+        return notes.get(position);
+    }
+
     class TodoHolder extends RecyclerView.ViewHolder{
 
        private TextView mTitle,mDescription,mPriority;
