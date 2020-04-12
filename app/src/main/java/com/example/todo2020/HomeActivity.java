@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +25,8 @@ public class HomeActivity extends AppCompatActivity {
 
     public static final int ADD_TODO_REQUEST = 1;
 
+    public static final int EDIT_TODO_REQUEST = 2;  //for edit
+
     private NoteViewModel noteViewModel;
 
     @Override
@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, AddTodoActivity.class);
+                Intent intent = new Intent(HomeActivity.this, AddEditTodoActivity.class);
                 startActivityForResult(intent, ADD_TODO_REQUEST);
             }
         });
@@ -75,6 +75,23 @@ public class HomeActivity extends AppCompatActivity {
                 Toast.makeText(HomeActivity.this, "Todo deleted", Toast.LENGTH_SHORT).show();
             }
         }).attachToRecyclerView(recyclerView);
+
+        adapter.setOnItemClickListener(new TodoAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Note note) {
+                Intent intent = new Intent(HomeActivity.this, AddEditTodoActivity.class);
+                intent.putExtra(AddEditTodoActivity.EXTRA_ID, note.getId());
+
+                intent.putExtra(AddEditTodoActivity.EXTRA_TITLE, note.getTitle());
+                intent.putExtra(AddEditTodoActivity.EXTRA_DESCRIPTION, note.getTitle());
+                intent.putExtra(AddEditTodoActivity.EXTRA_PRIORITY, note.getTitle());
+
+                startActivityForResult(intent, EDIT_TODO_REQUEST);
+
+            }
+
+
+        });
     }
 
 
@@ -82,13 +99,31 @@ public class HomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_TODO_REQUEST && resultCode == RESULT_OK) {
-            String title = data.getStringExtra(AddTodoActivity.EXTRA_TITLE);
-            String description = data.getStringExtra(AddTodoActivity.EXTRA_DESCRIPTION);
-            int priority = data.getIntExtra(AddTodoActivity.EXTRA_PRIORITY, 1);
+            String title = data.getStringExtra(AddEditTodoActivity.EXTRA_TITLE);
+            String description = data.getStringExtra(AddEditTodoActivity.EXTRA_DESCRIPTION);
+            int priority = data.getIntExtra(AddEditTodoActivity.EXTRA_PRIORITY, 1);
 
             Note note = new Note(title, description, priority);
             noteViewModel.insert(note);
             Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
+        } else if (requestCode == EDIT_TODO_REQUEST && resultCode == RESULT_OK) {
+            int id = data.getIntExtra(AddEditTodoActivity.EXTRA_ID, -1);
+
+            if (id == -1) {
+                Toast.makeText(this, "Todo cannot be updated ", Toast.LENGTH_SHORT).show();
+                return;
+
+            }
+            String title = data.getStringExtra(AddEditTodoActivity.EXTRA_TITLE);
+            String description = data.getStringExtra(AddEditTodoActivity.EXTRA_DESCRIPTION);
+            int priority = data.getIntExtra(AddEditTodoActivity.EXTRA_PRIORITY, 1);
+
+            Note note = new Note(title,description,priority);
+            note.setId(id);
+            noteViewModel.update(note);
+
+            Toast.makeText(this, "Todo Updated", Toast.LENGTH_SHORT).show();
+
         } else {
             Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
         }
@@ -100,19 +135,19 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu,menu);
+        menuInflater.inflate(R.menu.main_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.delete_All_notes:
-            noteViewModel.deleteAllNotes();
+                noteViewModel.deleteAllNotes();
                 Toast.makeText(this, "All Todo notes deleted", Toast.LENGTH_SHORT).show();
                 return true;
-                default:
-                    return super.onOptionsItemSelected(item);
+            default:
+                return super.onOptionsItemSelected(item);
 
         }
 

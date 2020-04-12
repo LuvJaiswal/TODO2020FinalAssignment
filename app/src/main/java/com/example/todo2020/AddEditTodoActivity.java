@@ -12,15 +12,18 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
-public class AddTodoActivity extends AppCompatActivity {
+public class AddEditTodoActivity extends AppCompatActivity {
 
-    public static final String EXTRA_TITLE=
+    public static final String EXTRA_ID =
+            "com.example.todo2020.EXTRA_ID";
+
+    public static final String EXTRA_TITLE =
             "com.example.todo2020.EXTRA_TITLE";
 
-    public static final String EXTRA_DESCRIPTION=
+    public static final String EXTRA_DESCRIPTION =
             "com.example.todo2020.EXTRA_DESCRIPTION";
 
-    public static final String EXTRA_PRIORITY=
+    public static final String EXTRA_PRIORITY =
             "com.example.todo2020.EXTRA_PRIORITY";
 
     private EditText todoTitle, todoDescription;
@@ -40,7 +43,17 @@ public class AddTodoActivity extends AppCompatActivity {
         numberPicker.setMaxValue(15);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-        setTitle("Add Todo");
+        Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_ID)) {
+            setTitle("Edit Todo");
+            todoTitle.setText(intent.getStringExtra(EXTRA_TITLE));
+            todoDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
+            numberPicker.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
+
+        } else {
+
+            setTitle("Add Todo");
+        }
 
     }
 
@@ -56,17 +69,22 @@ public class AddTodoActivity extends AppCompatActivity {
         String description = todoDescription.getText().toString();
         int priority = numberPicker.getValue();
 
-        if(title.trim().isEmpty() || description.trim().isEmpty()){
+        if (title.trim().isEmpty() || description.trim().isEmpty()) {
             Toast.makeText(this, "Please insert a title and description", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Intent data = new Intent();
-        data.putExtra(EXTRA_TITLE,title);
-        data.putExtra(EXTRA_DESCRIPTION,description);
-        data.putExtra(EXTRA_PRIORITY,priority);
+        data.putExtra(EXTRA_TITLE, title);
+        data.putExtra(EXTRA_DESCRIPTION, description);
+        data.putExtra(EXTRA_PRIORITY, priority);
 
-        setResult(RESULT_OK,data);
+        int id = getIntent().getIntExtra(EXTRA_ID,-1);
+        if (id != -1){
+             data.putExtra(EXTRA_ID,id);
+        }
+
+        setResult(RESULT_OK, data);
         finish();
 
     }

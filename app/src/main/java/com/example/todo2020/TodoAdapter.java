@@ -13,12 +13,15 @@ import java.util.List;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
 
+    private OnItemClickListener listener;
     private List<Note> notes = new ArrayList<>();
+
+
     @NonNull
     @Override
     public TodoHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.todo_item,parent,false);
+                .inflate(R.layout.todo_item, parent, false);
 
         return new TodoHolder(itemView);
     }
@@ -37,28 +40,49 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
         return notes.size();
     }
 
-    public void setTodo(List<Note>notes){
+    public void setTodo(List<Note> notes) {
         this.notes = notes;
         notifyDataSetChanged();
 
     }
 
-    public Note getNoteAt(int position){
+    public Note getNoteAt(int position) {
         return notes.get(position);
     }
 
-    class TodoHolder extends RecyclerView.ViewHolder{
+    class TodoHolder extends RecyclerView.ViewHolder {
 
-       private TextView mTitle,mDescription,mPriority;
+        private TextView mTitle, mDescription, mPriority;
 
 
-       public TodoHolder(@NonNull View itemView) {
-           super(itemView);
-           mTitle = itemView.findViewById(R.id.tv_title);
-           mDescription =itemView.findViewById(R.id.tv_description);
-           mPriority = itemView.findViewById(R.id.tv_Priority);
+        public TodoHolder(@NonNull View itemView) {
+            super(itemView);
+            mTitle = itemView.findViewById(R.id.tv_title);
+            mDescription = itemView.findViewById(R.id.tv_description);
+            mPriority = itemView.findViewById(R.id.tv_Priority);
 
-       }
-   }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();  //position where we need to click
+                    if (listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(notes.get(position)); //acquired the position
+                    }
+                }
+            });
+
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Note note);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
+
+
+    }
+
 }
 
