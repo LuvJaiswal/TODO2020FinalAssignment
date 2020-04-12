@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".AddTodoActivity">
+
+    <EditText
+        android:id="@+id/todoTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"
+        android:textSize="28dp"
+        android:inputType="text"
+        />
+
+    <EditText
+        android:id="@+id/todoDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:inputType="textMultiLine"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Priority:"
+        android:layout_marginTop="10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        />
+
+    <NumberPicker
+        android:id="@+id/np_Picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </NumberPicker>
+
+
+
+
+
+</LinearLayout>
