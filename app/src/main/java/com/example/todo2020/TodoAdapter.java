@@ -17,7 +17,7 @@ public class TodoAdapter extends ListAdapter<Note, TodoAdapter.TodoHolder> {
 
     private OnItemClickListener listener;
 
-    protected TodoAdapter() {
+    public TodoAdapter() {
         super(DIFF_CALLBACK);
 
     }

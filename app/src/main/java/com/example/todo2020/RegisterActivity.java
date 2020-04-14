@@ -2,8 +2,10 @@ package com.example.todo2020;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText mName,mPassword,memail,mConfirmpassword;
     Button mRegisterbtn;
+
+    private ProgressDialog loadingBar;
     DatabaseHelper db;
 
 
@@ -29,16 +33,44 @@ public class RegisterActivity extends AppCompatActivity {
         mConfirmpassword=(EditText)findViewById(R.id.Reg_ET_confirm_password);
         mRegisterbtn=(Button) findViewById(R.id.Reg_createAcc_Btn);
 
+        loadingBar = new ProgressDialog(this);
+
         mRegisterbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String user = mName.getText().toString().trim();
                 String pwd = mPassword.getText().toString().trim();
                 String cnf_pwd = mConfirmpassword.getText().toString().trim();
+                String email = memail.getText().toString().trim();
 
+                if (TextUtils.isEmpty(user)) {
+                    Toast.makeText(RegisterActivity.this, "please enter the username", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(RegisterActivity.this, "please enter the email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                if (TextUtils.isEmpty(pwd)) {
+                    Toast.makeText(RegisterActivity.this, "please enter the password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(cnf_pwd)) {
+                    Toast.makeText(RegisterActivity.this, "please enter the confirm password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (pwd.length() < 6) {
+                    Toast.makeText(RegisterActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(pwd.equals(cnf_pwd)){
                     long val = db.addUser(user,pwd);
                     if(val > 0){
+                        loadingBar.dismiss();
                         Toast.makeText(RegisterActivity.this,"You have registered",Toast.LENGTH_SHORT).show();
                         Intent moveToLogin = new Intent(RegisterActivity.this,LoginActivity.class);
                         startActivity(moveToLogin);
@@ -61,4 +93,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+    public void alreadyAccount(View view) {
+        Intent moveToLogin = new Intent(RegisterActivity.this,LoginActivity.class);
+        startActivity(moveToLogin);
+    }
 }

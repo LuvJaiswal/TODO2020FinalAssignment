@@ -12,7 +12,7 @@
         android:id="@+id/rlImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="5dp">
 
 
         <ImageView
@@ -31,9 +31,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rlImage"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:background="@android:color/white"
-        android:padding="20dp">
+        android:padding="10dp">
 
 
         <EditText
@@ -44,7 +44,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/designs"
-            android:drawableLeft="@drawable/ic_call_black_24dp"
+            android:drawableLeft="@drawable/ic_verified_user_black_24dp"
             android:hint="  Username"
             android:inputType="text"
             android:padding="20dp"
@@ -87,6 +87,7 @@
                 android:textStyle="bold"></CheckBox>
 
             <TextView
+                android:id="@+id/resetPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"

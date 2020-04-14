@@ -5,16 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    android:padding="10dp"
     tools:context=".RegisterActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="75dp"
+        android:layout_height="match_parent"
+       android:gravity="center"
         android:background="@android:color/white">
 
         <EditText
@@ -25,7 +21,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/designs"
-            android:hint="Name"
+            android:hint="User name"
             android:inputType="text"
             android:padding="20dp"
             android:textColor="@color/colorPrimaryDark"
@@ -41,7 +37,7 @@
             android:layout_marginRight="20dp"
             android:background="@drawable/designs"
             android:hint="Email"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:padding="20dp"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold" />
@@ -100,6 +96,7 @@
             android:layout_marginRight="20dp"
             android:text="already have an account!"
             android:textSize="17sp"
+            android:onClick="alreadyAccount"
             android:textStyle="bold|italic" />
     </RelativeLayout>
 
