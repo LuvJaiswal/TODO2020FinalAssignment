@@ -21,11 +21,11 @@ public interface TodoDao {
     @Delete
     void Delete(Note note);
 
-    @Query("DELETE FROM todo_table")
+    @Query("DELETE FROM myTodoList")
     void deleteAllNotes();
 
 
-    @Query("SELECT * FROM todo_table ORDER BY priority DESC")
+    @Query("SELECT * FROM myTodoList ORDER BY priority DESC")
     LiveData<List<Note>>getAllNotes();
 
     //will be notified immediately idf changes made

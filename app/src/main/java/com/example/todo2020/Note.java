@@ -1,10 +1,9 @@
 package com.example.todo2020;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "todo_table")
+@Entity(tableName = "myTodoList")
 public class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
