@@ -58,7 +58,6 @@ public class HomeActivity extends AppCompatActivity {
             public void onChanged(List<Note> notes) {
                 //update Recyclerview
                 adapter.submitList(notes);
-//                Toast.makeText(HomeActivity.this, "onChanged", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -83,8 +82,8 @@ public class HomeActivity extends AppCompatActivity {
                 intent.putExtra(AddEditTodoActivity.EXTRA_ID, note.getId());
 
                 intent.putExtra(AddEditTodoActivity.EXTRA_TITLE, note.getTitle());
-                intent.putExtra(AddEditTodoActivity.EXTRA_DESCRIPTION, note.getTitle());
-                intent.putExtra(AddEditTodoActivity.EXTRA_PRIORITY, note.getTitle());
+                intent.putExtra(AddEditTodoActivity.EXTRA_DESCRIPTION, note.getDescription());
+                intent.putExtra(AddEditTodoActivity.EXTRA_PRIORITY, note.getPriority());
 
                 startActivityForResult(intent, EDIT_TODO_REQUEST);
 
@@ -105,10 +104,9 @@ public class HomeActivity extends AppCompatActivity {
 
             Note note = new Note(title, description, priority);
             noteViewModel.insert(note);
-            Toast.makeText(this, "Note saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Todo saved", Toast.LENGTH_SHORT).show();
         } else if (requestCode == EDIT_TODO_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditTodoActivity.EXTRA_ID, -1);
-
             if (id == -1) {
                 Toast.makeText(this, "Todo cannot be updated ", Toast.LENGTH_SHORT).show();
                 return;
@@ -125,7 +123,7 @@ public class HomeActivity extends AppCompatActivity {
             Toast.makeText(this, "Todo Updated", Toast.LENGTH_SHORT).show();
 
         } else {
-            Toast.makeText(this, "Note not saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Todo not saved", Toast.LENGTH_SHORT).show();
         }
 
 

@@ -3,8 +3,11 @@ package com.example.todo2020;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +29,11 @@ public class AddEditTodoActivity extends AppCompatActivity {
     public static final String EXTRA_PRIORITY =
             "com.example.todo2020.EXTRA_PRIORITY";
 
+//    public static final Integer someValue = 5;
+//
+//    int intValue = Integer.parseInt(someValue);
+
+
     private EditText todoTitle, todoDescription;
     private NumberPicker numberPicker;
 
@@ -37,8 +45,7 @@ public class AddEditTodoActivity extends AppCompatActivity {
 
         todoTitle = (EditText) findViewById(R.id.todoTitle);
         todoDescription = (EditText) findViewById(R.id.todoDescription);
-
-        numberPicker = (NumberPicker) findViewById(R.id.np_Picker);
+        numberPicker = (NumberPicker) findViewById(R.id.np_picker);
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(15);
 
@@ -48,12 +55,12 @@ public class AddEditTodoActivity extends AppCompatActivity {
             setTitle("Edit Todo");
             todoTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             todoDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            numberPicker.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
-
-        } else {
-
+            numberPicker.setValue(intent.getIntExtra(EXTRA_PRIORITY,1));
+        }
+        else  {
             setTitle("Add Todo");
         }
+
 
     }
 
@@ -88,6 +95,7 @@ public class AddEditTodoActivity extends AppCompatActivity {
         finish();
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

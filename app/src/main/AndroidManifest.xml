@@ -11,9 +11,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AddEditTodoActivity"
             android:parentActivityName=".HomeActivity"
-            android:launchMode="singleTop"></activity>
-        <activity android:name=".HomeActivity" />
-        <activity android:name="RegisterActivity" />
+           ></activity>
+        <activity android:name=".HomeActivity"
+            android:launchMode="singleTop"
+            />
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
