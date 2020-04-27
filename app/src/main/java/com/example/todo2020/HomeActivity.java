@@ -18,7 +18,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
@@ -58,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onChanged(List<Note> notes) {
                 //update Recyclerview
                 adapter.submitList(notes);
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -70,8 +73,20 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                noteViewModel.delete(adapter.getNoteAt(viewHolder.getAdapterPosition()));
-                Toast.makeText(HomeActivity.this, "Todo deleted", Toast.LENGTH_SHORT).show();
+
+                final Note tempNote = adapter.getNoteAt(viewHolder.getAdapterPosition());
+
+                noteViewModel.delete(tempNote);
+
+                View contextView = findViewById(R.id.recyclerView);
+
+                Snackbar.make(contextView, "Todo deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        noteViewModel.insert(tempNote);
+                    }
+                }).show();
+
             }
         }).attachToRecyclerView(recyclerView);
 
@@ -141,8 +156,38 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete_All_notes:
+
+                final ArrayList<Note> allNotes = new ArrayList<>();
+
+                noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+                    @Override
+                    public void onChanged(List<Note> notes) {
+                        //update Recyclerview
+                        allNotes.addAll(notes);
+
+
+                    }
+                });
+
                 noteViewModel.deleteAllNotes();
-                Toast.makeText(this, "All Todo notes deleted", Toast.LENGTH_SHORT).show();
+
+                View contextView = findViewById(R.id.recyclerView);
+
+                Snackbar.make(contextView, "Todos deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        for(Note tempNote : allNotes)
+                        {
+                            noteViewModel.insert(tempNote);
+                        }
+
+
+                    }
+                }).show();
+
+
+
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
