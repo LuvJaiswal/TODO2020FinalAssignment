@@ -2,6 +2,7 @@ package com.example.todo2020;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -9,8 +10,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private static final String TAG = HomeActivity.class.getSimpleName();
 
     public static final int ADD_TODO_REQUEST = 1;
 
@@ -46,6 +51,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
 
+
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -59,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Note> notes) {
                 //update Recyclerview
+                Log.d(TAG, "retrieving data from database");
                 adapter.submitList(notes);
                 adapter.notifyDataSetChanged();
             }
@@ -106,6 +113,8 @@ public class HomeActivity extends AppCompatActivity {
 
 
         });
+
+
     }
 
 
@@ -131,7 +140,7 @@ public class HomeActivity extends AppCompatActivity {
             String description = data.getStringExtra(AddEditTodoActivity.EXTRA_DESCRIPTION);
             int priority = data.getIntExtra(AddEditTodoActivity.EXTRA_PRIORITY, 1);
 
-            Note note = new Note(title,description,priority);
+            Note note = new Note(title, description, priority);
             note.setId(id);
             noteViewModel.update(note);
 
@@ -160,10 +169,16 @@ public class HomeActivity extends AppCompatActivity {
                 final ArrayList<Note> allNotes = new ArrayList<>();
 
                 noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+
+                    /*
+
+                     */
                     @Override
                     public void onChanged(List<Note> notes) {
                         //update Recyclerview
+
                         allNotes.addAll(notes);
+
 
 
                     }
@@ -177,15 +192,13 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        for(Note tempNote : allNotes)
-                        {
+                        for (Note tempNote : allNotes) {
                             noteViewModel.insert(tempNote);
                         }
 
 
                     }
                 }).show();
-
 
 
                 return true;
@@ -195,4 +208,77 @@ public class HomeActivity extends AppCompatActivity {
         }
 
     }
+
+                           /*
+                              Warning on back pressed assigned
+                              */
+
+
+//    public void onBackPressed () {
+//        final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+//        builder.setMessage("Are you sure you exit?");
+//        builder.setCancelable(true);
+//        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
+//        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.cancel();
+//            }
+//        });
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
+//
+//
+//    }
+
+
+                             /*
+                               Activity lifecycle implemented
+                              */
+
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        System.out.println("TAG = " + TAG);
+//        Log.d(TAG, "Started");
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        System.out.println("TAG = " + TAG);
+//        Log.d(TAG, "Paused");
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        System.out.println("TAG = " + TAG);
+//        Log.d(TAG, "Resumed");
+//    }
+//
+//    @Override
+//    protected void onRestart() {
+//        super.onRestart();
+//        System.out.println("TAG = " + TAG);
+//        Log.d(TAG, "Restarted");
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        System.out.println("TAG = " + TAG);
+//        Log.d(TAG, "Stopped");
+//    }
+
+
+
 }

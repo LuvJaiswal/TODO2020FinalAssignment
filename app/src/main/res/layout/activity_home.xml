@@ -29,6 +29,7 @@
             android:clickable="true"
             android:layout_gravity="bottom|end"
             app:srcCompat="@drawable/ic_add"
+            android:background="@null"
             tools:ignore="VectorDrawableCompat" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
