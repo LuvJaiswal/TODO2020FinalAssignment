@@ -16,9 +16,15 @@
         <activity
             android:name=".HomeFragmentActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".InitialActivity">
+        <activity android:name=".RegisterActivity"
+            android:label="@string/register"
+            />
+        <activity android:name=".LoginActivity"
+            android:label="@string/login"
+            />
+        <activity android:name=".InitialActivity"
+            android:label="@string/todosuggestion">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

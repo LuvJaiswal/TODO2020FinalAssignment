@@ -61,30 +61,26 @@ public class AddEditTodoActivityFragment extends Fragment {
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Check the log here");
 
-        todoTitle = (EditText)view.findViewById(R.id.todoTitle);
-        todoDescription = (EditText)view.findViewById(R.id.todoDescription);
+        todoTitle = (EditText) view.findViewById(R.id.todoTitle);
+        todoDescription = (EditText) view.findViewById(R.id.todoDescription);
 
-        numberPicker = (NumberPicker)view.findViewById(R.id.np_picker);
+        numberPicker = (NumberPicker) view.findViewById(R.id.np_picker);
         numberPicker.setMinValue(1);
-        numberPicker.setMaxValue(15);
+        numberPicker.setMaxValue(10);
 
-      ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-
-
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
 
         Bundle bundle = this.getArguments();
 
         int REQUEST_CODE = bundle.getInt("REQUEST_CODE");
 
-        if(REQUEST_CODE == 2)
-        {
+        if (REQUEST_CODE == 2) {
             getActivity().setTitle("Edit Todo");
             todoTitle.setText(bundle.getString(EXTRA_TITLE, ""));
             todoDescription.setText(bundle.getString(EXTRA_DESCRIPTION, ""));
             numberPicker.setValue(bundle.getInt(EXTRA_PRIORITY, 1));
-        }
-        else {
+        } else {
 
             getActivity().setTitle("Add Todo");
         }
@@ -95,14 +91,13 @@ public class AddEditTodoActivityFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.add_todo_menu, menu);
-        super.onCreateOptionsMenu(menu,inflater);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private void saveTodo() {
         String title = todoTitle.getText().toString();
         String description = todoDescription.getText().toString();
         int priority = numberPicker.getValue();
-
 
 
         if (title.trim().isEmpty() || description.trim().isEmpty()) {
@@ -114,8 +109,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
         int REQUEST_CODE = bundle.getInt("REQUEST_CODE", 1);
 
-        if(REQUEST_CODE == 2)
-        {
+        if (REQUEST_CODE == 2) {
             int id = bundle.getInt(AddEditTodoActivityFragment.EXTRA_ID, -1);
 
             if (id == -1) {
@@ -124,7 +118,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
             }
 
-            Note note = new Note(title,description,priority);
+            Note note = new Note(title, description, priority);
             note.setId(id);
             noteViewModel.update(note);
 
@@ -138,9 +132,7 @@ public class AddEditTodoActivityFragment extends Fragment {
             fragmentTransaction.addToBackStack("Home");
             fragmentTransaction.commit();
 
-        }
-        else
-        {
+        } else {
 
             Note note = new Note(title, description, priority);
             noteViewModel.insert(note);
@@ -169,6 +161,8 @@ public class AddEditTodoActivityFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
 
 }

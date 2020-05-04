@@ -30,7 +30,7 @@ public interface TodoDao {
 
 
     @Query("SELECT * FROM myTodoList ORDER BY priority DESC")
-    LiveData<List<Note>>getAllNotes();
+    LiveData<List<Note>> getAllNotes();
 
     //will be notified immediately idf changes made
 }

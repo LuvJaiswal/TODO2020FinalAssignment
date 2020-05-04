@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,32 +8,60 @@
     android:padding="20dp"
     tools:context=".AddEditTodoActivityFragment">
 
+
+ <LinearLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical">
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="What is to be done?"
+       android:textSize="15dp"
+       android:textStyle="italic|bold"
+       android:textColor="@color/colorPrimary"
+   />
+
     <EditText
         android:id="@+id/todoTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title"
-        android:textSize="28dp"
         android:inputType="text"
+        android:maxLength="25"
+        android:textStyle="italic|bold"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="What is it for ?"
+        android:layout_marginTop="20dp"
+        android:textSize="15dp"
+        android:textStyle="italic|bold"
+        android:textColor="@color/colorPrimary"
         />
 
     <EditText
         android:id="@+id/todoDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Description"
         android:layout_marginTop="20dp"
-        android:textSize="20dp"
+        android:hint="Description"
+        android:maxLength="1000"
+        android:textStyle="italic|bold"
         android:inputType="textMultiLine"
-        />
+        android:textSize="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Priority:"
         android:layout_marginTop="10dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        />
+        android:text="Priority:"
+        android:textStyle="italic|bold"
+        android:textColor="@color/colorPrimary"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     <NumberPicker
         android:id="@+id/np_picker"
@@ -43,7 +71,7 @@
     </NumberPicker>
 
 
+ </LinearLayout>
 
 
-
-</LinearLayout>
+</ScrollView>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TODO2020</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="todosuggestion">Love Todo App</string>
+
 </resources>

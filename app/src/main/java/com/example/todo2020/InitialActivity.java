@@ -17,12 +17,12 @@ public class InitialActivity extends AppCompatActivity {
     }
 
     public void join(View view) {
-        Intent intent = new Intent(InitialActivity.this,RegisterActivity.class);
+        Intent intent = new Intent(InitialActivity.this, RegisterActivity.class);
         startActivity(intent);
     }
 
     public void login(View view) {
-        Intent intent = new Intent(InitialActivity.this,LoginActivity.class);
+        Intent intent = new Intent(InitialActivity.this, LoginActivity.class);
         startActivity(intent);
     }
 

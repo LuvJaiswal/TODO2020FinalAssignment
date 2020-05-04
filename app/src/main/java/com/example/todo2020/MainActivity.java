@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
 
-
     }
 
 
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                               */
 
 
-    public void onBackPressed(){
+    public void onBackPressed() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Are you sure you exit?");
         builder.setCancelable(true);
@@ -60,5 +59,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
 
     }
+
+
 
 }

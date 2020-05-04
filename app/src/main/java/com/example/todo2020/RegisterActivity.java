@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText mName,mPassword,memail,mConfirmpassword;
+    EditText mName, mPassword, memail, mConfirmpassword;
     Button mRegisterbtn;
 
     private ProgressDialog loadingBar;
@@ -27,11 +27,11 @@ public class RegisterActivity extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
 
-        mName =(EditText)findViewById(R.id.Reg_ET_name);
-        memail=(EditText)findViewById(R.id.Reg_ET_email);
-        mPassword=(EditText)findViewById(R.id.Reg_ET_password);
-        mConfirmpassword=(EditText)findViewById(R.id.Reg_ET_confirm_password);
-        mRegisterbtn=(Button) findViewById(R.id.Reg_createAcc_Btn);
+        mName = (EditText) findViewById(R.id.Reg_ET_name);
+        memail = (EditText) findViewById(R.id.Reg_ET_email);
+        mPassword = (EditText) findViewById(R.id.Reg_ET_password);
+        mConfirmpassword = (EditText) findViewById(R.id.Reg_ET_confirm_password);
+        mRegisterbtn = (Button) findViewById(R.id.Reg_createAcc_Btn);
 
         loadingBar = new ProgressDialog(this);
 
@@ -44,57 +44,55 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = memail.getText().toString().trim();
 
                 if (TextUtils.isEmpty(user)) {
-                    Toast.makeText(RegisterActivity.this, "please enter the username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Please enter the username", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(RegisterActivity.this, "please enter the email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Please enter the email", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
 
                 if (TextUtils.isEmpty(pwd)) {
-                    Toast.makeText(RegisterActivity.this, "please enter the password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Please enter the password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(cnf_pwd)) {
-                    Toast.makeText(RegisterActivity.this, "please enter the confirm password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Please enter the confirm password", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (pwd.length() < 6) {
-                    Toast.makeText(RegisterActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Please too short", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(pwd.equals(cnf_pwd)){
-                    long val = db.addUser(user,pwd);
-                    if(val > 0){
+
+
+                if (pwd.equals(cnf_pwd)) {
+                    long val = db.addUser(user, pwd);
+                    if (val > 0) {
                         loadingBar.dismiss();
-                        Toast.makeText(RegisterActivity.this,"You have registered",Toast.LENGTH_SHORT).show();
-                        Intent moveToLogin = new Intent(RegisterActivity.this,LoginActivity.class);
+                        Toast.makeText(RegisterActivity.this, "You have registered", Toast.LENGTH_SHORT).show();
+                        Intent moveToLogin = new Intent(RegisterActivity.this, LoginActivity.class);
                         startActivity(moveToLogin);
-                    }
-                    else{
-                        Toast.makeText(RegisterActivity.this,"Registeration Error",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Registeration Error", Toast.LENGTH_SHORT).show();
                     }
 
-                }
-                else{
-                    Toast.makeText(RegisterActivity.this,"Password is not matching",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Password is not matching", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
 
 
-
-
     }
 
 
     public void alreadyAccount(View view) {
-        Intent moveToLogin = new Intent(RegisterActivity.this,LoginActivity.class);
+        Intent moveToLogin = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(moveToLogin);
     }
 }

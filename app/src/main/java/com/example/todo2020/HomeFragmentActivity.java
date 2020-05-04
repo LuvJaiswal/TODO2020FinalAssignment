@@ -147,7 +147,7 @@ public class HomeFragmentActivity extends Fragment {
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frameLayout, addEditTodoActivityFragment);
-                fragmentTransaction.addToBackStack("Home");
+                fragmentTransaction.addToBackStack("Todo List");
                 fragmentTransaction.commit();
 
 
@@ -213,10 +213,7 @@ public class HomeFragmentActivity extends Fragment {
                 /*
                      sendfeedback implicit intent
                  */
-
-
             case R.id.sendfeedback:
-                noteViewModel.deleteAllNotes();
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setData(Uri.parse("email"));
                 String[] s = {"jaiswallove20@gmail.com"};
@@ -269,6 +266,17 @@ public class HomeFragmentActivity extends Fragment {
         Log.d(TAG, "Stopped");
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        System.out.println("TAG = " + TAG);
+        Log.d(TAG, "Destroyed");
+    }
 
-
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        System.out.println("TAG = " + TAG);
+        Log.d(TAG, "Detached");
+    }
 }

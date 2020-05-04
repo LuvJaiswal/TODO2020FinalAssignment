@@ -15,12 +15,11 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText loginusername,loginPassword;
+    EditText loginusername, loginPassword;
     Button loginBtn;
 
     private ProgressDialog loadingBar;
     DatabaseHelper db;
-
 
 
     @Override
@@ -31,9 +30,9 @@ public class LoginActivity extends AppCompatActivity {
         db = new DatabaseHelper(this);
 
 
-        loginusername = (EditText)findViewById(R.id.login_username);
-        loginPassword = (EditText)findViewById(R.id.login_password);
-        loginBtn =(Button)findViewById(R.id.loginBtn);
+        loginusername = (EditText) findViewById(R.id.login_username);
+        loginPassword = (EditText) findViewById(R.id.login_password);
+        loginBtn = (Button) findViewById(R.id.loginBtn);
 
 
         loadingBar = new ProgressDialog(this);
@@ -44,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                 String user = loginusername.getText().toString().trim();
                 String pwd = loginPassword.getText().toString().trim();
                 Boolean res = db.checkUser(user, pwd);
+
                 if (TextUtils.isEmpty(user)) {
                     Toast.makeText(LoginActivity.this, "please enter the verified username", Toast.LENGTH_SHORT).show();
                     return;
@@ -51,26 +51,22 @@ public class LoginActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(pwd)) {
                     Toast.makeText(LoginActivity.this, "please enter the valid password", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                else {
+                } else {
                     loadingBar.setTitle("Login Account");
                     loadingBar.setMessage("Please wait while we are checking the credentials.");
                     loadingBar.setCanceledOnTouchOutside(false);
                     loadingBar.show();
                 }
 
-                if(res == true)
-                {
+                if (res == true) {
                     loadingBar.dismiss();
-                    Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login Successful, Welcome " + user, Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
                     Intent HomePage = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(HomePage);
-                }
-                else
-                {
+                } else {
                     loadingBar.dismiss();
-                    Toast.makeText(LoginActivity.this,"Login failed,have valid login",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Login failed, please have valid login", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -78,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void onBackPressed(){
+    public void onBackPressed() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Do you want to go back?");
         builder.setCancelable(true);

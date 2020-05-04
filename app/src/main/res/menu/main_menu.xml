@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-<item
-    android:id="@+id/delete_All_notes"
-    android:title="Delete All notes"
-   app:showAsAction="never"
-    />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+    <item
+        android:id="@+id/delete_All_notes"
+        android:title="Delete All notes"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/sendfeedback"
         android:title="Send Feedback"
-        app:showAsAction="never"
-        />
+        app:showAsAction="never" />
 
 </menu>
