@@ -211,7 +211,7 @@ public class HomeFragmentActivity extends Fragment {
                 return true;
 
                 /*
-                     sendfeedback
+                     sendfeedback implicit intent
                  */
 
 
@@ -221,10 +221,10 @@ public class HomeFragmentActivity extends Fragment {
                 i.setData(Uri.parse("email"));
                 String[] s = {"jaiswallove20@gmail.com"};
                 i.putExtra(Intent.EXTRA_EMAIL,s);
-                i.putExtra(Intent.EXTRA_SUBJECT,"Write your Subject");
-                i.putExtra(Intent.EXTRA_TEXT,"This is an email body");
+                i.putExtra(Intent.EXTRA_SUBJECT,"LoveTODO : 'Write your Subject'");
+                i.putExtra(Intent.EXTRA_TEXT,"This is an email body for your feedback");
                 i.setType("message/rfc822");
-                Intent chooser = Intent.createChooser(i, "Launch Email");
+                Intent chooser = Intent.createChooser(i, "Launch Email for Todo Feedback");
                 startActivity(chooser);
 
 
