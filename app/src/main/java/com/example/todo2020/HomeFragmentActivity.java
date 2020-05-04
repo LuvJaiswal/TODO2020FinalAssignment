@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -200,58 +202,6 @@ public class HomeFragmentActivity extends Fragment {
     }
 
 
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.delete_All_notes:
-//
-//                final ArrayList<Note> allNotes = new ArrayList<>();
-//
-//                noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
-//
-//                    /*
-//
-//                     */
-//                    @Override
-//                    public void onChanged(List<Note> notes) {
-//                        //update Recyclerview
-//
-//                        allNotes.addAll(notes);
-//
-//
-//
-//                    }
-//                });
-//
-//                noteViewModel.deleteAllNotes();
-//
-//                View contextView = findViewById(R.id.recyclerView);
-//
-//                Snackbar.make(contextView, "Todos deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                        for (Note tempNote : allNotes) {
-//                            noteViewModel.insert(tempNote);
-//                        }
-//
-//
-//                    }
-//                }).show();
-//
-//
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//
-//        }
-//
-//
-//
-//
-//
-//    }
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -274,79 +224,33 @@ public class HomeFragmentActivity extends Fragment {
     }
 
 
-
-
-
-
-                           /*
-                              Warning on back pressed assigned
-                              */
-
-
-//    public void onBackPressed () {
-//        final AlertDialog.Builder builder = new AlertDialog.Builder(HomeFragmentActivity.this);
-//        builder.setMessage("Are you sure you exit?");
-//        builder.setCancelable(true);
-//        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Intent intent = new Intent(HomeFragmentActivity.this, LoginActivity.class);
-//                startActivity(intent);
-//
-//            }
-//        });
-//        builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.cancel();
-//            }
-//        });
-//        AlertDialog alertDialog = builder.create();
-//        alertDialog.show();
-//
-//
-//    }
-
-
                              /*
                                Activity lifecycle implemented
                               */
 
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        System.out.println("TAG = " + TAG);
-//        Log.d(TAG, "Started");
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        System.out.println("TAG = " + TAG);
-//        Log.d(TAG, "Paused");
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        System.out.println("TAG = " + TAG);
-//        Log.d(TAG, "Resumed");
-//    }
-//
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        System.out.println("TAG = " + TAG);
-//        Log.d(TAG, "Restarted");
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        System.out.println("TAG = " + TAG);
-//        Log.d(TAG, "Stopped");
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        System.out.println("TAG = " + TAG);
+        Log.d(TAG, "Started");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        System.out.println("TAG = " + TAG);
+        Log.d(TAG, "Paused");
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        System.out.println("TAG = " + TAG);
+        Log.d(TAG, "Stopped");
+    }
+
 
 
 }
