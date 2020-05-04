@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -91,9 +92,7 @@ public class HomeFragmentActivity extends Fragment {
             public void onChanged(List<Note> notes) {
                 //update Recyclerview
                 Log.d(TAG, "retrieving data from database");
-//                adapter.submitList(notes);
-//                adapter.notifyDataSetChanged();
-
+                adapter.notifyDataSetChanged();
                 adapter.setTodo(notes);
 
             }
@@ -210,6 +209,25 @@ public class HomeFragmentActivity extends Fragment {
                 noteViewModel.deleteAllNotes();
                 Toast.makeText(getActivity(), "All Todo notes deleted", Toast.LENGTH_SHORT).show();
                 return true;
+
+                /*
+                     sendfeedback
+                 */
+
+
+            case R.id.sendfeedback:
+                noteViewModel.deleteAllNotes();
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setData(Uri.parse("email"));
+                String[] s = {"jaiswallove20@gmail.com"};
+                i.putExtra(Intent.EXTRA_EMAIL,s);
+                i.putExtra(Intent.EXTRA_SUBJECT,"Write your Subject");
+                i.putExtra(Intent.EXTRA_TEXT,"This is an email body");
+                i.setType("message/rfc822");
+                Intent chooser = Intent.createChooser(i, "Launch Email");
+                startActivity(chooser);
+
+
             default:
                 return super.onOptionsItemSelected(item);
 
@@ -224,9 +242,9 @@ public class HomeFragmentActivity extends Fragment {
     }
 
 
-                             /*
-                               Activity lifecycle implemented
-                              */
+    /*
+       Activity lifecycle implemented
+             */
 
 
     @Override

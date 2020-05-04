@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
         fragment = new HomeFragmentActivity();
 
-//        fragment = new AddEditTodoActivityFragment();
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -29,13 +28,11 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
 
-        //fm.beginTransaction().add(R.id.frag2_Container,fragment).commit()
-
 
     }
 
 
-     /*
+                        /*
                               Warning on back pressed assigned
                               */
 
@@ -47,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                finish();
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
 

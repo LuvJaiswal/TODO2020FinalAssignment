@@ -68,7 +68,10 @@ public class AddEditTodoActivityFragment extends Fragment {
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(15);
 
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+      ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
+
+
+
 
         Bundle bundle = this.getArguments();
 
