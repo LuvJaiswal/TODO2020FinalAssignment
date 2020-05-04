@@ -2,22 +2,25 @@ package com.example.todo2020;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,9 +29,11 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+import static android.app.Activity.RESULT_OK;
 
-    private static final String TAG = HomeActivity.class.getSimpleName();
+public class HomeFragmentActivity extends Fragment {
+
+    private static final String TAG = HomeFragmentActivity.class.getSimpleName();
 
     public static final int ADD_TODO_REQUEST = 1;
 
@@ -36,24 +41,42 @@ public class HomeActivity extends AppCompatActivity {
 
     private NoteViewModel noteViewModel;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.activity_home, null);
+        setHasOptionsMenu(true);
+        return root;
+    }
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton);
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, AddEditTodoActivity.class);
-                startActivityForResult(intent, ADD_TODO_REQUEST);
+                AddEditTodoActivityFragment addEditTodoActivityFragment = new AddEditTodoActivityFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("REQUEST_CODE", ADD_TODO_REQUEST);
+
+                addEditTodoActivityFragment.setArguments(bundle);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frameLayout, addEditTodoActivityFragment);
+                fragmentTransaction.addToBackStack("Home");
+                fragmentTransaction.commit();
+
             }
         });
 
 
-
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
         final TodoAdapter adapter = new TodoAdapter();
@@ -66,10 +89,14 @@ public class HomeActivity extends AppCompatActivity {
             public void onChanged(List<Note> notes) {
                 //update Recyclerview
                 Log.d(TAG, "retrieving data from database");
-                adapter.submitList(notes);
-                adapter.notifyDataSetChanged();
+//                adapter.submitList(notes);
+//                adapter.notifyDataSetChanged();
+
+                adapter.setTodo(notes);
+
             }
         });
+
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -80,12 +107,16 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-
                 final Note tempNote = adapter.getNoteAt(viewHolder.getAdapterPosition());
 
                 noteViewModel.delete(tempNote);
 
-                View contextView = findViewById(R.id.recyclerView);
+                View contextView = getView().findViewById(R.id.recyclerView);
+
+
+                /*
+                Snackbar with undo functionality added for delete todo
+                 */
 
                 Snackbar.make(contextView, "Todo deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                     @Override
@@ -97,121 +128,155 @@ public class HomeActivity extends AppCompatActivity {
             }
         }).attachToRecyclerView(recyclerView);
 
+
         adapter.setOnItemClickListener(new TodoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Note note) {
-                Intent intent = new Intent(HomeActivity.this, AddEditTodoActivity.class);
-                intent.putExtra(AddEditTodoActivity.EXTRA_ID, note.getId());
+                AddEditTodoActivityFragment addEditTodoActivityFragment = new AddEditTodoActivityFragment();
 
-                intent.putExtra(AddEditTodoActivity.EXTRA_TITLE, note.getTitle());
-                intent.putExtra(AddEditTodoActivity.EXTRA_DESCRIPTION, note.getDescription());
-                intent.putExtra(AddEditTodoActivity.EXTRA_PRIORITY, note.getPriority());
+                Bundle bundle = new Bundle();
+                bundle.putInt(AddEditTodoActivityFragment.EXTRA_ID, note.getId());
+                bundle.putString(AddEditTodoActivityFragment.EXTRA_TITLE, note.getTitle());
+                bundle.putString(AddEditTodoActivityFragment.EXTRA_DESCRIPTION, note.getDescription());
+                bundle.putInt(AddEditTodoActivityFragment.EXTRA_PRIORITY, note.getPriority());
+                bundle.putInt("REQUEST_CODE", EDIT_TODO_REQUEST);
 
-                startActivityForResult(intent, EDIT_TODO_REQUEST);
+                addEditTodoActivityFragment.setArguments(bundle);
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frameLayout, addEditTodoActivityFragment);
+                fragmentTransaction.addToBackStack("Home");
+                fragmentTransaction.commit();
+
 
             }
 
 
         });
 
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == ADD_TODO_REQUEST && resultCode == RESULT_OK) {
-            String title = data.getStringExtra(AddEditTodoActivity.EXTRA_TITLE);
-            String description = data.getStringExtra(AddEditTodoActivity.EXTRA_DESCRIPTION);
-            int priority = data.getIntExtra(AddEditTodoActivity.EXTRA_PRIORITY, 1);
+            String title = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_TITLE);
+            String description = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_DESCRIPTION);
+            int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
 
             Note note = new Note(title, description, priority);
             noteViewModel.insert(note);
-            Toast.makeText(this, "Todo saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Todo saved", Toast.LENGTH_SHORT).show();
         } else if (requestCode == EDIT_TODO_REQUEST && resultCode == RESULT_OK) {
-            int id = data.getIntExtra(AddEditTodoActivity.EXTRA_ID, -1);
+            int id = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_ID, -1);
             if (id == -1) {
-                Toast.makeText(this, "Todo cannot be updated ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Todo cannot be updated ", Toast.LENGTH_SHORT).show();
                 return;
 
             }
-            String title = data.getStringExtra(AddEditTodoActivity.EXTRA_TITLE);
-            String description = data.getStringExtra(AddEditTodoActivity.EXTRA_DESCRIPTION);
-            int priority = data.getIntExtra(AddEditTodoActivity.EXTRA_PRIORITY, 1);
+            String title = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_TITLE);
+            String description = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_DESCRIPTION);
+            int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
 
             Note note = new Note(title, description, priority);
             note.setId(id);
             noteViewModel.update(note);
 
-            Toast.makeText(this, "Todo Updated", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Todo Updated", Toast.LENGTH_SHORT).show();
 
         } else {
-            Toast.makeText(this, "Todo not saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Todo not saved", Toast.LENGTH_SHORT).show();
         }
 
 
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.delete_All_notes:
+//
+//                final ArrayList<Note> allNotes = new ArrayList<>();
+//
+//                noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+//
+//                    /*
+//
+//                     */
+//                    @Override
+//                    public void onChanged(List<Note> notes) {
+//                        //update Recyclerview
+//
+//                        allNotes.addAll(notes);
+//
+//
+//
+//                    }
+//                });
+//
+//                noteViewModel.deleteAllNotes();
+//
+//                View contextView = findViewById(R.id.recyclerView);
+//
+//                Snackbar.make(contextView, "Todos deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        for (Note tempNote : allNotes) {
+//                            noteViewModel.insert(tempNote);
+//                        }
+//
+//
+//                    }
+//                }).show();
+//
+//
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//
+//        }
+//
+//
+//
+//
+//
+//    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete_All_notes:
-
-                final ArrayList<Note> allNotes = new ArrayList<>();
-
-                noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
-
-                    /*
-
-                     */
-                    @Override
-                    public void onChanged(List<Note> notes) {
-                        //update Recyclerview
-
-                        allNotes.addAll(notes);
-
-
-
-                    }
-                });
-
                 noteViewModel.deleteAllNotes();
-
-                View contextView = findViewById(R.id.recyclerView);
-
-                Snackbar.make(contextView, "Todos deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        for (Note tempNote : allNotes) {
-                            noteViewModel.insert(tempNote);
-                        }
-
-
-                    }
-                }).show();
-
-
+                Toast.makeText(getActivity(), "All Todo notes deleted", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
 
         }
 
-
-
-
-
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Home");
+    }
+
+
+
+
+
 
                            /*
                               Warning on back pressed assigned
@@ -219,13 +284,13 @@ public class HomeActivity extends AppCompatActivity {
 
 
 //    public void onBackPressed () {
-//        final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+//        final AlertDialog.Builder builder = new AlertDialog.Builder(HomeFragmentActivity.this);
 //        builder.setMessage("Are you sure you exit?");
 //        builder.setCancelable(true);
 //        builder.setNegativeButton("Yes", new DialogInterface.OnClickListener() {
 //            @Override
 //            public void onClick(DialogInterface dialog, int which) {
-//                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+//                Intent intent = new Intent(HomeFragmentActivity.this, LoginActivity.class);
 //                startActivity(intent);
 //
 //            }
@@ -282,7 +347,6 @@ public class HomeActivity extends AppCompatActivity {
 //        System.out.println("TAG = " + TAG);
 //        Log.d(TAG, "Stopped");
 //    }
-
 
 
 }
