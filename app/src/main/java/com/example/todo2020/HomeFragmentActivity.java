@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,7 +50,10 @@ public class HomeFragmentActivity extends Fragment {
         View root = inflater.inflate(R.layout.activity_home, null);
         setHasOptionsMenu(true);
         return root;
+
+
     }
+
 
 
     @Override
@@ -130,6 +134,15 @@ public class HomeFragmentActivity extends Fragment {
         }).attachToRecyclerView(recyclerView);
 
 
+        recyclerView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getActivity(), "hi", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            // Start ActionMode after long-click.
+        });
+
         adapter.setOnItemClickListener(new TodoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Note note) {
@@ -155,6 +168,7 @@ public class HomeFragmentActivity extends Fragment {
 
 
         });
+
 
     }
 
@@ -201,25 +215,49 @@ public class HomeFragmentActivity extends Fragment {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.delete_All_notes:
-                noteViewModel.deleteAllNotes();
-                Toast.makeText(getActivity(), "All Todo notes deleted", Toast.LENGTH_SHORT).show();
-                return true;
+
+                /*
+                Delete all Notes Alert Dialogue box
+                 */
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Are you sure?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        noteViewModel.deleteAllNotes();
+                        Toast.makeText(getActivity(), "All Todo notes deleted", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                AlertDialog ad = builder.create();
+                ad.show();
+
+
+               return true;
+
 
                 /*
                      sendfeedback implicit intent
                  */
+
+
             case R.id.sendfeedback:
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setData(Uri.parse("email"));
                 String[] s = {"jaiswallove20@gmail.com"};
-                i.putExtra(Intent.EXTRA_EMAIL,s);
-                i.putExtra(Intent.EXTRA_SUBJECT,"LoveTODO : 'Write your Subject'");
-                i.putExtra(Intent.EXTRA_TEXT,"This is an email body for your feedback");
+                i.putExtra(Intent.EXTRA_EMAIL, s);
+                i.putExtra(Intent.EXTRA_SUBJECT, "LoveTODO : 'Write your Subject'");
+                i.putExtra(Intent.EXTRA_TEXT, "This is an email body for your feedback");
                 i.setType("message/rfc822");
                 Intent chooser = Intent.createChooser(i, "Launch Email for Todo Feedback");
                 startActivity(chooser);
@@ -249,6 +287,9 @@ public class HomeFragmentActivity extends Fragment {
         super.onStart();
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Started");
+
+        NoteViewModel noteViewModel =
+                ViewModelProviders.of(getActivity()).get(NoteViewModel.class);
     }
 
     @Override
@@ -279,4 +320,7 @@ public class HomeFragmentActivity extends Fragment {
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Detached");
     }
+
+
+
 }

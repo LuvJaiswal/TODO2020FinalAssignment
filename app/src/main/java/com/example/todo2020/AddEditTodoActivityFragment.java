@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.Toast;
@@ -43,6 +44,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
     private EditText todoTitle, todoDescription;
     private NumberPicker numberPicker;
+    private Button button;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,16 +59,16 @@ public class AddEditTodoActivityFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
-
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Check the log here");
 
         todoTitle = (EditText) view.findViewById(R.id.todoTitle);
         todoDescription = (EditText) view.findViewById(R.id.todoDescription);
-
         numberPicker = (NumberPicker) view.findViewById(R.id.np_picker);
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(10);
+
+
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
@@ -80,6 +82,7 @@ public class AddEditTodoActivityFragment extends Fragment {
             todoTitle.setText(bundle.getString(EXTRA_TITLE, ""));
             todoDescription.setText(bundle.getString(EXTRA_DESCRIPTION, ""));
             numberPicker.setValue(bundle.getInt(EXTRA_PRIORITY, 1));
+
         } else {
 
             getActivity().setTitle("Add Todo");
@@ -161,7 +164,6 @@ public class AddEditTodoActivityFragment extends Fragment {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 
 

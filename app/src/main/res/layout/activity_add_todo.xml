@@ -9,69 +9,73 @@
     tools:context=".AddEditTodoActivityFragment">
 
 
- <LinearLayout
-     android:layout_width="match_parent"
-     android:layout_height="match_parent"
-     android:orientation="vertical">
-
-   <TextView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="What is to be done?"
-       android:textSize="15dp"
-       android:textStyle="italic|bold"
-       android:textColor="@color/colorPrimary"
-   />
-
-    <EditText
-        android:id="@+id/todoTitle"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Title"
-        android:inputType="text"
-        android:maxLength="25"
-        android:textStyle="italic|bold"
-        android:textSize="25dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="What is it for ?"
-        android:layout_marginTop="20dp"
-        android:textSize="15dp"
-        android:textStyle="italic|bold"
-        android:textColor="@color/colorPrimary"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="What is to be done?"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15dp"
+            android:textStyle="italic|bold" />
 
-    <EditText
-        android:id="@+id/todoDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Description"
-        android:maxLength="1000"
-        android:textStyle="italic|bold"
-        android:inputType="textMultiLine"
-        android:textSize="20dp" />
+        <EditText
+            android:id="@+id/todoTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Title"
+            android:inputType="text"
+            android:maxLength="25"
+            android:textSize="25dp"
+            android:textStyle="italic|bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Priority:"
-        android:textStyle="italic|bold"
-        android:textColor="@color/colorPrimary"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="What is it for ?"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15dp"
+            android:textStyle="italic|bold" />
 
-    <NumberPicker
-        android:id="@+id/np_picker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/todoDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="Description"
+            android:inputType="textMultiLine"
+            android:maxLength="1000"
+            android:textSize="20dp"
+            android:textStyle="italic|bold" />
 
-    </NumberPicker>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Priority:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="italic|bold" />
 
 
- </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <NumberPicker
+                android:id="@+id/np_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></NumberPicker>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
 </ScrollView>
