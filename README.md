@@ -4,9 +4,21 @@ This is the project based on the developing own version of "TODO" adroid applica
 
 <img src = "https://thumbs.gfycat.com/BogusGregariousBasil-max-1mb.gif"  width="800" height="500">
 
-![](https://media.istockphoto.com/photos/todo-list-personal-planner-on-turquoise-office-table-picture-id925734296?k=6&m=925734296&s=612x612&w=0&h=_VB2egSpS_1RFYSknOl8v19wqT7dMbeRv8duolALfDc=)
+
+## Features
 
 
+ 
+## Downloads
+
+ | Platform        | Architecture           | Version  |
+| ------------- |:-------------:| -----:|
+| Android     | X64 |  1.0|
+ 
+ 
+<img src = "https://media.istockphoto.com/photos/todo-list-personal-planner-on-turquoise-office-table-picture-id925734296?k=6&m=925734296&s=612x612&w=0&h=_VB2egSpS_1RFYSknOl8v19wqT7dMbeRv8duolALfDc=" width="800" height="500" >
+
+## Documentation
 
 <b>Android Architecture components</b> are a collection of libraries that help you design robust, testable, and maintainable apps with more power over lifecycle management and data persistence.
 
@@ -139,6 +151,7 @@ Here, we have class Note, and the name of the table is “notes_table”. We had
 
 The Data Access Object (DAO) is an interface annotated with Dao. This is where the database CRUD (create, read, update and delete) operations are defined. Each method is annotated with “@Insert”, “@Delete”, “@Query(SELECT * FROM)”.
 
+![](https://codelabs.developers.google.com/codelabs/android-training-livedata-viewmodel/img/d33a92bbd6b0c0cd.png)
 
 --
 
@@ -213,6 +226,7 @@ public abstract class NoteDatabase extends RoomDatabase {
 #
 <b>3. Live Data </b>
 
+![](https://codelabs.developers.google.com/codelabs/android-training-livedata-viewmodel/img/7682e8df5c962aa2.png)
 
 LiveData class is from lifecycle library, for observing the data changes. It’s an observable data holder class, and it is also lifecycle aware which means that this is going to update the component which is in the active lifecycle state.
 
@@ -222,6 +236,9 @@ LiveData class is from lifecycle library, for observing the data changes. It’s
 
 This is a class where we will check whether to fetch data from API or local database, or you can say we are putting the logic of database fetching in this class.
 
+![](https://codelabs.developers.google.com/codelabs/android-training-livedata-viewmodel/img/798ce5a181dec52f.png)
+
+![](https://codelabs.developers.google.com/codelabs/android-training-livedata-viewmodel/img/8482e3f49534fdef.png)
 
 public class RepositoryNote {
     private TodoDao todoDao;
@@ -330,7 +347,8 @@ Here, we added wrapper for insert(), getAllNotes() and deleteAllNotes() . Room r
 
 This is also the part of lifecycle library; this will help you to provide data between repository and UI. This survives the data on configuration changes and gets the existing ViewModel to reconnect with the new instance of the owner.
 
-
+![](https://codelabs.developers.google.com/codelabs/android-training-livedata-viewmodel/img/27ed0ed373e0403a.png)
+![](https://codelabs.developers.google.com/codelabs/android-training-livedata-viewmodel/img/a7c8515735c13e6f.png)
 
 Why use ViewModel?
 
