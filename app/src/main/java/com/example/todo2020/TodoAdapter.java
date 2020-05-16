@@ -63,6 +63,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
             mDescription = itemView.findViewById(R.id.tv_description);
             mPriority = itemView.findViewById(R.id.tv_Priority);
 
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

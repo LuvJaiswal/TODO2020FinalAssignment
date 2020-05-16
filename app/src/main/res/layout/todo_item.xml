@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
+        android:background="@drawable/list"
         android:padding="5dp">
 
         <TextView
@@ -28,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:layout_marginLeft="10dp"
             android:layout_toStartOf="@+id/tv_Priority"
             android:ellipsize="end"
             android:maxLines="1"

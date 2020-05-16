@@ -103,8 +103,14 @@ public class AddEditTodoActivityFragment extends Fragment {
         int priority = numberPicker.getValue();
 
 
-        if (title.trim().isEmpty() || description.trim().isEmpty()) {
-            Toast.makeText(getActivity(), "Please insert a title and description", Toast.LENGTH_SHORT).show();
+        if (title.trim().isEmpty()) {
+            todoTitle.setError("title required,please enter and save");
+            todoTitle.requestFocus();
+            return;
+        }
+        if (description.trim().isEmpty()){
+            todoDescription.setError("Description required,please enter and save");
+            todoDescription.requestFocus();
             return;
         }
 

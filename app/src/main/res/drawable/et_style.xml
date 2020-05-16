@@ -12,6 +12,6 @@
         android:top="5dp"
         />
     <solid
-        android:color="#FFFFFF"
+        android:color="#FFEB3B"
         />
 </shape>

@@ -6,17 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".HomeFragmentActivity">
 
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/recyclertheme"
         app:layout_anchor="@+id/scrollView2"
         app:layout_anchorGravity="center">
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
             tools:listitem="@layout/todo_item" />
 
     </ScrollView>

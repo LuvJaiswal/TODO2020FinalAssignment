@@ -4,19 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#769DDF"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="10dp"
     tools:context=".AddEditTodoActivityFragment">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/addeditdesign"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="What is to be done?"
             android:textColor="@color/colorPrimary"
             android:textSize="15dp"
@@ -26,6 +29,7 @@
             android:id="@+id/todoTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:hint="Title"
             android:inputType="text"
             android:maxLength="25"
@@ -35,6 +39,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:text="What is it for ?"
             android:textColor="@color/colorPrimary"
@@ -45,16 +50,18 @@
             android:id="@+id/todoDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:hint="Description"
             android:inputType="textMultiLine"
-            android:maxLength="1000"
+            android:maxLength="100"
             android:textSize="20dp"
             android:textStyle="italic|bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:text="Priority:"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -65,6 +72,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:orientation="horizontal">
 
             <NumberPicker
