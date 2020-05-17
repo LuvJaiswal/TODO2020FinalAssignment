@@ -9,15 +9,27 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Update;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import static android.provider.Settings.System.DATE_FORMAT;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
+
 
     private OnItemClickListener listener;
     private List<Note> notes = new ArrayList<>();
 
+    // Date formatter
+    private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+
+    // Constant for date format
+    private static final String DATE_FORMAT = "dd/MM/yyy";
 
     @NonNull
     @Override
@@ -31,9 +43,18 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
     @Override
     public void onBindViewHolder(@NonNull TodoHolder holder, int position) {
         Note currentNote = notes.get(position);
+
+        /**
+         * for updated date
+         */
+        String updatedAt = dateFormat.format(currentNote.getUpdatedAt());
+
         holder.mTitle.setText(currentNote.getTitle());
         holder.mDescription.setText(currentNote.getDescription());
         holder.mPriority.setText(String.valueOf(currentNote.getPriority()));
+
+
+        holder.updatedAtView.setText(String.valueOf(currentNote.getUpdatedAt()));
 
     }
 
@@ -54,7 +75,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
 
     class TodoHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTitle, mDescription, mPriority;
+        private TextView mTitle, mDescription, mPriority,updatedAtView;
 
 
         public TodoHolder(@NonNull View itemView) {
@@ -62,6 +83,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
             mTitle = itemView.findViewById(R.id.tv_title);
             mDescription = itemView.findViewById(R.id.tv_description);
             mPriority = itemView.findViewById(R.id.tv_Priority);
+            updatedAtView = itemView.findViewById(R.id.taskUpdatedAt);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

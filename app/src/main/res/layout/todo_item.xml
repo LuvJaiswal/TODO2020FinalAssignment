@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="70dp"
+        android:layout_height="100dp"
         android:background="@drawable/list"
         android:padding="5dp">
 
@@ -49,6 +49,25 @@
             android:textColor="@color/colorPrimary"
             android:layout_below="@+id/tv_title"
             android:text="Description" />
+
+        <TextView
+            android:id="@+id/updated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="@color/updatedtheme"
+            android:layout_below="@+id/tv_description"
+            android:text="updated at :" />
+
+        <TextView
+            android:id="@+id/taskUpdatedAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="@color/updatedtheme"
+            android:layout_toRightOf="@+id/updated"
+            android:layout_alignBottom="@+id/updated"
+            android:text="11/11/1111" />
 
 
     </RelativeLayout>

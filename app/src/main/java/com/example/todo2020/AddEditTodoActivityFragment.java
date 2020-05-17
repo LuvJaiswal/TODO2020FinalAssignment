@@ -23,12 +23,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
@@ -37,29 +39,45 @@ public class AddEditTodoActivityFragment extends Fragment {
 
     private static final String TAG = AddEditTodoActivityFragment.class.getSimpleName();
 
+    //task id Extra implemented in the intent
     public static final String EXTRA_ID =
             "com.example.todo2020.EXTRA_ID";
 
+    //task title Extra implemented in the intent
     public static final String EXTRA_TITLE =
             "com.example.todo2020.EXTRA_TITLE";
 
+    //task description Extra implemented in the intent
     public static final String EXTRA_DESCRIPTION =
             "com.example.todo2020.EXTRA_DESCRIPTION";
 
+    //task priority Extra implemented in the intent
     public static final String EXTRA_PRIORITY =
             "com.example.todo2020.EXTRA_PRIORITY";
 
+    public static final String EXTRA_DATE =
+            "com.example.todo2020.EXTRA_DATE";
+
+    public static final String INSTANCE_TASK_ID = "instanceTaskId";
+
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
+
     private static final int REQUEST_CODE_SPEECH_INPUT2 = 9000;
 
+    // Constant for default task id when not in update mode
+    private static final int DEFAULT_TASK_ID = -1;
+
+    private int mTaskId = DEFAULT_TASK_ID;
 
     private NoteViewModel noteViewModel;
 
+    //Fields as Views in the fragment
     private EditText todoTitle, todoDescription;
     private NumberPicker numberPicker;
-
     private ImageButton mVoicebutton;
     private ImageButton mVoicebuttondes;
+
+    private DatePicker datePicker;
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,6 +90,12 @@ public class AddEditTodoActivityFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
+            mTaskId = savedInstanceState.getInt(INSTANCE_TASK_ID, DEFAULT_TASK_ID);
+        }
+
+
 
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
         System.out.println("TAG = " + TAG);
@@ -86,6 +110,8 @@ public class AddEditTodoActivityFragment extends Fragment {
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(10);
 
+      //  datePicker = (DatePicker) view.findViewById(R.id.datepick);
+
         mVoicebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +125,7 @@ public class AddEditTodoActivityFragment extends Fragment {
                 speakdescription();
             }
         });
+
 
 
         ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
@@ -129,10 +156,16 @@ public class AddEditTodoActivityFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * This is the method for saving the todo items
+     * also proper validation for the fields is done
+     */
+
     private void saveTodo() {
         String title = todoTitle.getText().toString();
         String description = todoDescription.getText().toString();
         int priority = numberPicker.getValue();
+        Date date = new Date();
 
 
         if (title.trim().isEmpty()) {
@@ -159,7 +192,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
             }
 
-            Note note = new Note(title, description, priority);
+            Note note = new Note(title, description, priority, date);
             note.setId(id);
             noteViewModel.update(note);
 
@@ -175,7 +208,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
         } else {
 
-            Note note = new Note(title, description, priority);
+            Note note = new Note(title, description, priority,date);
             noteViewModel.insert(note);
             Toast.makeText(getActivity(), "Note saved", Toast.LENGTH_SHORT).show();
 
@@ -190,6 +223,12 @@ public class AddEditTodoActivityFragment extends Fragment {
 
     }
 
+    /**
+     * Menu item "save" is added in the fragment activity
+     * @param item
+     * @return
+     */
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -203,7 +242,10 @@ public class AddEditTodoActivityFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    //Speech
+    /**
+     * Speech for title
+     */
+
     public void speak() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -217,7 +259,10 @@ public class AddEditTodoActivityFragment extends Fragment {
         }
     }
 
-    //Speech for description
+    /**
+     * Speech for description
+     */
+
     public void speakdescription() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -230,6 +275,14 @@ public class AddEditTodoActivityFragment extends Fragment {
             Toast.makeText(getActivity(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
+    /**
+     * retrives speech to text and is replaced to their respective fields
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     *
+     */
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

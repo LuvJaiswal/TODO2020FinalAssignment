@@ -2,12 +2,10 @@ package com.example.todo2020;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,7 +28,7 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
@@ -186,8 +184,9 @@ public class HomeFragmentActivity extends Fragment {
             String title = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_DESCRIPTION);
             int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
+            Date date =new Date();
 
-            Note note = new Note(title, description, priority);
+            Note note = new Note(title, description, priority,date);
             noteViewModel.insert(note);
             Toast.makeText(getActivity(), "Todo saved", Toast.LENGTH_SHORT).show();
         } else if (requestCode == EDIT_TODO_REQUEST && resultCode == RESULT_OK) {
@@ -200,8 +199,10 @@ public class HomeFragmentActivity extends Fragment {
             String title = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_DESCRIPTION);
             int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
+            Date date =new Date();
 
-            Note note = new Note(title, description, priority);
+
+            Note note = new Note(title, description, priority, date);
             note.setId(id);
             noteViewModel.update(note);
 

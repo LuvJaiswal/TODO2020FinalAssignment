@@ -95,6 +95,12 @@
                 android:layout_height="wrap_content"></NumberPicker>
 
 
+<!--            <DatePicker-->
+<!--                android:id="@+id/datepick"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"/>-->
+
         </LinearLayout>
 
     </LinearLayout>

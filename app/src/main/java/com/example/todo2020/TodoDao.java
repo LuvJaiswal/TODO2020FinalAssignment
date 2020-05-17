@@ -33,4 +33,12 @@ public interface TodoDao {
     LiveData<List<Note>> getAllNotes();
 
     //will be notified immediately idf changes made
+
+    @Query("Select * from myTodoList where id =:taskId")
+    LiveData<Note>loadTaskById(int taskId);
+
+    @Query("Select * from myTodoList where id =:taskId")
+    Note noteTask(int taskId);
+
+
 }
