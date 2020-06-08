@@ -9,21 +9,22 @@
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Activities.ViewPagerActivity"></activity>
+        <activity android:name=".Activities.MainActivity" />
         <activity
-            android:name=".AddEditTodoActivityFragment"
-            android:parentActivityName=".HomeFragmentActivity" />
+            android:name=".Fragments.AddEditTodoActivityFragment"
+            android:parentActivityName=".Fragments.HomeFragmentActivity" />
         <activity
-            android:name=".HomeFragmentActivity"
+            android:name=".Fragments.HomeFragmentActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Activities.RegisterActivity"
             android:label="@string/register" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:label="@string/login" />
         <activity
-            android:name=".InitialActivity"
+            android:name=".Activities.InitialActivity"
             android:label="@string/todosuggestion">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +32,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

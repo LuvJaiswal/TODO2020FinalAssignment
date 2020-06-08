@@ -1,15 +1,14 @@
-package com.example.todo2020;
+package com.example.todo2020.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+
+import com.example.todo2020.Fragments.HomeFragmentActivity;
+import com.example.todo2020.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         fragment = new HomeFragmentActivity();
-
-
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, fragment);

@@ -1,4 +1,7 @@
-package com.example.todo2020;
+package com.example.todo2020.MyDatabase;
+
+import android.app.Application;
+import android.content.Context;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -8,18 +11,23 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 @Entity(tableName = "myTodoList")
-public class Note {
+public class mytodo {
+
+
+    //fields assigned
+
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String title;
     private String description;
     private int priority;
 
-    @ColumnInfo(name="updated_at")
+    @ColumnInfo(name = "updated_at")
     private Date updatedAt;
 
+
     @Ignore
-    public Note(int id,String title, String description, int priority, Date updatedAt) {
+    public mytodo(int id, String title, String description, int priority, Date updatedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -27,12 +35,28 @@ public class Note {
         this.updatedAt = updatedAt;
     }
 
-    public Note(String title, String description, int priority, Date updatedAt) {
+    /**
+     * Calling constructors
+     *
+     * @param title
+     * @param description
+     * @param priority
+     * @param updatedAt
+     */
+
+    public mytodo(String title, String description, int priority, Date updatedAt) {
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.updatedAt = updatedAt;
     }
+
+
+    /**
+     * only id is set because we have not added it in constructor
+     *
+     * @param id
+     */
 
     public void setId(int id) {
         this.id = id;
@@ -61,4 +85,6 @@ public class Note {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+
 }

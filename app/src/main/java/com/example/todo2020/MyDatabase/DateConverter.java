@@ -1,4 +1,4 @@
-package com.example.todo2020;
+package com.example.todo2020.MyDatabase;
 
 import androidx.room.TypeConverter;
 

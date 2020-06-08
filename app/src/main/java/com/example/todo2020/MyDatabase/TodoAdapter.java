@@ -1,4 +1,4 @@
-package com.example.todo2020;
+package com.example.todo2020.MyDatabase;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,24 +6,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Update;
 
-import java.sql.Date;
+import com.example.todo2020.R;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import static android.provider.Settings.System.DATE_FORMAT;
-
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
 
 
     private OnItemClickListener listener;
-    private List<Note> notes = new ArrayList<>();
+    private List<mytodo> mytodos = new ArrayList<>();
 
     // Date formatter
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
@@ -42,35 +38,35 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TodoHolder holder, int position) {
-        Note currentNote = notes.get(position);
+        mytodo currentMytodo = mytodos.get(position);
 
         /**
          * for updated date
          */
-        String updatedAt = dateFormat.format(currentNote.getUpdatedAt());
+        String updatedAt = dateFormat.format(currentMytodo.getUpdatedAt());
 
-        holder.mTitle.setText(currentNote.getTitle());
-        holder.mDescription.setText(currentNote.getDescription());
-        holder.mPriority.setText(String.valueOf(currentNote.getPriority()));
+        holder.mTitle.setText(currentMytodo.getTitle());
+        holder.mDescription.setText(currentMytodo.getDescription());
+        holder.mPriority.setText(String.valueOf(currentMytodo.getPriority()));
 
 
-        holder.updatedAtView.setText(String.valueOf(currentNote.getUpdatedAt()));
+        holder.updatedAtView.setText(String.valueOf(currentMytodo.getUpdatedAt()));
 
     }
 
     @Override
     public int getItemCount() {
-        return notes.size();
+        return mytodos.size();
     }
 
-    public void setTodo(List<Note> notes) {
-        this.notes = notes;
+    public void setTodo(List<mytodo> mytodos) {
+        this.mytodos = mytodos;
         notifyDataSetChanged();
 
     }
 
-    public Note getNoteAt(int position) {
-        return notes.get(position);
+    public mytodo getNoteAt(int position) {
+        return mytodos.get(position);
     }
 
     class TodoHolder extends RecyclerView.ViewHolder {
@@ -91,7 +87,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
                 public void onClick(View v) {
                     int position = getAdapterPosition();  //position where we need to click
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(notes.get(position)); //acquired the position
+                        listener.onItemClick(mytodos.get(position)); //acquired the position
                     }
                 }
             });
@@ -100,13 +96,19 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Note note);
+        void onItemClick(mytodo mytodo);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
 
 
+    }
+
+    public void setFilter(List<mytodo> newList){
+        mytodos = new ArrayList<>();
+        mytodos.addAll(newList);
+        notifyDataSetChanged();
     }
 
 }

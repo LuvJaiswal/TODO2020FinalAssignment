@@ -1,4 +1,4 @@
-package com.example.todo2020;
+package com.example.todo2020.MyDatabase;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -12,28 +12,36 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.Date;
 
-@Database(entities = {Note.class}, version = 1, exportSchema = false)
+@Database(entities = {mytodo.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 
-public abstract class NoteDatabase extends RoomDatabase {
+public abstract class TodoDatabase extends RoomDatabase {
 
     //need to turn this class into singleton
-    private static NoteDatabase instance;
+    private static TodoDatabase instance;
 
     public abstract TodoDao todoDao();
 
-    public static synchronized NoteDatabase getInstance(Context context) {
+
+    /***
+     * single database instance
+     * only one thread at a time can access this method
+     * @param context
+     * @return
+     */
+    public static synchronized TodoDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),
-                    NoteDatabase.class, "note_database")
-                    .fallbackToDestructiveMigration()
-                    .addCallback(roomCallback)
+                    TodoDatabase.class, "note_database")
+                    .fallbackToDestructiveMigration()    //to tell room how to migrate in new Schema
+                    .addCallback(roomCallback)   //attached room call back from room database
                     .build();
         }
         return instance;
 
     }
 
+    //database created first time
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -47,16 +55,15 @@ public abstract class NoteDatabase extends RoomDatabase {
 
         private TodoDao todoDao;
 
-        private PopulateDbAsyncTask(NoteDatabase db) {
+        private PopulateDbAsyncTask(TodoDatabase db) {
             todoDao = db.todoDao();
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
-          todoDao.Insert(new Note("title 1", "Description 1",1, new Date()));
-//            todoDao.Insert(new Note("Title 2", "Description 2", 2));
-//            todoDao.Insert(new Note("Title 3", "Description 3", 3));
-
+            todoDao.Insert(new mytodo("title 1", "Description 1", 1, new Date()));
+            todoDao.Insert(new mytodo("title 2", "Description 2", 2, new Date()));
+            todoDao.Insert(new mytodo("title 3", "Description 3", 3, new Date()));
             return null;
         }
     }

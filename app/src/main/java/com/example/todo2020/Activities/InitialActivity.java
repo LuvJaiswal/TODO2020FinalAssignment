@@ -1,12 +1,12 @@
-package com.example.todo2020;
+package com.example.todo2020.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.todo2020.R;
 
 public class InitialActivity extends AppCompatActivity {
 

@@ -159,13 +159,13 @@ The Data Access Object (DAO) is an interface annotated with Dao. This is where t
 public interface TodoDao</b> {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void Insert(Note note);
+    void Insert(Note mytodo);
 
     @Update
-    void Update(Note note);
+    void Update(Note mytodo);
 
     @Delete
-    void Delete(Note note);
+    void Delete(Note mytodo);
 
     @Query("DELETE FROM myTodoList")
     void deleteAllNotes();
@@ -251,18 +251,18 @@ public class RepositoryNote {
 
     }
 
-    public void insert(Note note) {
-        new InsertNoteAsyncTask(todoDao).execute(note);
+    public void insert(Note mytodo) {
+        new InsertNoteAsyncTask(todoDao).execute(mytodo);
 
     }
 
-    public void update(Note note) {
-        new UpdateNoteAsyncTask(todoDao).execute(note);
+    public void update(Note mytodo) {
+        new UpdateNoteAsyncTask(todoDao).execute(mytodo);
 
     }
 
-    public void delete(Note note) {
-        new DeleteNoteAsyncTask(todoDao).execute(note);
+    public void delete(Note mytodo) {
+        new DeleteNoteAsyncTask(todoDao).execute(mytodo);
 
     }
 
@@ -284,8 +284,8 @@ public class RepositoryNote {
         }
 
         @Override
-        protected Void doInBackground(Note... notes) {
-            todoDao.Insert(notes[0]);
+        protected Void doInBackground(Note... mytodos) {
+            todoDao.Insert(mytodos[0]);
             return null;
         }
     }
@@ -299,8 +299,8 @@ public class RepositoryNote {
         }
 
         @Override
-        protected Void doInBackground(Note... notes) {
-            todoDao.Update(notes[0]);
+        protected Void doInBackground(Note... mytodos) {
+            todoDao.Update(mytodos[0]);
             return null;
         }
     }
@@ -313,8 +313,8 @@ public class RepositoryNote {
         }
 
         @Override
-        protected Void doInBackground(Note... notes) {
-            todoDao.Delete(notes[0]);
+        protected Void doInBackground(Note... mytodos) {
+            todoDao.Delete(mytodos[0]);
             return null;
         }
     }
@@ -368,16 +368,16 @@ Why use ViewModel?
         allNotes = repository.getAllNotes();
     }
 
-    public void insert(Note note) {
-        repository.insert(note);
+    public void insert(Note mytodo) {
+        repository.insert(mytodo);
     }
 
-    public void update(Note note) {
-        repository.update(note);
+    public void update(Note mytodo) {
+        repository.update(mytodo);
     }
 
-    public void delete(Note note) {
-        repository.delete(note);
+    public void delete(Note mytodo) {
+        repository.delete(mytodo);
     }
 
     public void deleteAllNotes() {
@@ -459,7 +459,7 @@ Create a layout file(note_item.xml), include three TextView’s for Title and De
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
 
     private OnItemClickListener listener;
-    private List<Note> notes = new ArrayList<>();
+    private List<Note> mytodos = new ArrayList<>();
 
 
     @NonNull
@@ -473,26 +473,26 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TodoHolder holder, int position) {
-        Note currentNote = notes.get(position);
-        holder.mTitle.setText(currentNote.getTitle());
-        holder.mDescription.setText(currentNote.getDescription());
-        holder.mPriority.setText(String.valueOf(currentNote.getPriority()));
+        Note currentMytodo = mytodos.get(position);
+        holder.mTitle.setText(currentMytodo.getTitle());
+        holder.mDescription.setText(currentMytodo.getDescription());
+        holder.mPriority.setText(String.valueOf(currentMytodo.getPriority()));
 
     }
 
     @Override
     public int getItemCount() {
-        return notes.size();
+        return mytodos.size();
     }
 
-    public void setTodo(List<Note> notes) {
-        this.notes = notes;
+    public void setTodo(List<Note> mytodos) {
+        this.mytodos = mytodos;
         notifyDataSetChanged();
 
     }
 
     public Note getNoteAt(int position) {
-        return notes.get(position);
+        return mytodos.get(position);
     }
 
     class TodoHolder extends RecyclerView.ViewHolder {
@@ -511,7 +511,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
                 public void onClick(View v) {
                     int position = getAdapterPosition();  //position where we need to click
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(notes.get(position)); //acquired the position
+                        listener.onItemClick(mytodos.get(position)); //acquired the position
                     }
                 }
             });
@@ -520,7 +520,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Note note);
+        void onItemClick(Note mytodo);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -574,7 +574,7 @@ public class HomeFragmentActivity extends Fragment {
 
     public static final int EDIT_TODO_REQUEST = 2;  //for edit
 
-    private NoteViewModel noteViewModel;
+    private NoteViewModel todoViewModel;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -621,14 +621,14 @@ public class HomeFragmentActivity extends Fragment {
         recyclerView.setAdapter(adapter);
 
 
-        noteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
-        noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+        todoViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
+        todoViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
-            public void onChanged(List<Note> notes) {
+            public void onChanged(List<Note> mytodos) {
                 //update Recyclerview
                 Log.d(TAG, "retrieving data from database");
                 adapter.notifyDataSetChanged();
-                adapter.setTodo(notes);
+                adapter.setTodo(mytodos);
 
             }
         });
@@ -643,9 +643,9 @@ public class HomeFragmentActivity extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                final Note tempNote = adapter.getNoteAt(viewHolder.getAdapterPosition());
+                final Note tempMytodo = adapter.getNoteAt(viewHolder.getAdapterPosition());
 
-                noteViewModel.delete(tempNote);
+                todoViewModel.delete(tempMytodo);
 
                 View contextView = getView().findViewById(R.id.recyclerView);
 
@@ -657,7 +657,7 @@ public class HomeFragmentActivity extends Fragment {
                 Snackbar.make(contextView, "Todo deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        noteViewModel.insert(tempNote);
+                        todoViewModel.insert(tempMytodo);
                     }
                 }).show();
 
@@ -676,14 +676,14 @@ public class HomeFragmentActivity extends Fragment {
 
         adapter.setOnItemClickListener(new TodoAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Note note) {
+            public void onItemClick(Note mytodo) {
                 AddEditTodoActivityFragment addEditTodoActivityFragment = new AddEditTodoActivityFragment();
 
                 Bundle bundle = new Bundle();
-                bundle.putInt(AddEditTodoActivityFragment.EXTRA_ID, note.getId());
-                bundle.putString(AddEditTodoActivityFragment.EXTRA_TITLE, note.getTitle());
-                bundle.putString(AddEditTodoActivityFragment.EXTRA_DESCRIPTION, note.getDescription());
-                bundle.putInt(AddEditTodoActivityFragment.EXTRA_PRIORITY, note.getPriority());
+                bundle.putInt(AddEditTodoActivityFragment.EXTRA_ID, mytodo.getId());
+                bundle.putString(AddEditTodoActivityFragment.EXTRA_TITLE, mytodo.getTitle());
+                bundle.putString(AddEditTodoActivityFragment.EXTRA_DESCRIPTION, mytodo.getDescription());
+                bundle.putInt(AddEditTodoActivityFragment.EXTRA_PRIORITY, mytodo.getPriority());
                 bundle.putInt("REQUEST_CODE", EDIT_TODO_REQUEST);
 
                 addEditTodoActivityFragment.setArguments(bundle);
@@ -718,8 +718,8 @@ public class HomeFragmentActivity extends Fragment {
             String description = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_DESCRIPTION);
             int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
 
-            Note note = new Note(title, description, priority);
-            noteViewModel.insert(note);
+            Note mytodo = new Note(title, description, priority);
+            todoViewModel.insert(mytodo);
             Toast.makeText(getActivity(), "Todo saved", Toast.LENGTH_SHORT).show();
         } else if (requestCode == EDIT_TODO_REQUEST && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_ID, -1);
@@ -732,9 +732,9 @@ public class HomeFragmentActivity extends Fragment {
             String description = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_DESCRIPTION);
             int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
 
-            Note note = new Note(title, description, priority);
-            note.setId(id);
-            noteViewModel.update(note);
+            Note mytodo = new Note(title, description, priority);
+            mytodo.setId(id);
+            todoViewModel.update(mytodo);
 
             Toast.makeText(getActivity(), "Todo Updated", Toast.LENGTH_SHORT).show();
 
@@ -759,8 +759,8 @@ public class HomeFragmentActivity extends Fragment {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        noteViewModel.deleteAllNotes();
-                        Toast.makeText(getActivity(), "All Todo notes deleted", Toast.LENGTH_SHORT).show();
+                        todoViewModel.deleteAllNotes();
+                        Toast.makeText(getActivity(), "All Todo mytodos deleted", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -819,7 +819,7 @@ public class HomeFragmentActivity extends Fragment {
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Started");
 
-        NoteViewModel noteViewModel =
+        NoteViewModel todoViewModel =
                 ViewModelProviders.of(getActivity()).get(NoteViewModel.class);
     }
 
@@ -861,7 +861,7 @@ public class HomeFragmentActivity extends Fragment {
 <b>9. Create AddEditTodoActivityFragment</b>
 
 
-We create an Fragment Activity where the user can input the data. Therefore we create an AddEditTodoActivityFragment.Here, we have three EditText for Title, Description and priority, and a menu to save the note.
+We create an Fragment Activity where the user can input the data. Therefore we create an AddEditTodoActivityFragment.Here, we have three EditText for Title, Description and priority, and a menu to save the mytodo.
 
 
 public class AddEditTodoActivityFragment extends Fragment {
@@ -880,7 +880,7 @@ public class AddEditTodoActivityFragment extends Fragment {
     public static final String EXTRA_PRIORITY =
             "com.example.todo2020.EXTRA_PRIORITY";
 
-    private NoteViewModel noteViewModel;
+    private NoteViewModel todoViewModel;
 
     private EditText todoTitle, todoDescription;
     private NumberPicker numberPicker;
@@ -898,7 +898,7 @@ public class AddEditTodoActivityFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        noteViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
+        todoViewModel = ViewModelProviders.of(this).get(NoteViewModel.class);
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Check the log here");
 
@@ -967,9 +967,9 @@ public class AddEditTodoActivityFragment extends Fragment {
 
             }
 
-            Note note = new Note(title, description, priority);
-            note.setId(id);
-            noteViewModel.update(note);
+            Note mytodo = new Note(title, description, priority);
+            mytodo.setId(id);
+            todoViewModel.update(mytodo);
 
             Toast.makeText(getActivity(), "Todo Updated", Toast.LENGTH_SHORT).show();
 
@@ -983,8 +983,8 @@ public class AddEditTodoActivityFragment extends Fragment {
 
         } else {
 
-            Note note = new Note(title, description, priority);
-            noteViewModel.insert(note);
+            Note mytodo = new Note(title, description, priority);
+            todoViewModel.insert(mytodo);
             Toast.makeText(getActivity(), "Note saved", Toast.LENGTH_SHORT).show();
 
             HomeFragmentActivity homeFragmentActivity = new HomeFragmentActivity();

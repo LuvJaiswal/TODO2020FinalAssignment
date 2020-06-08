@@ -1,4 +1,4 @@
-package com.example.todo2020;
+package com.example.todo2020.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.todo2020.MyDatabase.DatabaseHelper;
+import com.example.todo2020.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

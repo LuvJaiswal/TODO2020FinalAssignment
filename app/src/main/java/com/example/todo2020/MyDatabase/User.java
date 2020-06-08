@@ -1,4 +1,4 @@
-package com.example.todo2020;
+package com.example.todo2020.MyDatabase;
 
 public class User {
     private int id;

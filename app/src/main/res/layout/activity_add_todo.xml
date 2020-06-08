@@ -7,7 +7,7 @@
     android:background="#769DDF"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".AddEditTodoActivityFragment">
+    tools:context=".Fragments.AddEditTodoActivityFragment">
 
 
     <LinearLayout

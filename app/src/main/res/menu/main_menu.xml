@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     >
-    <item
-        android:id="@+id/delete_All_notes"
-        android:title="Delete All notes"
-        android:icon="@mipmap/ic_launcher"
-        app:showAsAction="never" />
+    <item android:title="My Menu">
+        <menu>
+            <item
+                android:id="@+id/delete_All_notes"
+                android:icon="@drawable/ic_delete"
+                android:title="Delete All mytodos"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/sendfeedback"
+                android:icon="@drawable/ic_feedback_black_24dp"
+                android:title="Send Feedback"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/OpenMyCalandar"
+                android:icon="@drawable/ic_add_alert_black_24dp"
+                android:title="My Todo Calandar"
+                app:showAsAction="never" />
+        </menu>
+    </item>
 
     <item
-        android:id="@+id/sendfeedback"
-        android:title="Send Feedback"
-        app:showAsAction="never" />
+        android:id="@+id/Logoutmenu"
+        android:icon="@drawable/ic_logout"
+        android:title="Logout"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Search"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.widget.SearchView" />
 
 </menu>
