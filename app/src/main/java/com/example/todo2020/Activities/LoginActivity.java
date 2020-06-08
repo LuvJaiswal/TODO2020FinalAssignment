@@ -101,4 +101,9 @@ public class LoginActivity extends AppCompatActivity {
         alertDialog.show();
 
     }
+
+    public void notRegistered(View view) {
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+    }
 }

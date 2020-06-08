@@ -9,9 +9,10 @@
 
     <ScrollView
         android:id="@+id/scrollView2"
+        android:background="@drawable/sky"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/recyclertheme"
+        android:layout_marginBottom="10dp"
         app:layout_anchor="@+id/scrollView2"
         app:layout_anchorGravity="center">
 
@@ -20,7 +21,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="10dp"
             tools:listitem="@layout/todo_item" />
 
     </ScrollView>
