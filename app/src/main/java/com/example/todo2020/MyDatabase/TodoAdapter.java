@@ -1,8 +1,11 @@
 package com.example.todo2020.MyDatabase;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,10 +15,15 @@ import com.example.todo2020.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
+public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> implements Filterable {
+
+//    final Context context;
+    private ArrayList<mytodo> listItems;
+    private ArrayList<mytodo> filterList;
 
 
     private OnItemClickListener listener;
@@ -26,6 +34,13 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
 
     // Constant for date format
     private static final String DATE_FORMAT = "dd/MM/yyy";
+
+//    public TodoAdapter() {
+//        this.listItems = listItems;
+//        this.filterList = new ArrayList<>();
+//        this.filterList.addAll(listItems);
+//        this.context = context;
+//    }
 
     @NonNull
     @Override
@@ -69,9 +84,42 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
         return mytodos.get(position);
     }
 
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String charString = constraint.toString().toLowerCase();
+                ArrayList<mytodo> myList = new ArrayList<>();
+                if (charString.isEmpty()) {
+                    myList.addAll(mytodos);
+                } else {
+                    for (mytodo mytodo : mytodos) {
+                        if (mytodo.toString().toLowerCase().contains(charString)) {
+                            myList.add(mytodo);
+                        }
+
+                    }
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = myList;
+                return filterResults;
+            }
+
+            //runs on a Ui thread
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                filterList.clear();
+                filterList.addAll((ArrayList<mytodo>) results.values);
+                notifyDataSetChanged();
+            }
+        };
+    }
+
     class TodoHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTitle, mDescription, mPriority,updatedAtView;
+        private TextView mTitle, mDescription, mPriority, updatedAtView;
 
 
         public TodoHolder(@NonNull View itemView) {
@@ -105,11 +153,16 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> {
 
     }
 
-    public void setFilter(List<mytodo> newList){
-        mytodos = new ArrayList<>();
-        mytodos.addAll(newList);
-        notifyDataSetChanged();
-    }
+        /*
+        first attempt for search
+         */
+
+        public void setFilter(List<mytodo> newList) {
+            mytodos = new ArrayList<>();
+            mytodos.addAll(newList);
+            notifyDataSetChanged();
+        }
+
 
 }
 

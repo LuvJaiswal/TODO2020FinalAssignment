@@ -13,9 +13,11 @@
         <activity android:name=".Activities.MainActivity" />
         <activity
             android:name=".Fragments.AddEditTodoActivityFragment"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:parentActivityName=".Fragments.HomeFragmentActivity" />
         <activity
             android:name=".Fragments.HomeFragmentActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTop" />
         <activity
             android:name=".Activities.RegisterActivity"

@@ -43,7 +43,7 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-public class HomeFragmentActivity extends Fragment {
+public class HomeFragmentActivity extends Fragment{
 
     private static final String TAG = HomeFragmentActivity.class.getSimpleName();
 
@@ -54,6 +54,7 @@ public class HomeFragmentActivity extends Fragment {
     private TodoViewModel todoViewModel;
 
     public ArrayList<mytodo> mytodos;
+    TodoAdapter adapter;
 
 
 
@@ -97,9 +98,7 @@ public class HomeFragmentActivity extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
 
-
         final TodoAdapter adapter = new TodoAdapter();
-
         recyclerView.setAdapter(adapter);
 
         todoViewModel = ViewModelProviders.of(this).get(TodoViewModel.class);
@@ -186,7 +185,7 @@ public class HomeFragmentActivity extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public  void  onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
@@ -194,8 +193,6 @@ public class HomeFragmentActivity extends Fragment {
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-           TodoAdapter adapter;
 
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -205,17 +202,24 @@ public class HomeFragmentActivity extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
 
+//                TodoAdapter.getFilter().filter(newText);
+//                return true;
+
+
+                /*
+                first attempt search
+                 */
                 newText = newText.toLowerCase();
                 ArrayList<mytodo> newList = new ArrayList<>();
-                for(mytodo mytodo: newList){
+                for(mytodo mytodo: mytodos){
                     String titlename = mytodo.getTitle().toLowerCase();
                     if (titlename.contains(newText)){
-                        mytodos.add(mytodo);
-                        Log.d(TAG,"watch out");
+                        newList.add(mytodo);
                     }
                 }
                 adapter.setFilter(newList);
-                return true;
+             return true;
+
             }
         });
 
@@ -377,6 +381,7 @@ public class HomeFragmentActivity extends Fragment {
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Detached");
     }
+
 
 
 }

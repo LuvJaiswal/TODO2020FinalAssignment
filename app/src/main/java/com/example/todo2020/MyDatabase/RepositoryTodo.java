@@ -118,7 +118,6 @@ public class RepositoryTodo {
         mContext = context.getApplicationContext();
         if(todoInstance == null){
             todoInstance = new RepositoryTodo((Application) mContext);
-
         }
         return todoInstance;
     }

@@ -10,6 +10,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
@@ -94,19 +95,6 @@ public class AddEditTodoActivityFragment extends Fragment {
     }
 
 
-    /*
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Bundle args = getArguments();
-        if (args != null) {
-            Integer id = args.getInt(My_ID);
-        }
-    }
-
-     */
-
     public AddEditTodoActivityFragment() {
 
     }
@@ -122,11 +110,12 @@ public class AddEditTodoActivityFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         int todoId = getArguments().getInt(My_ID);
         mTodo = RepositoryTodo.getInstance(getActivity()).getNote(todoId);
 
-        if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
+        if(savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
             mTaskId = savedInstanceState.getInt(INSTANCE_TASK_ID, DEFAULT_TASK_ID);
         }
 
@@ -143,7 +132,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
         numberPicker = (NumberPicker) view.findViewById(R.id.np_picker);
         numberPicker.setMinValue(1);
-        numberPicker.setMaxValue(10);
+        numberPicker.setMaxValue(5);
 
 
         mVoicebutton.setOnClickListener(new View.OnClickListener() {

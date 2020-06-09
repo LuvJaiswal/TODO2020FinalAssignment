@@ -11,8 +11,10 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.todo2020.Fragments.AddEditTodoActivityFragment;
+import com.example.todo2020.Fragments.HomeFragmentActivity;
 import com.example.todo2020.MyDatabase.mytodo;
 import com.example.todo2020.R;
 import com.example.todo2020.MyDatabase.RepositoryTodo;
@@ -27,9 +29,11 @@ public class ViewPagerActivity extends AppCompatActivity {
 
      private LiveData<List<mytodo>> mTodo;
 
+    private static final String TAG = ViewPagerActivity.class.getSimpleName();
 
 
-    public static Intent newIntent(Context packageContext, UUID todoId) {
+
+    public static Intent newIntent(Context packageContext, int todoId) {
         Intent intent = new Intent(packageContext, ViewPagerActivity.class);
         intent.putExtra(EXTRA_TODO_ID, todoId);
         return intent;
@@ -63,23 +67,11 @@ public class ViewPagerActivity extends AppCompatActivity {
             @Override
             public int getCount() {
                 return mTodo.getValue().size();
-               // return 0;
             }
 
             @Override
             public Fragment getItem(int i) {
                return AddEditTodoActivityFragment.newInstance(mTodo.getValue().get(i).getId());
-//                int todoid = mTodo.getValue().get(i).getId();
-//                return AddEditTodoActivityFragment.newInstance(todoid);
-
-
-
-
-
-//                mytodo todo = mTodo.get(i);
-//                Log.d("TODOPAGER", "" + todo.getId());
-//                return AddEditTodoActivityFragment.newInstance(todo.getId());
-
             }
 
         });
