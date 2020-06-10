@@ -123,9 +123,11 @@
                 >
             </NumberPicker>
 
-            <DatePicker
-                android:id="@+id/datepick"
+            <TextView
+                android:id="@+id/todo_date_time"
                 android:layout_marginLeft="10dp"
+                android:textSize="25dp"
+                android:text="2020/4/2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

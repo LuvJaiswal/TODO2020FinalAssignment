@@ -9,10 +9,13 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,9 +23,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.todo2020.ViewModel.TodoViewModel;
@@ -30,8 +36,11 @@ import com.example.todo2020.MyDatabase.mytodo;
 import com.example.todo2020.R;
 import com.example.todo2020.MyDatabase.RepositoryTodo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
@@ -42,6 +51,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
 
     private LiveData<mytodo> mTodo;
+
 
     //task id Extra implemented in the intent
     public static final String EXTRA_ID =
@@ -62,6 +72,10 @@ public class AddEditTodoActivityFragment extends Fragment {
     public static final String EXTRA_DATE =
             "com.example.todo2020.EXTRA_DATE";
 
+    //for alarmy
+    public static final String EXTRA_DATE_TIME =
+            "com.example.todo2020.EXTRA_DATE_TIME";
+
     public static final String INSTANCE_TASK_ID = "instanceTaskId";
 
     private static final int REQUEST_CODE_SPEECH_INPUT = 1000;
@@ -80,6 +94,11 @@ public class AddEditTodoActivityFragment extends Fragment {
     private NumberPicker numberPicker;
     private ImageButton mVoicebutton;
     private ImageButton mVoicebuttondes;
+    private TextView mTodoDateTimeTextView;
+
+   //for alarm date and timme
+    private Calendar mTodoDateTime;
+
 
 
     public static final String My_ID = "todo_id";
@@ -130,6 +149,9 @@ public class AddEditTodoActivityFragment extends Fragment {
         todoDescription = (EditText) view.findViewById(R.id.todoDescription);
         mVoicebuttondes = (ImageButton) view.findViewById(R.id.mic2);
 
+        //for alarmy
+        mTodoDateTimeTextView = (TextView)view.findViewById(R.id.add_time_date_todo);
+
         numberPicker = (NumberPicker) view.findViewById(R.id.np_picker);
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(5);
@@ -163,6 +185,9 @@ public class AddEditTodoActivityFragment extends Fragment {
             todoDescription.setText(bundle.getString(EXTRA_DESCRIPTION, ""));
             numberPicker.setValue(bundle.getInt(EXTRA_PRIORITY, 1));
 
+            //for alarmy
+            mTodoDateTimeTextView.setText(bundle.getString(EXTRA_DATE_TIME,""));
+
         } else {
 
             getActivity().setTitle("Add Todo");
@@ -187,8 +212,11 @@ public class AddEditTodoActivityFragment extends Fragment {
         String title = todoTitle.getText().toString();
         String description = todoDescription.getText().toString();
         int priority = numberPicker.getValue();
-        Date date = new Date();
 
+
+
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
 
         if (title.trim().isEmpty()) {
             todoTitle.setError("title required,please enter and save");
@@ -214,7 +242,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
             }
 
-            mytodo mytodo = new mytodo(title, description, priority, date);
+            mytodo mytodo = new mytodo(title, description, priority, calendar, date);
             mytodo.setId(id);
             todoViewModel.update(mytodo);
 
@@ -230,7 +258,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
         } else {
 
-            mytodo mytodo = new mytodo(title, description, priority, date);
+            mytodo mytodo = new mytodo(title, description, priority, calendar, date);
             todoViewModel.insert(mytodo);
             Toast.makeText(getActivity(), "mytodo saved", Toast.LENGTH_SHORT).show();
 
@@ -258,6 +286,45 @@ public class AddEditTodoActivityFragment extends Fragment {
             case R.id.save_todo:
                 saveTodo();
                 return true;
+
+            case R.id.add_time_date_todo:
+                final Calendar currentDateTime = Calendar.getInstance();
+                mTodoDateTime = Calendar.getInstance();
+                TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
+                        mTodoDateTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                        mTodoDateTime.set(Calendar.MINUTE, minute);
+                        int year, month, dayOfMonth;
+                        if (mTodoDateTime.get(Calendar.HOUR_OF_DAY) * 60 + mTodoDateTime.get(Calendar.MINUTE) < currentDateTime.get(Calendar.HOUR_OF_DAY) * 60 + currentDateTime.get(Calendar.MINUTE)) {
+                            currentDateTime.add(Calendar.DATE, 1);
+                            year = currentDateTime.get(Calendar.YEAR);
+                            month = currentDateTime.get(Calendar.MONTH);
+                            dayOfMonth = currentDateTime.get(Calendar.DAY_OF_MONTH);
+                            currentDateTime.add(Calendar.DATE, -1);
+                        } else {
+                            year = currentDateTime.get(Calendar.YEAR);
+                            month = currentDateTime.get(Calendar.MONTH);
+                            dayOfMonth = currentDateTime.get(Calendar.DAY_OF_MONTH);
+                        }
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                                mTodoDateTime.set(Calendar.YEAR, year);
+                                mTodoDateTime.set(Calendar.MONTH, month);
+                                mTodoDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                mTodoDateTimeTextView.setText(DateFormat.is24HourFormat(getActivity()) ? new SimpleDateFormat("MMMM dd, yyyy  h:mm").format(mTodoDateTime.getTime()) : new SimpleDateFormat("MMMM dd, yyyy  h:mm a").format(mTodoDateTime.getTime()));
+                            }
+                        }, year, month, dayOfMonth);
+                        Calendar minDateTime = Calendar.getInstance();
+                        minDateTime.set(year, month, dayOfMonth);
+                        datePickerDialog.getDatePicker().setMinDate(minDateTime.getTimeInMillis());
+                        datePickerDialog.show();
+                    }
+                }, currentDateTime.get(Calendar.HOUR_OF_DAY), currentDateTime.get(Calendar.MINUTE), DateFormat.is24HourFormat(getActivity()));
+                timePickerDialog.show();
+                return true;
+
             default:
 
 

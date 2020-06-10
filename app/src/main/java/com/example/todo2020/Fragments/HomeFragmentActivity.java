@@ -38,12 +38,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-public class HomeFragmentActivity extends Fragment{
+public class HomeFragmentActivity extends Fragment {
 
     private static final String TAG = HomeFragmentActivity.class.getSimpleName();
 
@@ -55,8 +56,6 @@ public class HomeFragmentActivity extends Fragment{
 
     public ArrayList<mytodo> mytodos;
     TodoAdapter adapter;
-
-
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -185,7 +184,7 @@ public class HomeFragmentActivity extends Fragment{
     }
 
     @Override
-    public  void  onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
@@ -211,14 +210,17 @@ public class HomeFragmentActivity extends Fragment{
                  */
                 newText = newText.toLowerCase();
                 ArrayList<mytodo> newList = new ArrayList<>();
-                for(mytodo mytodo: mytodos){
+                Log.d(TAG,"newList value is:" +newList);
+                for (mytodo mytodo: newList) {
                     String titlename = mytodo.getTitle().toLowerCase();
-                    if (titlename.contains(newText)){
+                    Log.d(TAG,titlename);
+                    if (titlename.contains(newText)) {
                         newList.add(mytodo);
                     }
                 }
                 adapter.setFilter(newList);
-             return true;
+                Log.d(TAG,"newList value is:" +newList);
+                return true;
 
             }
         });
@@ -235,7 +237,10 @@ public class HomeFragmentActivity extends Fragment{
             int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
             Date date = new Date();
 
-            mytodo mytodo = new mytodo(title, description, priority, date);
+            //for alarmy
+            Calendar calendar = Calendar.getInstance();
+
+            mytodo mytodo = new mytodo(title, description, priority, calendar, date);
             todoViewModel.insert(mytodo);
             Toast.makeText(getActivity(), "Todo saved", Toast.LENGTH_SHORT).show();
         } else if (requestCode == EDIT_TODO_REQUEST && resultCode == RESULT_OK) {
@@ -248,10 +253,15 @@ public class HomeFragmentActivity extends Fragment{
             String title = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_DESCRIPTION);
             int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
+
+
             Date date = new Date();
 
+            //for alarmy
+            Calendar calendar = Calendar.getInstance();
 
-            mytodo mytodo = new mytodo(title, description, priority, date);
+
+            mytodo mytodo = new mytodo(title, description, priority, calendar, date);
             mytodo.setId(id);
             todoViewModel.update(mytodo);
 
@@ -381,7 +391,6 @@ public class HomeFragmentActivity extends Fragment{
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Detached");
     }
-
 
 
 }

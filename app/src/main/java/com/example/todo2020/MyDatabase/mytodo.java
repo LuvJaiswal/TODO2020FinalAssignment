@@ -8,6 +8,7 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity(tableName = "myTodoList")
@@ -22,16 +23,20 @@ public class mytodo {
     private String description;
     private int priority;
 
+    @ColumnInfo(name = "alarm_at")
+    private Calendar dateTime;
+
     @ColumnInfo(name = "updated_at")
     private Date updatedAt;
 
 
     @Ignore
-    public mytodo(int id, String title, String description, int priority, Date updatedAt) {
+    public mytodo(int id, String title, String description, int priority, Calendar dateTime, Date updatedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.priority = priority;
+        this.dateTime=dateTime;
         this.updatedAt = updatedAt;
     }
 
@@ -44,10 +49,11 @@ public class mytodo {
      * @param updatedAt
      */
 
-    public mytodo(String title, String description, int priority, Date updatedAt) {
+    public mytodo(String title, String description, int priority, Calendar dateTime, Date updatedAt) {
         this.title = title;
         this.description = description;
         this.priority = priority;
+        this.dateTime=dateTime;
         this.updatedAt = updatedAt;
     }
 
@@ -78,9 +84,20 @@ public class mytodo {
         return priority;
     }
 
+    //for alarmy
+    public Calendar getDateTime() {
+        return dateTime;
+    }
+
+    //for alarmy
+    public void setDateTime(Calendar dateTime) {
+        this.dateTime = dateTime;
+    }
+
     public Date getUpdatedAt() {
         return updatedAt;
     }
+
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;

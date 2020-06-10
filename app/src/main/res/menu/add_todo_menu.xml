@@ -8,5 +8,10 @@
         android:title="Save"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/add_time_date_todo"
+        android:icon="@drawable/ic_date_range_black_24dp"
+        android:title="Date Time"
+        app:showAsAction="always" />
 
 </menu>

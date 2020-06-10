@@ -67,6 +67,10 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
 
         holder.updatedAtView.setText(String.valueOf(currentMytodo.getUpdatedAt()));
 
+
+       //for alarmy
+        holder.malarm.setText(String.valueOf(currentMytodo.getDateTime()));
+
     }
 
     @Override
@@ -119,7 +123,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
 
     class TodoHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTitle, mDescription, mPriority, updatedAtView;
+        private TextView mTitle, mDescription, mPriority, updatedAtView , malarm;
 
 
         public TodoHolder(@NonNull View itemView) {
@@ -128,6 +132,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
             mDescription = itemView.findViewById(R.id.tv_description);
             mPriority = itemView.findViewById(R.id.tv_Priority);
             updatedAtView = itemView.findViewById(R.id.taskUpdatedAt);
+
+            //for alarmy
+            malarm = itemView.findViewById(R.id.tv_alarmy);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

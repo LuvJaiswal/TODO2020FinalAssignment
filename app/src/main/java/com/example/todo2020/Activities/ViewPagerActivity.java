@@ -27,7 +27,9 @@ public class ViewPagerActivity extends AppCompatActivity {
 
      private ViewPager viewPager;
 
-     private LiveData<List<mytodo>> mTodo;
+    private LiveData<List<mytodo>> mTodo;
+
+
 
     private static final String TAG = ViewPagerActivity.class.getSimpleName();
 
@@ -48,6 +50,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         final int todoId = getIntent().getIntExtra(EXTRA_TODO_ID, -1);
 
         mTodo = RepositoryTodo.getInstance(this).getAllNotes();
+        Log.d(TAG,"Get The value:" +"\n\n\n" +mTodo);
 
         mTodo.observe(this, new Observer<List<mytodo>>() {
             @Override

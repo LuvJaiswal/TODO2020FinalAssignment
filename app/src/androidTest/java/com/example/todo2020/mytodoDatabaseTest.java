@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -40,7 +41,7 @@ public class mytodoDatabaseTest {
 
     @Test
     public void WriteUserAndReadInList() throws Exception {
-        mytodo mytodo = new mytodo(1,"hello", "hello am here", 1, new Date());
+        mytodo mytodo = new mytodo(1,"hello", "hello am here", 1, Calendar.getInstance(),new Date());
         todoDao.Insert(mytodo);
         com.example.todo2020.MyDatabase.mytodo byMytodoId = todoDao.noteTask(1);
         assertEquals(byMytodoId.getId(),1);
