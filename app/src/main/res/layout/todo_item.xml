@@ -73,13 +73,15 @@
 
         <TextView
             android:id="@+id/tv_alarmy"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginTop="-29dp"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/tv_Priority"
+            android:text="2 AM"
             android:textColor="@color/updatedtheme"
-            android:layout_toRightOf="@+id/taskUpdatedAt"
-            android:layout_alignBottom="@+id/updated"
-            android:text="2 AM" />
+            android:textSize="10dp" />
 
     </RelativeLayout>
 

@@ -14,10 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.ContentUris;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -236,7 +238,6 @@ public class HomeFragmentActivity extends Fragment {
             String description = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_DESCRIPTION);
             int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
             Date date = new Date();
-
             //for alarmy
             Calendar calendar = Calendar.getInstance();
 
@@ -324,14 +325,14 @@ public class HomeFragmentActivity extends Fragment {
                 getActivity().finish();
                 return true;
 
-//            case R.id.OpenMyCalandar:
-//                long startMillis = System.currentTimeMillis();
-//                Uri.Builder builder1 = CalendarContract.CONTENT_URI.buildUpon();
-//                builder1.appendPath("time");
-//                ContentUris.appendId(builder1, startMillis);
-//                Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder1.build());
-//                startActivity(intent);
-//                return true;
+            case R.id.OpenMyCalandar:
+                long startMillis = System.currentTimeMillis();
+                Uri.Builder builder1 = CalendarContract.CONTENT_URI.buildUpon();
+                builder1.appendPath("time");
+                ContentUris.appendId(builder1, startMillis);
+                Intent intent = new Intent(Intent.ACTION_VIEW).setData(builder1.build());
+                startActivity(intent);
+                return true;
 
 
             default:

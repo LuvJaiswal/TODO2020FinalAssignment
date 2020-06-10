@@ -150,7 +150,7 @@ public class AddEditTodoActivityFragment extends Fragment {
         mVoicebuttondes = (ImageButton) view.findViewById(R.id.mic2);
 
         //for alarmy
-        mTodoDateTimeTextView = (TextView)view.findViewById(R.id.add_time_date_todo);
+        mTodoDateTimeTextView = (TextView)view.findViewById(R.id.todo_date_time);
 
         numberPicker = (NumberPicker) view.findViewById(R.id.np_picker);
         numberPicker.setMinValue(1);
@@ -188,6 +188,8 @@ public class AddEditTodoActivityFragment extends Fragment {
             //for alarmy
             mTodoDateTimeTextView.setText(bundle.getString(EXTRA_DATE_TIME,""));
 
+
+
         } else {
 
             getActivity().setTitle("Add Todo");
@@ -213,6 +215,11 @@ public class AddEditTodoActivityFragment extends Fragment {
         String description = todoDescription.getText().toString();
         int priority = numberPicker.getValue();
 
+        String calender = mTodoDateTimeTextView.getText().toString();
+
+
+//        //for alarmy
+//        mTodoDateTimeTextView.setText(mTodoDateTime.getTimeInMillis() == 0 ? "" : DateFormat.is24HourFormat(getActivity()) ? new SimpleDateFormat("MMMM dd, yyyy  h:mm").format(mTodoDateTime.getTime()) : new SimpleDateFormat("MMMM dd, yyyy  h:mm a").format(mTodoDateTime.getTime()));
 
 
         Date date = new Date();
@@ -313,7 +320,7 @@ public class AddEditTodoActivityFragment extends Fragment {
                                 mTodoDateTime.set(Calendar.YEAR, year);
                                 mTodoDateTime.set(Calendar.MONTH, month);
                                 mTodoDateTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                mTodoDateTimeTextView.setText(DateFormat.is24HourFormat(getActivity()) ? new SimpleDateFormat("MMMM dd, yyyy  h:mm").format(mTodoDateTime.getTime()) : new SimpleDateFormat("MMMM dd, yyyy  h:mm a").format(mTodoDateTime.getTime()));
+                              //  mTodoDateTimeTextView.setText(DateFormat.is24HourFormat(getActivity()) ? new SimpleDateFormat("MMMM dd, yyyy  h:mm").format(mTodoDateTime.getTime()) : new SimpleDateFormat("MMMM dd, yyyy  h:mm a").format(mTodoDateTime.getTime()));
                             }
                         }, year, month, dayOfMonth);
                         Calendar minDateTime = Calendar.getInstance();

@@ -23,7 +23,7 @@ public class mytodo {
     private String description;
     private int priority;
 
-    @ColumnInfo(name = "alarm_at")
+    @ColumnInfo(name = "alarmy_at")
     private Calendar dateTime;
 
     @ColumnInfo(name = "updated_at")

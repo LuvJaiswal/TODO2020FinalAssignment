@@ -15,7 +15,10 @@ import java.util.Date;
 
 @Database(entities = {mytodo.class}, version = 1, exportSchema = false)
 
-@TypeConverters(DateConverter.class)
+@TypeConverters({DateConverter.class})
+
+
+
 
 
 public abstract class TodoDatabase extends RoomDatabase {
