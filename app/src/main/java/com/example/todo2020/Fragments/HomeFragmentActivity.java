@@ -130,8 +130,6 @@ public class HomeFragmentActivity extends Fragment {
 
                 View contextView = getView().findViewById(R.id.recyclerView);
 
-
-
                 /*
                 Snackbar with undo functionality added for delete todo
                  */
@@ -185,6 +183,11 @@ public class HomeFragmentActivity extends Fragment {
 
     }
 
+    /***
+     * search functionality inside menu toolbar
+     * @param menu
+     * @param inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
@@ -212,16 +215,16 @@ public class HomeFragmentActivity extends Fragment {
                  */
                 newText = newText.toLowerCase();
                 ArrayList<mytodo> newList = new ArrayList<>();
-                Log.d(TAG,"newList value is:" +newList);
-                for (mytodo mytodo: newList) {
+                Log.d(TAG, "newList value is:" + newList);
+                for (mytodo mytodo : newList) {
                     String titlename = mytodo.getTitle().toLowerCase();
-                    Log.d(TAG,titlename);
+                    Log.d(TAG, titlename);
                     if (titlename.contains(newText)) {
                         newList.add(mytodo);
                     }
                 }
                 adapter.setFilter(newList);
-                Log.d(TAG,"newList value is:" +newList);
+                Log.d(TAG, "newList value is:" + newList);
                 return true;
 
             }
@@ -238,6 +241,7 @@ public class HomeFragmentActivity extends Fragment {
             String description = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_DESCRIPTION);
             int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
             Date date = new Date();
+
             //for alarmy
             Calendar calendar = Calendar.getInstance();
 
@@ -275,7 +279,11 @@ public class HomeFragmentActivity extends Fragment {
 
     }
 
-
+    /***
+     * menu items for implict intents(google calendar, gmail and delete all tasks
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -342,17 +350,17 @@ public class HomeFragmentActivity extends Fragment {
 
     }
 
+
+    /***
+     *  Activity lifecycle implemented
+     */
+
+
     @Override
     public void onResume() {
         super.onResume();
         getActivity().setTitle("MINE TODO-LIST");
     }
-
-
-    /*
-       Activity lifecycle implemented
-             */
-
 
     @Override
     public void onStart() {

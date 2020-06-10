@@ -97,8 +97,8 @@ public class AddEditTodoActivityFragment extends Fragment {
     private TextView mTodoDateTimeTextView;
 
    //for alarm date and timme
-    private Calendar mTodoDateTime;
-
+//    private Calendar mTodoDateTime;
+    private Calendar mTodoDateTime = Calendar.getInstance();
 
 
     public static final String My_ID = "todo_id";
@@ -218,8 +218,8 @@ public class AddEditTodoActivityFragment extends Fragment {
         String calender = mTodoDateTimeTextView.getText().toString();
 
 
-//        //for alarmy
-//        mTodoDateTimeTextView.setText(mTodoDateTime.getTimeInMillis() == 0 ? "" : DateFormat.is24HourFormat(getActivity()) ? new SimpleDateFormat("MMMM dd, yyyy  h:mm").format(mTodoDateTime.getTime()) : new SimpleDateFormat("MMMM dd, yyyy  h:mm a").format(mTodoDateTime.getTime()));
+        //for alarmy
+        mTodoDateTimeTextView.setText(mTodoDateTime.getTimeInMillis() == 0 ? "" : DateFormat.is24HourFormat(getActivity()) ? new SimpleDateFormat("MMMM dd, yyyy  h:mm").format(mTodoDateTime.getTime()) : new SimpleDateFormat("MMMM dd, yyyy  h:mm a").format(mTodoDateTime.getTime()));
 
 
         Date date = new Date();
@@ -235,6 +235,13 @@ public class AddEditTodoActivityFragment extends Fragment {
             todoDescription.requestFocus();
             return;
         }
+
+        if(calendar.toString().trim().isEmpty()){
+            mTodoDateTimeTextView.setError("set the reminder first");
+            mTodoDateTimeTextView.requestFocus();
+            return;
+        }
+
 
         Bundle bundle = this.getArguments();
 
