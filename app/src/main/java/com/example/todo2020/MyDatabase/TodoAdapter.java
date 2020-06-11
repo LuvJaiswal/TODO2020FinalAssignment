@@ -35,6 +35,22 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
     // Constant for date format
     private static final String DATE_FORMAT = "dd/MM/yyy";
 
+
+    //Constant for date and time format
+    private static final String MY_FORMAT = "MMMM dd, yyyy  h:mm a";
+
+    //Time & date formatter
+    private SimpleDateFormat sdf = new SimpleDateFormat(MY_FORMAT,Locale.ENGLISH);
+
+
+
+
+    //private  static SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
+
+
+
+
+
 //    public TodoAdapter() {
 //        this.listItems = listItems;
 //        this.filterList = new ArrayList<>();
@@ -59,6 +75,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
          * for updated date
          */
         String updatedAt = dateFormat.format(currentMytodo.getUpdatedAt());
+
+        //for alarmy
+        String dateTime = sdf.format(currentMytodo.getDateTime());
 
         holder.mTitle.setText(currentMytodo.getTitle());
         holder.mDescription.setText(currentMytodo.getDescription());
@@ -123,7 +142,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
 
     class TodoHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTitle, mDescription, mPriority, updatedAtView , malarm;
+        private TextView mTitle, mDescription, mPriority, updatedAtView;
+
+        private TextView malarm;
 
 
         public TodoHolder(@NonNull View itemView) {
