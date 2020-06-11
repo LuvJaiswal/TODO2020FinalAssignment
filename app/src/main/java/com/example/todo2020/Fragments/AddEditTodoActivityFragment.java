@@ -86,9 +86,9 @@ public class AddEditTodoActivityFragment extends Fragment {
 
 
     //for view pager  am confused
-    public static AddEditTodoActivityFragment newInstance(int id) {
+    public static AddEditTodoActivityFragment newInstance(int mTaskId) {
         Bundle args = new Bundle();
-        args.putSerializable(My_ID, id);
+        args.putInt(My_ID, mTaskId);
         AddEditTodoActivityFragment fragmentFirst = new AddEditTodoActivityFragment();
         fragmentFirst.setArguments(args);
         return fragmentFirst;
@@ -113,12 +113,12 @@ public class AddEditTodoActivityFragment extends Fragment {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         int todoId = getArguments().getInt(My_ID);
+
         mTodo = RepositoryTodo.getInstance(getActivity()).getNote(todoId);
 
         if(savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
             mTaskId = savedInstanceState.getInt(INSTANCE_TASK_ID, DEFAULT_TASK_ID);
         }
-
 
         todoViewModel = ViewModelProviders.of(this).get(TodoViewModel.class);
 
