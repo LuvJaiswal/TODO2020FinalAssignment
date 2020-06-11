@@ -25,12 +25,10 @@ import java.util.UUID;
 public class ViewPagerActivity extends AppCompatActivity {
     private static final String EXTRA_TODO_ID = "todo_id";
 
-     private ViewPager viewPager;
-
-     private LiveData<List<mytodo>> mTodo;
+    private ViewPager viewPager;
+    private LiveData<List<mytodo>> mTodo;
 
     private static final String TAG = ViewPagerActivity.class.getSimpleName();
-
 
 
     public static Intent newIntent(Context packageContext, int todoId) {
@@ -44,24 +42,18 @@ public class ViewPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
 
+        // final int todoId = getIntent().getIntExtra(EXTRA_TODO_ID, -1);
+
+        final int todoId = (int) getIntent().getSerializableExtra(EXTRA_TODO_ID);
+
         viewPager = findViewById(R.id.Viewpager);
-        final int todoId = getIntent().getIntExtra(EXTRA_TODO_ID, -1);
+
 
         mTodo = RepositoryTodo.getInstance(this).getAllNotes();
 
-        mTodo.observe(this, new Observer<List<mytodo>>() {
-            @Override
-            public void onChanged(List<mytodo> mytodos) {
-                for (int i = 0; i < mytodos.size(); i++) {
-                    if (mytodos.get(i).getId() == todoId ) {
-                        viewPager.setCurrentItem(i);
-                        break;
-                    }
-                }
-            }
-        });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
+
 
         viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
@@ -71,12 +63,20 @@ public class ViewPagerActivity extends AppCompatActivity {
 
             @Override
             public Fragment getItem(int i) {
-               return AddEditTodoActivityFragment.newInstance(mTodo.getValue().get(i).getId());
+                return AddEditTodoActivityFragment.newInstance(mTodo.getValue().get(i).getId());
             }
 
         });
 
 
+        for (int i = 0; i < mTodo.getValue().size(); i++) {
+            if (mTodo.getValue().get(i).getId() == todoId) {
+                viewPager.setCurrentItem(i);
+                break;
+            }
 
+
+        }
     }
 }
+

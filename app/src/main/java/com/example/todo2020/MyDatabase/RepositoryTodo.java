@@ -13,6 +13,7 @@ public class RepositoryTodo {
     private LiveData<List<mytodo>> allNotes;
 
     private static Context mContext;
+
     private static RepositoryTodo todoInstance;
 
 
@@ -21,6 +22,13 @@ public class RepositoryTodo {
         todoDao = database.todoDao();   //here todoDao is the abstract method created in the TodoDatabase
         allNotes = todoDao.getAllNotes();
 
+    }
+
+    //trying with context checkout once
+    private RepositoryTodo(Context context){
+        TodoDatabase database = TodoDatabase.getInstance(context);
+        todoDao = database.todoDao();
+        allNotes = todoDao.getAllNotes();
     }
 
     public void insert(mytodo mytodo) {
@@ -51,6 +59,7 @@ public class RepositoryTodo {
     public LiveData<mytodo> getNote(int taskId) {
         return todoDao.loadTaskById(taskId);
     }
+
 
 
 
@@ -117,7 +126,7 @@ public class RepositoryTodo {
     public static RepositoryTodo getInstance(Context context){
         mContext = context.getApplicationContext();
         if(todoInstance == null){
-            todoInstance = new RepositoryTodo((Application) mContext);
+            todoInstance = new RepositoryTodo(mContext);
         }
         return todoInstance;
     }

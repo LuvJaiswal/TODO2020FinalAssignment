@@ -86,9 +86,9 @@ public class AddEditTodoActivityFragment extends Fragment {
 
 
     //for view pager  am confused
-    public static AddEditTodoActivityFragment newInstance(int id) {
+    public static AddEditTodoActivityFragment newInstance(int todoId) {
         Bundle args = new Bundle();
-        args.putSerializable(My_ID, id);
+        args.putSerializable(My_ID, todoId);
         AddEditTodoActivityFragment fragmentFirst = new AddEditTodoActivityFragment();
         fragmentFirst.setArguments(args);
         return fragmentFirst;
