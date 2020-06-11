@@ -12,7 +12,6 @@ import com.example.todo2020.MyDatabase.mytodo;
 import java.util.List;
 
 
-
 public class TodoViewModel extends AndroidViewModel {
     private RepositoryTodo repository;
     private LiveData<List<mytodo>> allNotes;
@@ -45,13 +44,9 @@ public class TodoViewModel extends AndroidViewModel {
     }
 
 
-
-
 //    public LiveData<List<mytodo>> searchQuery(String query) {
 //        return allNotes;
 //    }
-
-
 
 
 }

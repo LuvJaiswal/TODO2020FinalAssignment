@@ -43,7 +43,7 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-public class HomeFragmentActivity extends Fragment{
+public class HomeFragmentActivity extends Fragment {
 
     private static final String TAG = HomeFragmentActivity.class.getSimpleName();
 
@@ -55,8 +55,6 @@ public class HomeFragmentActivity extends Fragment{
 
     public ArrayList<mytodo> mytodos;
     TodoAdapter adapter;
-
-
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -185,7 +183,7 @@ public class HomeFragmentActivity extends Fragment{
     }
 
     @Override
-    public  void  onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
@@ -211,14 +209,14 @@ public class HomeFragmentActivity extends Fragment{
                  */
                 newText = newText.toLowerCase();
                 ArrayList<mytodo> newList = new ArrayList<>();
-                for(mytodo mytodo: mytodos){
+                for (mytodo mytodo : mytodos) {
                     String titlename = mytodo.getTitle().toLowerCase();
-                    if (titlename.contains(newText)){
+                    if (titlename.contains(newText)) {
                         newList.add(mytodo);
                     }
                 }
                 adapter.setFilter(newList);
-             return true;
+                return true;
 
             }
         });
@@ -381,7 +379,6 @@ public class HomeFragmentActivity extends Fragment{
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Detached");
     }
-
 
 
 }

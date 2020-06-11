@@ -25,12 +25,11 @@ import java.util.UUID;
 public class ViewPagerActivity extends AppCompatActivity {
     private static final String EXTRA_TODO_ID = "todo_id";
 
-     private ViewPager viewPager;
+    private ViewPager viewPager;
 
-     private LiveData<List<mytodo>> mTodo;
+    private LiveData<List<mytodo>> mTodo;
 
     private static final String TAG = ViewPagerActivity.class.getSimpleName();
-
 
 
     public static Intent newIntent(Context packageContext, int todoId) {
@@ -53,7 +52,7 @@ public class ViewPagerActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<mytodo> mytodos) {
                 for (int i = 0; i < mytodos.size(); i++) {
-                    if (mytodos.get(i).getId() == todoId ) {
+                    if (mytodos.get(i).getId() == todoId) {
                         viewPager.setCurrentItem(i);
                         break;
                     }
@@ -71,11 +70,10 @@ public class ViewPagerActivity extends AppCompatActivity {
 
             @Override
             public Fragment getItem(int i) {
-               return AddEditTodoActivityFragment.newInstance(mTodo.getValue().get(i).getId());
+                return AddEditTodoActivityFragment.newInstance(mTodo.getValue().get(i).getId());
             }
 
         });
-
 
 
     }

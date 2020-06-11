@@ -53,7 +53,6 @@ public class RepositoryTodo {
     }
 
 
-
     //prevent the memory leak for insert
     private static class InsertNoteAsyncTask extends AsyncTask<mytodo, Void, Void> {
         private TodoDao todoDao;
@@ -114,9 +113,9 @@ public class RepositoryTodo {
         }
     }
 
-    public static RepositoryTodo getInstance(Context context){
+    public static RepositoryTodo getInstance(Context context) {
         mContext = context.getApplicationContext();
-        if(todoInstance == null){
+        if (todoInstance == null) {
             todoInstance = new RepositoryTodo((Application) mContext);
         }
         return todoInstance;

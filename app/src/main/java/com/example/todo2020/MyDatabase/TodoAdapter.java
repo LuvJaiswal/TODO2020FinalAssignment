@@ -21,7 +21,7 @@ import java.util.Locale;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> implements Filterable {
 
-//    final Context context;
+    //    final Context context;
     private ArrayList<mytodo> listItems;
     private ArrayList<mytodo> filterList;
 
@@ -157,11 +157,11 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
         first attempt for search
          */
 
-        public void setFilter(List<mytodo> newList) {
-            mytodos = new ArrayList<>();
-            mytodos.addAll(newList);
-            notifyDataSetChanged();
-        }
+    public void setFilter(List<mytodo> newList) {
+        mytodos = new ArrayList<>();
+        mytodos.addAll(newList);
+        notifyDataSetChanged();
+    }
 
 
 }
