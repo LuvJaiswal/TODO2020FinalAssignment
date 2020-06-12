@@ -45,11 +45,12 @@ import static android.app.Activity.RESULT_OK;
 
 public class HomeFragmentActivity extends Fragment {
 
+    //TAG for HomeFragment debugging
     private static final String TAG = HomeFragmentActivity.class.getSimpleName();
 
-    public static final int ADD_TODO_REQUEST = 1;
+    public static final int REQUEST_ON_ADD_TODO = 1;
 
-    public static final int EDIT_TODO_REQUEST = 2;  //for edit
+    public static final int REQUEST_ON_EDIT_TODO = 2;
 
     private TodoViewModel todoViewModel;
 
@@ -60,7 +61,7 @@ public class HomeFragmentActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_home, null);
-        setHasOptionsMenu(true);
+        setHasOptionsMenu(true); //menu options is given
         return root;
     }
 
@@ -69,18 +70,21 @@ public class HomeFragmentActivity extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //floating action button is set for adding task
         FloatingActionButton floatingActionButton = view.findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //controls over AddEditFragment
                 AddEditTodoActivityFragment addEditTodoActivityFragment = new AddEditTodoActivityFragment();
 
-
+                //holds the all values to be used in passing to the Edit Fragments
                 Bundle bundle = new Bundle();
-                bundle.putInt("REQUEST_CODE", ADD_TODO_REQUEST);
+                bundle.putInt("REQUEST_CODE", REQUEST_ON_ADD_TODO);
 
                 addEditTodoActivityFragment.setArguments(bundle);
 
+                //supports based fragments that are used in the transaction
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.frameLayout, addEditTodoActivityFragment);
@@ -91,16 +95,18 @@ public class HomeFragmentActivity extends Fragment {
             }
         });
 
-
+        //implemented for the list view as the demand of view holders
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);  //necessary as the inserting and deleting of item is very often
 
         final TodoAdapter adapter = new TodoAdapter();
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);  //adapter is set for joining the data to the view
 
+        //here the functionality of app is exctracted from view model defined
         todoViewModel = ViewModelProviders.of(this).get(TodoViewModel.class);
-        todoViewModel.getAllNotes().observe(this, new Observer<List<mytodo>>() {
+
+        todoViewModel.getAllNotes().observe(this, new Observer<List<mytodo>>() { //gets all items from the list
             @Override
             public void onChanged(List<mytodo> mytodos) {
                 //updates Recyclerview
@@ -111,6 +117,9 @@ public class HomeFragmentActivity extends Fragment {
             }
         });
 
+        /***
+         * Swiping is used for deleting the items
+         */
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -141,31 +150,32 @@ public class HomeFragmentActivity extends Fragment {
                 }).show();
 
             }
+
         }).attachToRecyclerView(recyclerView);
 
-
-        recyclerView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(getActivity(), "hi", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-            // Start ActionMode after long-click.
-        });
+//        recyclerView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                Toast.makeText(getActivity(), "hi", Toast.LENGTH_SHORT).show();
+//                return false;
+//            }
+//
+//        });
 
         adapter.setOnItemClickListener(new TodoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(mytodo mytodo) {
                 AddEditTodoActivityFragment addEditTodoActivityFragment = new AddEditTodoActivityFragment();
 
+                //holds the data and passes the value to another fragments
                 Bundle bundle = new Bundle();
                 bundle.putInt(AddEditTodoActivityFragment.EXTRA_ID, mytodo.getId());
                 bundle.putString(AddEditTodoActivityFragment.EXTRA_TITLE, mytodo.getTitle());
                 bundle.putString(AddEditTodoActivityFragment.EXTRA_DESCRIPTION, mytodo.getDescription());
                 bundle.putInt(AddEditTodoActivityFragment.EXTRA_PRIORITY, mytodo.getPriority());
-                bundle.putInt("REQUEST_CODE", EDIT_TODO_REQUEST);
+                bundle.putInt("REQUEST_CODE", REQUEST_ON_EDIT_TODO);
 
-                addEditTodoActivityFragment.setArguments(bundle);
+                addEditTodoActivityFragment.setArguments(bundle);  //sets the value
 
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -182,6 +192,12 @@ public class HomeFragmentActivity extends Fragment {
 
     }
 
+
+    /**
+     * Menu is set for search query
+     * @param menu
+     * @param inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
@@ -224,10 +240,11 @@ public class HomeFragmentActivity extends Fragment {
     }
 
 
+    // Applying the condition match scenerio to get data from
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ADD_TODO_REQUEST && resultCode == RESULT_OK) {
+        if (requestCode == REQUEST_ON_ADD_TODO && resultCode == RESULT_OK) {
             String title = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_TITLE);
             String description = data.getStringExtra(AddEditTodoActivityFragment.EXTRA_DESCRIPTION);
             int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
@@ -236,7 +253,7 @@ public class HomeFragmentActivity extends Fragment {
             mytodo mytodo = new mytodo(title, description, priority, date);
             todoViewModel.insert(mytodo);
             Toast.makeText(getActivity(), "Todo saved", Toast.LENGTH_SHORT).show();
-        } else if (requestCode == EDIT_TODO_REQUEST && resultCode == RESULT_OK) {
+        } else if (requestCode == REQUEST_ON_ADD_TODO && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_ID, -1);
             if (id == -1) {
                 Toast.makeText(getActivity(), "Todo cannot be updated ", Toast.LENGTH_SHORT).show();
@@ -251,7 +268,7 @@ public class HomeFragmentActivity extends Fragment {
 
             mytodo mytodo = new mytodo(title, description, priority, date);
             mytodo.setId(id);
-            todoViewModel.update(mytodo);
+            todoViewModel.update(mytodo); //updates the item
 
             Toast.makeText(getActivity(), "Todo Updated", Toast.LENGTH_SHORT).show();
 
@@ -329,17 +346,17 @@ public class HomeFragmentActivity extends Fragment {
 
     }
 
+
+    /**
+     * Activity Life cycle implemented on fragment
+     */
+
+
     @Override
     public void onResume() {
         super.onResume();
         getActivity().setTitle("MINE TODO-LIST");
     }
-
-
-    /*
-       Activity lifecycle implemented
-             */
-
 
     @Override
     public void onStart() {
@@ -347,6 +364,7 @@ public class HomeFragmentActivity extends Fragment {
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Started");
 
+        //onStart lifecycle the saved data is allocated using the view model
         TodoViewModel todoViewModel =
                 ViewModelProviders.of(getActivity()).get(TodoViewModel.class);
     }
@@ -357,7 +375,6 @@ public class HomeFragmentActivity extends Fragment {
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Paused");
     }
-
 
     @Override
     public void onStop() {

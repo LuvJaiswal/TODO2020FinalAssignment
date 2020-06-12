@@ -40,7 +40,6 @@ public class AddEditTodoActivityFragment extends Fragment {
 
     private static final String TAG = AddEditTodoActivityFragment.class.getSimpleName();
 
-
     private LiveData<mytodo> mTodo;
 
     //task id Extra implemented in the intent
@@ -113,7 +112,8 @@ public class AddEditTodoActivityFragment extends Fragment {
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         int todoId = getArguments().getInt(My_ID);
-        mTodo = RepositoryTodo.getInstance(getActivity()).getNote(todoId);
+        mTodo = RepositoryTodo.getInstance(getActivity()).getNote(todoId); //get a single note from regular ID
+
 
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
             mTaskId = savedInstanceState.getInt(INSTANCE_TASK_ID, DEFAULT_TASK_ID);
@@ -135,6 +135,7 @@ public class AddEditTodoActivityFragment extends Fragment {
         numberPicker.setMaxValue(5);
 
 
+        //to take voice in a method conversion to speech
         mVoicebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,7 +165,6 @@ public class AddEditTodoActivityFragment extends Fragment {
             numberPicker.setValue(bundle.getInt(EXTRA_PRIORITY, 1));
 
         } else {
-
             getActivity().setTitle("Add Todo");
         }
 
@@ -190,11 +190,13 @@ public class AddEditTodoActivityFragment extends Fragment {
         Date date = new Date();
 
 
+        //validation of item title
         if (title.trim().isEmpty()) {
             todoTitle.setError("title required,please enter and save");
             todoTitle.requestFocus();
             return;
         }
+        //validation of item description
         if (description.trim().isEmpty()) {
             todoDescription.setError("Description required,please enter and save");
             todoDescription.requestFocus();
@@ -211,7 +213,6 @@ public class AddEditTodoActivityFragment extends Fragment {
             if (id == -1) {
                 Toast.makeText(getActivity(), "Todo cannot be updated ", Toast.LENGTH_SHORT).show();
                 return;
-
             }
 
             mytodo mytodo = new mytodo(title, description, priority, date);
@@ -259,8 +260,6 @@ public class AddEditTodoActivityFragment extends Fragment {
                 saveTodo();
                 return true;
             default:
-
-
         }
         return super.onOptionsItemSelected(item);
     }
