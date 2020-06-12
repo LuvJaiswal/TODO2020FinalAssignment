@@ -43,6 +43,7 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
+//as TodoListfragment
 public class HomeFragmentActivity extends Fragment {
 
     //TAG for HomeFragment debugging

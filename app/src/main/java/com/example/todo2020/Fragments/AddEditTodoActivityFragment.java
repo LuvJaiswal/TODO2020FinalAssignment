@@ -36,6 +36,8 @@ import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
+//as to do fragment
+
 public class AddEditTodoActivityFragment extends Fragment {
 
     private static final String TAG = AddEditTodoActivityFragment.class.getSimpleName();

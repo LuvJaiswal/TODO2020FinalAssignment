@@ -27,10 +27,10 @@ public class MainActivity extends AppCompatActivity {
         return intent;
     }
 
-//    protected Fragment createFragment(){
-//        int todoId = (int) getIntent().getSerializableExtra(EXTRA_TODO_ID);
-//        return AddEditTodoActivityFragment.newInstance(todoId);
-//    }
+    protected Fragment createFragment(){
+        int todoId = (int) getIntent().getSerializableExtra(EXTRA_TODO_ID);
+        return AddEditTodoActivityFragment.newInstance(todoId);
+    }
 
 
     @Override
@@ -38,21 +38,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fragment = new HomeFragmentActivity();
+//        fragment = new HomeFragmentActivity();
+//        FragmentManager fm = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+//        fragmentTransaction.replace(R.id.frameLayout, fragment);
+//        fragmentTransaction.commit();
+
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
-        fragmentTransaction.commit();
-//        Fragment fragment = fm.findFragmentById(R.id.frameLayout);
-//
-//        if (fragment == null){
-//
-//            Fragment myFragment = createFragment();
-//
-//            fm.beginTransaction()
-//                    .add(R.id.frameLayout, myFragment)
-//                    .commit();
-//        }
+        Fragment fragment = fm.findFragmentById(R.id.frameLayout);
+
+
+
+        if (fragment == null){
+
+            Fragment myFragment = createFragment();
+
+            fm.beginTransaction()
+                    .add(R.id.frameLayout, myFragment)
+                    .commit();
+        }
 
 
     }

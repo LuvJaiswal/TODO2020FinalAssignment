@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                     loadingBar.dismiss();
                     Toast.makeText(LoginActivity.this, "Login Successful, Welcome " + user, Toast.LENGTH_SHORT).show();
                     loadingBar.dismiss();
-                    Intent HomePage = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent HomePage = new Intent(LoginActivity.this, ListActivity.class);
                     startActivity(HomePage);
                 } else {
                     loadingBar.dismiss();
