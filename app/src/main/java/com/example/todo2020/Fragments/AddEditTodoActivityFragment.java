@@ -46,6 +46,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
     private LiveData<mytodo> mTodo;
 
+
     //private LiveData<List<mytodo>> mTodo;
 
     //task id Extra implemented in the intent
@@ -76,7 +77,7 @@ public class AddEditTodoActivityFragment extends Fragment {
     // Constant for default task id when not in update mode
     private static final int DEFAULT_TASK_ID = -1;
 
-    private int mTaskId = DEFAULT_TASK_ID;
+    private int id = DEFAULT_TASK_ID;
 
     private TodoViewModel todoViewModel;
 
@@ -87,13 +88,13 @@ public class AddEditTodoActivityFragment extends Fragment {
     private ImageButton mVoicebuttondes;
 
 
-    public static final String ARG_ID = "todo_id";
+    public static final String ARGS_ID = "todo_id";
 
 
     //for view pager  am confused
     public static AddEditTodoActivityFragment newInstance(int id) {
         Bundle args = new Bundle();
-        args.putInt(ARG_ID, id);
+        args.putInt(ARGS_ID, id);
         AddEditTodoActivityFragment fragmentFirst = new AddEditTodoActivityFragment();
         fragmentFirst.setArguments(args);
         return fragmentFirst;
@@ -106,7 +107,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_add_todo, null);
+        View root = inflater.inflate(R.layout.activity_add_todo, container, false);
         setHasOptionsMenu(true);
         return root;
     }
@@ -116,10 +117,8 @@ public class AddEditTodoActivityFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int id = getArguments().getInt(ARG_ID);
+        final int id = getArguments().getInt(ARGS_ID);
         mTodo = RepositoryTodo.getInstance(getActivity()).getNote(id); //get a single note from regular ID
-
-
 
     }
 
@@ -130,7 +129,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
 
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
-            mTaskId = savedInstanceState.getInt(INSTANCE_TASK_ID, DEFAULT_TASK_ID);
+            id = savedInstanceState.getInt(INSTANCE_TASK_ID, DEFAULT_TASK_ID);
         }
 
 
