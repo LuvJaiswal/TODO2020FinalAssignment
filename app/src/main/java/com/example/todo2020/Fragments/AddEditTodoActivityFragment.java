@@ -32,7 +32,9 @@ import com.example.todo2020.MyDatabase.RepositoryTodo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -43,6 +45,8 @@ public class AddEditTodoActivityFragment extends Fragment {
     private static final String TAG = AddEditTodoActivityFragment.class.getSimpleName();
 
     private LiveData<mytodo> mTodo;
+
+    //private LiveData<List<mytodo>> mTodo;
 
     //task id Extra implemented in the intent
     public static final String EXTRA_ID =
@@ -83,13 +87,13 @@ public class AddEditTodoActivityFragment extends Fragment {
     private ImageButton mVoicebuttondes;
 
 
-    public static final String My_ID = "todo_id";
+    public static final String ARG_ID = "todo_id";
 
 
     //for view pager  am confused
     public static AddEditTodoActivityFragment newInstance(int id) {
         Bundle args = new Bundle();
-        args.putSerializable(My_ID, id);
+        args.putInt(ARG_ID, id);
         AddEditTodoActivityFragment fragmentFirst = new AddEditTodoActivityFragment();
         fragmentFirst.setArguments(args);
         return fragmentFirst;
@@ -109,12 +113,20 @@ public class AddEditTodoActivityFragment extends Fragment {
 
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        int id = getArguments().getInt(ARG_ID);
+        mTodo = RepositoryTodo.getInstance(getActivity()).getNote(id); //get a single note from regular ID
+
+
+
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        int todoId = getArguments().getInt(My_ID);
-        mTodo = RepositoryTodo.getInstance(getActivity()).getNote(todoId); //get a single note from regular ID
 
 
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {

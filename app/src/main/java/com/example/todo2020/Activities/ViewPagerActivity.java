@@ -23,18 +23,19 @@ import java.util.List;
 import java.util.UUID;
 
 public class ViewPagerActivity extends AppCompatActivity {
-    private static final String My_ID = "todo_id";
+    private static final String My_PAGER_ID = "todo_id";
 
     private ViewPager viewPager;
 
     private LiveData<List<mytodo>> mTodo;
 
+
     private static final String TAG = ViewPagerActivity.class.getSimpleName();
 
 
-    public static Intent newIntent(Context packageContext, int todoId) {
+    public static Intent newIntent(Context packageContext, int id) {
         Intent intent = new Intent(packageContext, ViewPagerActivity.class);
-        intent.putExtra(My_ID, todoId);
+        intent.putExtra(My_PAGER_ID, id);
         return intent;
     }
 
@@ -44,15 +45,18 @@ public class ViewPagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_pager);
 
         viewPager = findViewById(R.id.Viewpager);
-        final int todoId = getIntent().getIntExtra(My_ID, -1);
+        final int id = getIntent().getIntExtra(My_PAGER_ID, -1);
 
         mTodo = RepositoryTodo.getInstance(this).getAllNotes();
+        Log.d(TAG, "Values:" + "\n\n" + mTodo);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
 
         mTodo.observe(this, new Observer<List<mytodo>>() {
             @Override
-            public void onChanged(List<mytodo> mytodos) {
-                for (int i = 0; i < mytodos.size(); i++) {
-                    if (mytodos.get(i).getId() == todoId) {
+            public void onChanged(List<mytodo> mtodo) {
+                for (int i = 0; i < mtodo.size(); i++) {
+                    if (mtodo.get(i).getId() == id) {
                         viewPager.setCurrentItem(i);
                         break;
                     }
@@ -60,7 +64,6 @@ public class ViewPagerActivity extends AppCompatActivity {
             }
         });
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
 
         viewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @Override
@@ -75,6 +78,13 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         });
 
+
+//        for (int i = 0; i < mTodo.getValue().size(); i++) {
+//            if (mTodo.getValue().get(i).getId() == (id)) {
+//                viewPager.setCurrentItem(i);
+//                break;
+//            }
+//        }
 
     }
 }

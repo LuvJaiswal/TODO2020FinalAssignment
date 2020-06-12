@@ -19,17 +19,17 @@ public class MainActivity extends AppCompatActivity {
 
     Fragment fragment;
 
-    public static final String EXTRA_TODO_ID = "todo_id";
+    public static final String My_PAGER_ID = "todo_id";
 
-    public static Intent newIntent(Context packageContext, int todoId) {
-        Intent intent = new Intent(packageContext, ViewPagerActivity.class);
-        intent.putExtra(EXTRA_TODO_ID, todoId);
+    public static Intent newIntent(Context packageContext, int id) {
+        Intent intent = new Intent(packageContext, MainActivity.class);
+        intent.putExtra(My_PAGER_ID, id);
         return intent;
     }
 
     protected Fragment createFragment(){
-        int todoId = (int) getIntent().getSerializableExtra(EXTRA_TODO_ID);
-        return AddEditTodoActivityFragment.newInstance(todoId);
+       final int id = getIntent().getIntExtra(My_PAGER_ID,-1);
+        return AddEditTodoActivityFragment.newInstance(id);
     }
 
 
