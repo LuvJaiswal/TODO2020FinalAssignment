@@ -54,8 +54,8 @@ public class HomeFragmentActivity extends Fragment {
 
     private TodoViewModel todoViewModel;
 
-    public ArrayList<mytodo> mytodos;
-    TodoAdapter adapter;
+    public ArrayList<mytodo> todoList = new ArrayList<>();
+    TodoAdapter adapter = new TodoAdapter();
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,7 +100,7 @@ public class HomeFragmentActivity extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);  //necessary as the inserting and deleting of item is very often
 
-        final TodoAdapter adapter = new TodoAdapter();
+        adapter = new TodoAdapter();
         recyclerView.setAdapter(adapter);  //adapter is set for joining the data to the view
 
         //here the functionality of app is exctracted from view model defined
@@ -113,6 +113,8 @@ public class HomeFragmentActivity extends Fragment {
                 Log.d(TAG, "retrieving data from database");
                 adapter.notifyDataSetChanged();
                 adapter.setTodo(mytodos);
+                todoList.addAll(mytodos);
+
 
             }
         });
@@ -225,12 +227,17 @@ public class HomeFragmentActivity extends Fragment {
                  */
                 newText = newText.toLowerCase();
                 ArrayList<mytodo> newList = new ArrayList<>();
-                for (mytodo mytodo : mytodos) {
+                for (mytodo mytodo : todoList) {
                     String titlename = mytodo.getTitle().toLowerCase();
                     if (titlename.contains(newText)) {
                         newList.add(mytodo);
                     }
                 }
+
+
+                Log.d("FILTERDEBUGMYTODO", todoList.size() + "");
+                Log.d("FILTERDEBUG", newList.size() + "");
+
                 adapter.setFilter(newList);
                 return true;
 
