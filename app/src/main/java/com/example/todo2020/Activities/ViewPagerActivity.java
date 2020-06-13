@@ -49,6 +49,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         if (intent !=null && intent.hasExtra(My_PAGER_ID)){
             if ((id == DEFAULT_TASK_ID)){
                 id = intent.getIntExtra(My_PAGER_ID,DEFAULT_TASK_ID);
+
             }
         }
 
