@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
@@ -47,6 +48,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent !=null && intent.hasExtra(My_PAGER_ID)){
+
             if ((id == DEFAULT_TASK_ID)){
                 id = intent.getIntExtra(My_PAGER_ID,DEFAULT_TASK_ID);
 
@@ -54,9 +56,15 @@ public class ViewPagerActivity extends AppCompatActivity {
         }
 
         mEditPagerAdapter = new PagerAdapter(getSupportFragmentManager());
+
         viewPager = findViewById(R.id.Viewpager);
+
         RepositoryTodo repositoryTodo = new RepositoryTodo(getApplication());
+
+
         LiveData<List<mytodo>> mTodo = repositoryTodo.getAllNotes();
+
+
         mTodo.observe(this, new Observer<List<mytodo>>() {
             @Override
             public void onChanged(List<mytodo> mytodos) {
