@@ -44,7 +44,7 @@ public class ViewPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager);
 
-        viewPager = findViewById(R.id.Viewpager);
+        viewPager = (ViewPager) findViewById(R.id.Viewpager);
         final int id = getIntent().getIntExtra(My_PAGER_ID, -1);
 
         mTodo = RepositoryTodo.getInstance(this).getAllNotes();

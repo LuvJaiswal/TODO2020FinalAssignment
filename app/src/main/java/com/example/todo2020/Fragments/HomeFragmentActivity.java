@@ -170,9 +170,13 @@ public class HomeFragmentActivity extends Fragment {
             public void onItemClick(mytodo mytodo) {
                 AddEditTodoActivityFragment addEditTodoActivityFragment = new AddEditTodoActivityFragment();
 
-                                Intent intent = new Intent(getActivity(), ViewPagerActivity.class);
-                intent.putExtra("ID",mytodo.getId());
+//                Intent intent = new Intent(getActivity(), ViewPagerActivity.class);
+//                intent.putExtra("ID",mytodo.getId());
+//                startActivity(intent);
+
+                Intent intent = ViewPagerActivity.newIntent(getActivity(), mytodo.getId());
                 startActivity(intent);
+
 
                 //holds the data and passes the value to another fragments
                 Bundle bundle = new Bundle();
