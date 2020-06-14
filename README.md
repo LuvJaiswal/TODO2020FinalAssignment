@@ -16,7 +16,27 @@ This is the project based on the developing own version of "TODO" adroid applica
   - updated task time and date record shown.
   - Search functionality for number of tasks added.
   - Login functionality using SQLITE DATABASE.
- 
+  
+  | REGISTER       | LOGIN             | Login Validation  |
+| ------------- |:-------------:| -----:|
+|   <img src = "https://recordit.co/TvhSN1om5D.gif" width="400" height="400">  |  <img src = "https://recordit.co/kjmPenbctx.gif" width="400" height="400"> | <img src = "https://recordit.co/0pz7l2QQV2.gif" width="400" height="400"> |
+
+| Add Task      | Update Task          | Delete Task  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | <img src = "https://recordit.co/UWhFf3ImMu.gif" width="400" height="400"> |
+
+| Undo Delete     | Register Validation | ViewPager  |
+| ------------- |:-------------:| -----:|
+| <img src = "https://recordit.co/uORcmk8H2I.gif" width="400" height="400">    | <img src = "https://recordit.co/b2JOxbTTRX.gif" width="400" height="400"> | $1600 |
+
+| Task Validation      | DeleteAll           | Search added task  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | <img src = "https://recordit.co/mu0O8P07cT.gif" width="400" height="400"> | <img src = "https://recordit.co/9JvSSc6W4K.gif" width="400" height="400"> |
+
+| Speech To Text      | Gmail          | Google Calendar  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | <img src = "https://recordit.co/bhJlzlieo9.gif" width="400" height="400"> | <img src = "https://recordit.co/cfeejYm4fh.gif" width="400" height="400">|
+
  
 ## Downloads
 
@@ -34,24 +54,6 @@ Clone the todo project and setup the in android studio
 ```sh
 $ git clone https://github.com/LuvJaiswal/TODO2020FinalAssignment.git
 ```
-
-## Documentation
-
-<b>Android Architecture components</b> are a collection of libraries that help you design robust, testable, and maintainable apps with more power over lifecycle management and data persistence.
-
-# What is MVVM?
-
-MVVM is one of the architectural patterns which enhances the separation of concerns, it allows separating the user interface logic from the business (or the back-end) logic. Its target is to achieve the following principle “Keeping UI code simple and free of app logic in order to make it easier to manage”.
-
-There are 3 parts to the Model-View-ViewModel architecture:-
-
-   1. <b><u>Model</u></b> is the data layer of your app. It abstracts the data source.
-   2. <b><u>View</u></b> contains the UI of your app. Most often it’s implemented as an Activity or Fragment. View informs ViewModel of user interactions and displays results received from the ViewModel. View should be lightweight and contain zero to very little business logic.
-   3. <b><u>ViewModel</u></b> serves as a bridge between your View and Model. It works with the Model to get and save the data. The View observes and reacts to the data changes exposed by the ViewModel.
-
-Here is a typical high-level MVVM app architecture:
-
-![](https://miro.medium.com/max/1400/1*-yY0l4XD3kLcZz0rO1sfRA.png)
 
 # Implementation steps
 
@@ -91,4 +93,24 @@ First add version numbers and then add these libraries to build.gradle
     implementation 'android.arch.persistence.room:runtime:1.0.0-alpha1'
     annotationProcessor 'android.arch.persistence.room:compiler:1.0.0-alpha1'
     
-    ```
+  ```
+
+
+# Documentation
+
+<b>Android Architecture components</b> are a collection of libraries that help you design robust, testable, and maintainable apps with more power over lifecycle management and data persistence.
+
+# What is MVVM?
+
+MVVM is one of the architectural patterns which enhances the separation of concerns, it allows separating the user interface logic from the business (or the back-end) logic. Its target is to achieve the following principle “Keeping UI code simple and free of app logic in order to make it easier to manage”.
+
+There are 3 parts to the Model-View-ViewModel architecture:-
+
+   1. <b><u>Model</u></b> is the data layer of your app. It abstracts the data source.
+   2. <b><u>View</u></b> contains the UI of your app. Most often it’s implemented as an Activity or Fragment. View informs ViewModel of user interactions and displays results received from the ViewModel. View should be lightweight and contain zero to very little business logic.
+   3. <b><u>ViewModel</u></b> serves as a bridge between your View and Model. It works with the Model to get and save the data. The View observes and reacts to the data changes exposed by the ViewModel.
+
+Here is a typical high-level MVVM app architecture:
+
+![](https://miro.medium.com/max/1400/1*-yY0l4XD3kLcZz0rO1sfRA.png)
+
