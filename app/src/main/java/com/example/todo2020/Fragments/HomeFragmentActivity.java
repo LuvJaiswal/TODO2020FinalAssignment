@@ -30,6 +30,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.todo2020.Activities.ViewPagerActivity;
 import com.example.todo2020.ViewModel.TodoViewModel;
 import com.example.todo2020.MyDatabase.mytodo;
 import com.example.todo2020.R;
@@ -43,7 +44,6 @@ import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
-//as TodoListfragment
 public class HomeFragmentActivity extends Fragment {
 
     //TAG for HomeFragment debugging
@@ -55,8 +55,8 @@ public class HomeFragmentActivity extends Fragment {
 
     private TodoViewModel todoViewModel;
 
-    public ArrayList<mytodo> mytodos;
-    TodoAdapter adapter;
+    public ArrayList<mytodo> todoList = new ArrayList<>();
+    TodoAdapter adapter = new TodoAdapter();
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,7 +101,7 @@ public class HomeFragmentActivity extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);  //necessary as the inserting and deleting of item is very often
 
-        final TodoAdapter adapter = new TodoAdapter();
+        adapter = new TodoAdapter();
         recyclerView.setAdapter(adapter);  //adapter is set for joining the data to the view
 
         //here the functionality of app is exctracted from view model defined
@@ -114,6 +114,8 @@ public class HomeFragmentActivity extends Fragment {
                 Log.d(TAG, "retrieving data from database");
                 adapter.notifyDataSetChanged();
                 adapter.setTodo(mytodos);
+                todoList.addAll(mytodos);
+
 
             }
         });
@@ -167,6 +169,10 @@ public class HomeFragmentActivity extends Fragment {
             @Override
             public void onItemClick(mytodo mytodo) {
                 AddEditTodoActivityFragment addEditTodoActivityFragment = new AddEditTodoActivityFragment();
+
+                                Intent intent = new Intent(getActivity(), ViewPagerActivity.class);
+                intent.putExtra("ID",mytodo.getId());
+                startActivity(intent);
 
                 //holds the data and passes the value to another fragments
                 Bundle bundle = new Bundle();
@@ -226,12 +232,17 @@ public class HomeFragmentActivity extends Fragment {
                  */
                 newText = newText.toLowerCase();
                 ArrayList<mytodo> newList = new ArrayList<>();
-                for (mytodo mytodo : mytodos) {
+                for (mytodo mytodo : todoList) {
                     String titlename = mytodo.getTitle().toLowerCase();
                     if (titlename.contains(newText)) {
                         newList.add(mytodo);
                     }
                 }
+
+
+                Log.d("FILTERDEBUGMYTODO", todoList.size() + "");
+                Log.d("FILTERDEBUG", newList.size() + "");
+
                 adapter.setFilter(newList);
                 return true;
 
