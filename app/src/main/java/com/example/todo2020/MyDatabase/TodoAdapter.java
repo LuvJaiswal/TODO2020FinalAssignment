@@ -21,7 +21,7 @@ import java.util.Locale;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> implements Filterable {
 
-//    final Context context;
+    //    final Context context;
     private ArrayList<mytodo> listItems;
     private ArrayList<mytodo> filterList;
 
@@ -40,16 +40,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
     private static final String MY_FORMAT = "MMMM dd, yyyy  h:mm a";
 
     //Time & date formatter
-    private SimpleDateFormat sdf = new SimpleDateFormat(MY_FORMAT,Locale.ENGLISH);
-
-
-
+    // private SimpleDateFormat sdf = new SimpleDateFormat(MY_FORMAT,Locale.ENGLISH);
 
     //private  static SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd yyyy HH:mm:ss", Locale.ENGLISH);
-
-
-
-
 
 //    public TodoAdapter() {
 //        this.listItems = listItems;
@@ -77,7 +70,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
         String updatedAt = dateFormat.format(currentMytodo.getUpdatedAt());
 
         //for alarmy
-        String dateTime = sdf.format(currentMytodo.getDateTime());
+        //  String dateTime = sdf.format(currentMytodo.getDateTime());
 
         holder.mTitle.setText(currentMytodo.getTitle());
         holder.mDescription.setText(currentMytodo.getDescription());
@@ -87,7 +80,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
         holder.updatedAtView.setText(String.valueOf(currentMytodo.getUpdatedAt()));
 
 
-       //for alarmy
+        //for alarmy
         holder.malarm.setText(String.valueOf(currentMytodo.getDateTime()));
 
     }
@@ -185,11 +178,11 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
         first attempt for search
          */
 
-        public void setFilter(List<mytodo> newList) {
-            mytodos = new ArrayList<>();
-            mytodos.addAll(newList);
-            notifyDataSetChanged();
-        }
+    public void setFilter(List<mytodo> newList) {
+        mytodos = new ArrayList<>();
+        mytodos.addAll(newList);
+        notifyDataSetChanged();
+    }
 
 
 }
