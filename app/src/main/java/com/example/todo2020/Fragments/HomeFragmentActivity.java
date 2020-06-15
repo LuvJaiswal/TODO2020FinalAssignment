@@ -6,7 +6,6 @@ import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -25,14 +24,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.todo2020.Activities.ViewPagerActivity;
+import com.example.todo2020.MyDatabase.Todo;
 import com.example.todo2020.ViewModel.TodoViewModel;
-import com.example.todo2020.MyDatabase.mytodo;
 import com.example.todo2020.R;
 import com.example.todo2020.MyDatabase.TodoAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -55,7 +52,7 @@ public class HomeFragmentActivity extends Fragment {
 
     private TodoViewModel todoViewModel;
 
-    public ArrayList<mytodo> todoList = new ArrayList<>();
+    public ArrayList<Todo> todoList = new ArrayList<>();
     TodoAdapter adapter = new TodoAdapter();
 
 
@@ -107,14 +104,14 @@ public class HomeFragmentActivity extends Fragment {
         //here the functionality of app is exctracted from view model defined
         todoViewModel = ViewModelProviders.of(this).get(TodoViewModel.class);
 
-        todoViewModel.getAllNotes().observe(this, new Observer<List<mytodo>>() { //gets all items from the list
+        todoViewModel.getAllNotes().observe(this, new Observer<List<Todo>>() { //gets all items from the list
             @Override
-            public void onChanged(List<mytodo> mytodos) {
+            public void onChanged(List<Todo> Todos) {
                 //updates Recyclerview
                 Log.d(TAG, "retrieving data from database");
                 adapter.notifyDataSetChanged();
-                adapter.setTodo(mytodos);
-                todoList.addAll(mytodos);
+                adapter.setTodo(Todos);
+                todoList.addAll(Todos);
 
 
             }
@@ -133,9 +130,9 @@ public class HomeFragmentActivity extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                final mytodo tempMytodo = adapter.getNoteAt(viewHolder.getAdapterPosition());
+                final Todo tempTodo = adapter.getNoteAt(viewHolder.getAdapterPosition());
 
-                todoViewModel.delete(tempMytodo);
+                todoViewModel.delete(tempTodo);
 
                 View contextView = getView().findViewById(R.id.recyclerView);
 
@@ -148,7 +145,7 @@ public class HomeFragmentActivity extends Fragment {
                 Snackbar.make(contextView, "Todo deleted", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        todoViewModel.insert(tempMytodo);
+                        todoViewModel.insert(tempTodo);
                     }
                 }).show();
 
@@ -167,19 +164,19 @@ public class HomeFragmentActivity extends Fragment {
 
         adapter.setOnItemClickListener(new TodoAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(mytodo mytodo) {
+            public void onItemClick(Todo Todo) {
                 AddEditTodoActivityFragment addEditTodoActivityFragment = new AddEditTodoActivityFragment();
 
-//                Intent intent = new Intent(getActivity(), ViewPagerActivity.class);
-//                intent.putExtra("ID",mytodo.getId());
-//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), ViewPagerActivity.class);
+                intent.putExtra("ID", Todo.getId());
+                startActivity(intent);
 
                 //holds the data and passes the value to another fragments
                 Bundle bundle = new Bundle();
-                bundle.putInt(AddEditTodoActivityFragment.EXTRA_ID, mytodo.getId());
-                bundle.putString(AddEditTodoActivityFragment.EXTRA_TITLE, mytodo.getTitle());
-                bundle.putString(AddEditTodoActivityFragment.EXTRA_DESCRIPTION, mytodo.getDescription());
-                bundle.putInt(AddEditTodoActivityFragment.EXTRA_PRIORITY, mytodo.getPriority());
+                bundle.putInt(AddEditTodoActivityFragment.EXTRA_ID, Todo.getId());
+                bundle.putString(AddEditTodoActivityFragment.EXTRA_TITLE, Todo.getTitle());
+                bundle.putString(AddEditTodoActivityFragment.EXTRA_DESCRIPTION, Todo.getDescription());
+                bundle.putInt(AddEditTodoActivityFragment.EXTRA_PRIORITY, Todo.getPriority());
                 bundle.putInt("REQUEST_CODE", REQUEST_ON_EDIT_TODO);
 
                 addEditTodoActivityFragment.setArguments(bundle);  //sets the value
@@ -231,11 +228,11 @@ public class HomeFragmentActivity extends Fragment {
                 first attempt search
                  */
                 newText = newText.toLowerCase();
-                ArrayList<mytodo> newList = new ArrayList<>();
-                for (mytodo mytodo : todoList) {
-                    String titlename = mytodo.getTitle().toLowerCase();
+                ArrayList<Todo> newList = new ArrayList<>();
+                for (Todo Todo : todoList) {
+                    String titlename = Todo.getTitle().toLowerCase();
                     if (titlename.contains(newText)) {
-                        newList.add(mytodo);
+                        newList.add(Todo);
                     }
                 }
 
@@ -262,8 +259,8 @@ public class HomeFragmentActivity extends Fragment {
             int priority = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_PRIORITY, 1);
             Date date = new Date();
 
-            mytodo mytodo = new mytodo(title, description, priority, date);
-            todoViewModel.insert(mytodo);
+            Todo Todo = new Todo(title, description, priority, date);
+            todoViewModel.insert(Todo);
             Toast.makeText(getActivity(), "Todo saved", Toast.LENGTH_SHORT).show();
         } else if (requestCode == REQUEST_ON_ADD_TODO && resultCode == RESULT_OK) {
             int id = data.getIntExtra(AddEditTodoActivityFragment.EXTRA_ID, -1);
@@ -278,9 +275,9 @@ public class HomeFragmentActivity extends Fragment {
             Date date = new Date();
 
 
-            mytodo mytodo = new mytodo(title, description, priority, date);
-            mytodo.setId(id);
-            todoViewModel.update(mytodo); //updates the item
+            Todo Todo = new Todo(title, description, priority, date);
+            Todo.setId(id);
+            todoViewModel.update(Todo); //updates the item
 
             Toast.makeText(getActivity(), "Todo Updated", Toast.LENGTH_SHORT).show();
 

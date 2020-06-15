@@ -12,25 +12,25 @@ import java.util.List;
 
 public class PagerAdapter extends FragmentPagerAdapter {
 
-    private final List<Integer> mFragmentId = new ArrayList<>();
+    private List<Integer> mTodo = new ArrayList<>();
 
     public PagerAdapter(@NonNull FragmentManager fm){
         super(fm);
     }
 
     public void addFragment(int title){
-        mFragmentId.add(title);
+        mTodo.add(title);
         notifyDataSetChanged();
     }
 
     @Override
     public Fragment getItem(int position) {
-        return AddEditTodoActivityFragment.newInstance(mFragmentId.get(position));
+        return AddEditTodoActivityFragment.newInstance(mTodo.get(position));
     }
 
     @Override
     public int getCount() {
-        return mFragmentId.size();
+        return mTodo.size();
     }
 }
 
