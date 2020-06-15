@@ -23,15 +23,15 @@ This is the project based on the developing own version of "TODO" adroid applica
 
 | Add Task      | Update Task          | Delete Task  |
 | ------------- |:-------------:| -----:|
-| col 3 is      | right-aligned | <img src = "https://recordit.co/UWhFf3ImMu.gif" width="400" height="400"> |
+| <img src = "https://recordit.co/xGjKBs3rn6.gif" width="400" height="400">      | <img src = "https://recordit.co/CsboLjwiJp.gif" width="400" height="400"> | <img src = "https://recordit.co/UWhFf3ImMu.gif" width="400" height="400"> |
 
-| Undo Delete     | Register Validation | ViewPager  |
+| Undo Delete     | Register Validation | Testing  |
 | ------------- |:-------------:| -----:|
 | <img src = "https://recordit.co/uORcmk8H2I.gif" width="400" height="400">    | <img src = "https://recordit.co/b2JOxbTTRX.gif" width="400" height="400"> | $1600 |
 
 | Task Validation      | DeleteAll           | Search added task  |
 | ------------- |:-------------:| -----:|
-| col 3 is      | <img src = "https://recordit.co/mu0O8P07cT.gif" width="400" height="400"> | <img src = "https://recordit.co/9JvSSc6W4K.gif" width="400" height="400"> |
+| <img src = "https://recordit.co/nQMrmqoCIs.gif" width="400" height="400"> | <img src = "https://recordit.co/mu0O8P07cT.gif" width="400" height="400"> | <img src = "https://recordit.co/9JvSSc6W4K.gif" width="400" height="400"> |
 
 | Speech To Text      | Gmail          | Google Calendar  |
 | ------------- |:-------------:| -----:|
