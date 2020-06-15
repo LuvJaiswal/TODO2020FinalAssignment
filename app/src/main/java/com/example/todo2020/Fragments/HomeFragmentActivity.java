@@ -359,6 +359,12 @@ public class HomeFragmentActivity extends Fragment {
 
     }
 
+    private void updateUI() {
+        // saved data is allocated using the view model
+        TodoViewModel todoViewModel =
+                ViewModelProviders.of(getActivity()).get(TodoViewModel.class);
+    }
+
 
     /**
      * Activity Life cycle implemented on fragment
@@ -376,11 +382,11 @@ public class HomeFragmentActivity extends Fragment {
         super.onStart();
         System.out.println("TAG = " + TAG);
         Log.d(TAG, "Started");
+        updateUI();
 
-        //onStart lifecycle the saved data is allocated using the view model
-        TodoViewModel todoViewModel =
-                ViewModelProviders.of(getActivity()).get(TodoViewModel.class);
     }
+
+
 
     @Override
     public void onPause() {
