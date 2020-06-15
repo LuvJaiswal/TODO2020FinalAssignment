@@ -12,7 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import java.util.Date;
 
-@Database(entities = {mytodo.class}, version = 1, exportSchema = false)
+@Database(entities = {Todo.class}, version = 1, exportSchema = false)
 @TypeConverters(DateConverter.class)
 
 public abstract class TodoDatabase extends RoomDatabase {
@@ -61,9 +61,9 @@ public abstract class TodoDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            todoDao.Insert(new mytodo("title 1", "Description 1", 1, new Date()));
-            todoDao.Insert(new mytodo("title 2", "Description 2", 2, new Date()));
-            todoDao.Insert(new mytodo("title 3", "Description 3", 3, new Date()));
+            todoDao.Insert(new Todo("title 1", "Description 1", 1, new Date()));
+            todoDao.Insert(new Todo("title 2", "Description 2", 2, new Date()));
+            todoDao.Insert(new Todo("title 3", "Description 3", 3, new Date()));
             return null;
         }
     }

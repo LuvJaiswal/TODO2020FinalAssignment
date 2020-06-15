@@ -25,16 +25,14 @@ import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
+import com.example.todo2020.MyDatabase.Todo;
 import com.example.todo2020.ViewModel.TodoViewModel;
-import com.example.todo2020.MyDatabase.mytodo;
 import com.example.todo2020.R;
 import com.example.todo2020.MyDatabase.RepositoryTodo;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -44,9 +42,9 @@ public class AddEditTodoActivityFragment extends Fragment {
 
     private static final String TAG = AddEditTodoActivityFragment.class.getSimpleName();
 
-    private LiveData<mytodo> mTodo;
+    private LiveData<Todo> mTodo;
 
-    //private LiveData<List<mytodo>> mTodo;
+    //private LiveData<List<Todo>> mTodo;
 
     //task id Extra implemented in the intent
     public static final String EXTRA_ID =
@@ -229,9 +227,9 @@ public class AddEditTodoActivityFragment extends Fragment {
                 return;
             }
 
-            mytodo mytodo = new mytodo(title, description, priority, date);
-            mytodo.setId(id);
-            todoViewModel.update(mytodo);
+            Todo Todo = new Todo(title, description, priority, date);
+            Todo.setId(id);
+            todoViewModel.update(Todo);
 
             Toast.makeText(getActivity(), "Todo Updated", Toast.LENGTH_SHORT).show();
 
@@ -245,9 +243,9 @@ public class AddEditTodoActivityFragment extends Fragment {
 
         } else {
 
-            mytodo mytodo = new mytodo(title, description, priority, date);
-            todoViewModel.insert(mytodo);
-            Toast.makeText(getActivity(), "mytodo saved", Toast.LENGTH_SHORT).show();
+            Todo Todo = new Todo(title, description, priority, date);
+            todoViewModel.insert(Todo);
+            Toast.makeText(getActivity(), "Todo saved", Toast.LENGTH_SHORT).show();
 
             HomeFragmentActivity homeFragmentActivity = new HomeFragmentActivity();
 

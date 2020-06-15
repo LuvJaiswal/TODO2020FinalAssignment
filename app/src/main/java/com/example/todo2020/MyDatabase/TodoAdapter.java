@@ -1,6 +1,5 @@
 package com.example.todo2020.MyDatabase;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,19 +14,18 @@ import com.example.todo2020.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> implements Filterable {
 
     //    final Context context;
-    private ArrayList<mytodo> listItems;
-    private ArrayList<mytodo> filterList;
+    private ArrayList<Todo> listItems;
+    private ArrayList<Todo> filterList;
 
 
     private OnItemClickListener listener;
-    private List<mytodo> mytodos = new ArrayList<>();
+    private List<Todo> Todos = new ArrayList<>();
 
     // Date formatter
     private SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
@@ -53,35 +51,35 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
 
     @Override
     public void onBindViewHolder(@NonNull TodoHolder holder, int position) {
-        mytodo currentMytodo = mytodos.get(position);
+        Todo currentTodo = Todos.get(position);
 
         /**
          * for updated date
          */
-        String updatedAt = dateFormat.format(currentMytodo.getUpdatedAt());
+        String updatedAt = dateFormat.format(currentTodo.getUpdatedAt());
 
-        holder.mTitle.setText(currentMytodo.getTitle());
-        holder.mDescription.setText(currentMytodo.getDescription());
-        holder.mPriority.setText(String.valueOf(currentMytodo.getPriority()));
+        holder.mTitle.setText(currentTodo.getTitle());
+        holder.mDescription.setText(currentTodo.getDescription());
+        holder.mPriority.setText(String.valueOf(currentTodo.getPriority()));
 
 
-        holder.updatedAtView.setText(String.valueOf(currentMytodo.getUpdatedAt()));
+        holder.updatedAtView.setText(String.valueOf(currentTodo.getUpdatedAt()));
 
     }
 
     @Override
     public int getItemCount() {
-        return mytodos.size();
+        return Todos.size();
     }
 
-    public void setTodo(List<mytodo> mytodos) {
-        this.mytodos = mytodos;
+    public void setTodo(List<Todo> Todos) {
+        this.Todos = Todos;
         notifyDataSetChanged();
 
     }
 
-    public mytodo getNoteAt(int position) {
-        return mytodos.get(position);
+    public Todo getNoteAt(int position) {
+        return Todos.get(position);
     }
 
     @Override
@@ -90,13 +88,13 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String charString = constraint.toString().toLowerCase();
-                ArrayList<mytodo> myList = new ArrayList<>();
+                ArrayList<Todo> myList = new ArrayList<>();
                 if (charString.isEmpty()) {
-                    myList.addAll(mytodos);
+                    myList.addAll(Todos);
                 } else {
-                    for (mytodo mytodo : mytodos) {
-                        if (mytodo.toString().toLowerCase().contains(charString)) {
-                            myList.add(mytodo);
+                    for (Todo Todo : Todos) {
+                        if (Todo.toString().toLowerCase().contains(charString)) {
+                            myList.add(Todo);
                         }
 
                     }
@@ -111,7 +109,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 filterList.clear();
-                filterList.addAll((ArrayList<mytodo>) results.values);
+                filterList.addAll((ArrayList<Todo>) results.values);
                 notifyDataSetChanged();
             }
         };
@@ -135,7 +133,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
                 public void onClick(View v) {
                     int position = getAdapterPosition();  //position where we need to click
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(mytodos.get(position)); //acquired the position
+                        listener.onItemClick(Todos.get(position)); //acquired the position
                     }
                 }
             });
@@ -144,7 +142,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
     }
 
     public interface OnItemClickListener {
-        void onItemClick(mytodo mytodo);
+        void onItemClick(Todo Todo);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -157,9 +155,9 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.TodoHolder> im
         first attempt for search
          */
 
-    public void setFilter(List<mytodo> newList) {
-        mytodos = new ArrayList<>();
-        mytodos.addAll(newList);
+    public void setFilter(List<Todo> newList) {
+        Todos = new ArrayList<>();
+        Todos.addAll(newList);
         notifyDataSetChanged();
     }
 
