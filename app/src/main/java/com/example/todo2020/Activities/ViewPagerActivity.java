@@ -23,6 +23,8 @@ import com.example.todo2020.ViewModel.TodoViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.os.Build.ID;
+
 public class ViewPagerActivity extends AppCompatActivity {
     private static final String My_PAGER_ID = "todo_id";
 
@@ -38,7 +40,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
     public static Intent newIntent(Context packageContext, int id) {
         Intent intent = new Intent(packageContext, ViewPagerActivity.class);
-        intent.putExtra(My_PAGER_ID, id);
+        intent.putExtra(ID, id);
         return intent;
     }
 

@@ -153,25 +153,17 @@ public class HomeFragmentActivity extends Fragment {
 
         }).attachToRecyclerView(recyclerView);
 
-//        recyclerView.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//                Toast.makeText(getActivity(), "hi", Toast.LENGTH_SHORT).show();
-//                return false;
-//            }
-//
-//        });
 
         adapter.setOnItemClickListener(new TodoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Todo Todo) {
                 AddEditTodoActivityFragment addEditTodoActivityFragment = new AddEditTodoActivityFragment();
+                Log.d(TAG,"on Item clicked:" +"\n\n" +Todo);
 
-//                Intent intent = new Intent(getActivity(), ViewPagerActivity.class);
-//                intent.putExtra("ID",Todo.getId());
-//                startActivity(intent);
 
-                Intent intent = ViewPagerActivity.newIntent(getActivity(), Todo.getId());
+              //  Intent intent = ViewPagerActivity.newIntent(getActivity(), Todo.getId());
+                Intent intent = new Intent(getActivity(), ViewPagerActivity.class);
+                intent.putExtra("ID",Todo.getId());
                 startActivity(intent);
 
 
@@ -223,9 +215,6 @@ public class HomeFragmentActivity extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
-//                TodoAdapter.getFilter().filter(newText);
-//                return true;
 
 
                 /*
