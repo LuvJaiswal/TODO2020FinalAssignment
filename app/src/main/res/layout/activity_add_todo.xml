@@ -32,7 +32,7 @@
             >
         <EditText
             android:id="@+id/todoTitle"
-            android:layout_width="320dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="3dp"
@@ -74,7 +74,7 @@
 
         <EditText
             android:id="@+id/todoDescription"
-            android:layout_width="320dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:background="@drawable/designs"
             android:layout_marginLeft="3dp"
