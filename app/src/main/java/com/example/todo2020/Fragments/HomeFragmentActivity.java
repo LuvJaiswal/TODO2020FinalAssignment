@@ -164,19 +164,15 @@ public class HomeFragmentActivity extends Fragment {
 
         adapter.setOnItemClickListener(new TodoAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Todo Todo) {
-                AddEditTodoActivityFragment addEditTodoActivityFragment = new AddEditTodoActivityFragment();
-
-                Intent intent = new Intent(getActivity(), ViewPagerActivity.class);
-                intent.putExtra("ID", Todo.getId());
-                startActivity(intent);
+            public void onItemClick(Todo todo) {
+               AddEditTodoActivityFragment addEditTodoActivityFragment = new AddEditTodoActivityFragment();
 
                 //holds the data and passes the value to another fragments
                 Bundle bundle = new Bundle();
-                bundle.putInt(AddEditTodoActivityFragment.EXTRA_ID, Todo.getId());
-                bundle.putString(AddEditTodoActivityFragment.EXTRA_TITLE, Todo.getTitle());
-                bundle.putString(AddEditTodoActivityFragment.EXTRA_DESCRIPTION, Todo.getDescription());
-                bundle.putInt(AddEditTodoActivityFragment.EXTRA_PRIORITY, Todo.getPriority());
+                bundle.putInt(AddEditTodoActivityFragment.EXTRA_ID, todo.getId());
+                bundle.putString(AddEditTodoActivityFragment.EXTRA_TITLE, todo.getTitle());
+                bundle.putString(AddEditTodoActivityFragment.EXTRA_DESCRIPTION, todo.getDescription());
+                bundle.putInt(AddEditTodoActivityFragment.EXTRA_PRIORITY, todo.getPriority());
                 bundle.putInt("REQUEST_CODE", REQUEST_ON_EDIT_TODO);
 
                 addEditTodoActivityFragment.setArguments(bundle);  //sets the value
@@ -187,8 +183,15 @@ public class HomeFragmentActivity extends Fragment {
                 fragmentTransaction.addToBackStack("Todo List");
                 fragmentTransaction.commit();
 
+                Log.d(TAG,"fragment clicked");
+                Intent intent = new Intent(getActivity(), ViewPagerActivity.class);
+                intent.putExtra("ID", todo.getId());
+                Log.d(TAG,"see here" +todo.getId());
+                startActivity(intent);
 
             }
+
+
 
 
         });

@@ -93,6 +93,7 @@ public class AddEditTodoActivityFragment extends Fragment {
     public static AddEditTodoActivityFragment newInstance(int id) {
         Bundle args = new Bundle();
         args.putInt(ARGS_ID, id);
+        Log.d(TAG,"check id log:" +id);
         AddEditTodoActivityFragment fragmentFirst = new AddEditTodoActivityFragment();
         fragmentFirst.setArguments(args);
         return fragmentFirst;
@@ -123,6 +124,7 @@ public class AddEditTodoActivityFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
@@ -167,9 +169,9 @@ public class AddEditTodoActivityFragment extends Fragment {
 
         Bundle bundle = this.getArguments();
 
-        int REQUEST_CODE = bundle.getInt("REQUEST_CODE");
-
-        if (REQUEST_CODE == 2) {
+        int R_REQUEST_CODE = bundle.getInt("ARGS_ID");
+        Log.d(TAG,"Value is :  " +R_REQUEST_CODE);
+        if (R_REQUEST_CODE != 1 ) {
             getActivity().setTitle("Edit Todo");
             todoTitle.setText(bundle.getString(EXTRA_TITLE, ""));
             todoDescription.setText(bundle.getString(EXTRA_DESCRIPTION, ""));
