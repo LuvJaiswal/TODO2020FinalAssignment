@@ -27,7 +27,7 @@ This is the project based on the developing own version of "TODO" adroid applica
 
 | Undo Delete     | Register Validation | Testing  |
 | ------------- |:-------------:| -----:|
-| <img src = "https://recordit.co/uORcmk8H2I.gif" width="400" height="400">    | <img src = "https://recordit.co/b2JOxbTTRX.gif" width="400" height="400"> | $1600 |
+| <img src = "https://recordit.co/uORcmk8H2I.gif" width="400" height="400">    | <img src = "https://recordit.co/b2JOxbTTRX.gif" width="400" height="400"> | <img src = "https://recordit.co/RsSedWMa1m.gif" width="400" height="400"> |
 
 | Task Validation      | DeleteAll           | Search added task  |
 | ------------- |:-------------:| -----:|
@@ -35,7 +35,7 @@ This is the project based on the developing own version of "TODO" adroid applica
 
 | Speech To Text      | Gmail          | Google Calendar  |
 | ------------- |:-------------:| -----:|
-| col 3 is      | <img src = "https://recordit.co/bhJlzlieo9.gif" width="400" height="400"> | <img src = "https://recordit.co/cfeejYm4fh.gif" width="400" height="400">|
+| <img src = "https://recordit.co/CzORNFvBHK.gif" width="400" height="400">   | <img src = "https://recordit.co/bhJlzlieo9.gif" width="400" height="400"> | <img src = "https://recordit.co/cfeejYm4fh.gif" width="400" height="400">|
 
  
 ## Downloads
