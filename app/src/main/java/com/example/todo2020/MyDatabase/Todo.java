@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 @Entity(tableName = "myTodoList")
-public class mytodo {
+public class Todo {
 
 
     //fields assigned
@@ -27,7 +27,7 @@ public class mytodo {
 
 
     @Ignore
-    public mytodo(int id, String title, String description, int priority, Date updatedAt) {
+    public Todo(int id, String title, String description, int priority, Date updatedAt) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -44,7 +44,7 @@ public class mytodo {
      * @param updatedAt
      */
 
-    public mytodo(String title, String description, int priority, Date updatedAt) {
+    public Todo(String title, String description, int priority, Date updatedAt) {
         this.title = title;
         this.description = description;
         this.priority = priority;

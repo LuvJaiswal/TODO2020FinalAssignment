@@ -27,11 +27,6 @@ public class MainActivity extends AppCompatActivity {
         return intent;
     }
 
-//    protected Fragment createFragment(){
-//        int todoId = (int) getIntent().getSerializableExtra(EXTRA_TODO_ID);
-//        return AddEditTodoActivityFragment.newInstance(todoId);
-//    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +38,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
-//        Fragment fragment = fm.findFragmentById(R.id.frameLayout);
-//
-//        if (fragment == null){
-//
-//            Fragment myFragment = createFragment();
-//
-//            fm.beginTransaction()
-//                    .add(R.id.frameLayout, myFragment)
-//                    .commit();
-//        }
-
 
     }
 
@@ -68,17 +52,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, fragment);
         fragmentTransaction.commit();
-
-//        Fragment fragment = fm.findFragmentById(R.id.frameLayout);
-//
-//        if (fragment == null){
-//
-//            Fragment myFragment = createFragment();
-//
-//            fm.beginTransaction()
-//                    .add(R.id.frameLayout, myFragment)
-//                    .commit();
-//        }
     }
 
     @Override

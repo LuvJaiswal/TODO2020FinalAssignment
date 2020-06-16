@@ -11,23 +11,20 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.todo2020.Fragments.AddEditTodoActivityFragment;
-import com.example.todo2020.Fragments.HomeFragmentActivity;
-import com.example.todo2020.MyDatabase.mytodo;
+import com.example.todo2020.MyDatabase.Todo;
 import com.example.todo2020.R;
 import com.example.todo2020.MyDatabase.RepositoryTodo;
 
 import java.util.List;
-import java.util.UUID;
 
 public class ViewPagerActivity extends AppCompatActivity {
     private static final String My_ID = "todo_id";
 
     private ViewPager viewPager;
 
-    private LiveData<List<mytodo>> mTodo;
+    private LiveData<List<Todo>> mTodo;
 
     private static final String TAG = ViewPagerActivity.class.getSimpleName();
 
@@ -48,11 +45,11 @@ public class ViewPagerActivity extends AppCompatActivity {
 
         mTodo = RepositoryTodo.getInstance(this).getAllNotes();
 
-        mTodo.observe(this, new Observer<List<mytodo>>() {
+        mTodo.observe(this, new Observer<List<Todo>>() {
             @Override
-            public void onChanged(List<mytodo> mytodos) {
-                for (int i = 0; i < mytodos.size(); i++) {
-                    if (mytodos.get(i).getId() == todoId) {
+            public void onChanged(List<Todo> Todos) {
+                for (int i = 0; i < Todos.size(); i++) {
+                    if (Todos.get(i).getId() == todoId) {
                         viewPager.setCurrentItem(i);
                         break;
                     }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RepositoryTodo {
     private TodoDao todoDao;
-    private LiveData<List<mytodo>> allNotes;
+    private LiveData<List<Todo>> allNotes;
 
     private static Context mContext;
     private static RepositoryTodo todoInstance;
@@ -23,18 +23,18 @@ public class RepositoryTodo {
 
     }
 
-    public void insert(mytodo mytodo) {
-        new InsertNoteAsyncTask(todoDao).execute(mytodo);
+    public void insert(Todo Todo) {
+        new InsertNoteAsyncTask(todoDao).execute(Todo);
 
     }
 
-    public void update(mytodo mytodo) {
-        new UpdateNoteAsyncTask(todoDao).execute(mytodo);
+    public void update(Todo Todo) {
+        new UpdateNoteAsyncTask(todoDao).execute(Todo);
 
     }
 
-    public void delete(mytodo mytodo) {
-        new DeleteNoteAsyncTask(todoDao).execute(mytodo);
+    public void delete(Todo Todo) {
+        new DeleteNoteAsyncTask(todoDao).execute(Todo);
 
     }
 
@@ -43,18 +43,18 @@ public class RepositoryTodo {
 
     }
 
-    public LiveData<List<mytodo>> getAllNotes() {
+    public LiveData<List<Todo>> getAllNotes() {
         return allNotes;
 
     }
 
-    public LiveData<mytodo> getNote(int taskId) {
+    public LiveData<Todo> getNote(int taskId) {
         return todoDao.loadTaskById(taskId);
     }
 
 
     //prevent the memory leak for insert
-    private static class InsertNoteAsyncTask extends AsyncTask<mytodo, Void, Void> {
+    private static class InsertNoteAsyncTask extends AsyncTask<Todo, Void, Void> {
         private TodoDao todoDao;
 
         private InsertNoteAsyncTask(TodoDao todoDao) {
@@ -62,14 +62,14 @@ public class RepositoryTodo {
         }
 
         @Override
-        protected Void doInBackground(mytodo... mytodos) {
-            todoDao.Insert(mytodos[0]);
+        protected Void doInBackground(Todo... Todos) {
+            todoDao.Insert(Todos[0]);
             return null;
         }
     }
 
     //prevent the memory leak for update
-    private static class UpdateNoteAsyncTask extends AsyncTask<mytodo, Void, Void> {
+    private static class UpdateNoteAsyncTask extends AsyncTask<Todo, Void, Void> {
         private TodoDao todoDao;
 
         private UpdateNoteAsyncTask(TodoDao todoDao) {
@@ -77,14 +77,14 @@ public class RepositoryTodo {
         }
 
         @Override
-        protected Void doInBackground(mytodo... mytodos) {
-            todoDao.Update(mytodos[0]);
+        protected Void doInBackground(Todo... Todos) {
+            todoDao.Update(Todos[0]);
             return null;
         }
     }
 
-    //prevent the memory leak for delete mytodo
-    private static class DeleteNoteAsyncTask extends AsyncTask<mytodo, Void, Void> {
+    //prevent the memory leak for delete Todo
+    private static class DeleteNoteAsyncTask extends AsyncTask<Todo, Void, Void> {
         private TodoDao todoDao;
 
         private DeleteNoteAsyncTask(TodoDao todoDao) {
@@ -92,8 +92,8 @@ public class RepositoryTodo {
         }
 
         @Override
-        protected Void doInBackground(mytodo... mytodos) {
-            todoDao.Delete(mytodos[0]);
+        protected Void doInBackground(Todo... Todos) {
+            todoDao.Delete(Todos[0]);
             return null;
         }
     }

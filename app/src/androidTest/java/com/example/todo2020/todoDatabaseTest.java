@@ -5,9 +5,9 @@ import android.content.Context;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 
+import com.example.todo2020.MyDatabase.Todo;
 import com.example.todo2020.MyDatabase.TodoDao;
 import com.example.todo2020.MyDatabase.TodoDatabase;
-import com.example.todo2020.MyDatabase.mytodo;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +19,7 @@ import java.util.Date;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 
-public class mytodoDatabaseTest {
+public class todoDatabaseTest {
     private TodoDatabase db;
     private TodoDao todoDao;
 
@@ -40,10 +40,10 @@ public class mytodoDatabaseTest {
 
     @Test
     public void WriteUserAndReadInList() throws Exception {
-        mytodo mytodo = new mytodo(1,"hello", "hello am here", 1, new Date());
-        todoDao.Insert(mytodo);
-        com.example.todo2020.MyDatabase.mytodo byMytodoId = todoDao.noteTask(1);
-        assertEquals(byMytodoId.getId(),1);
+        Todo Todo = new Todo(1,"hello", "hello am here", 1, new Date());
+        todoDao.Insert(Todo);
+        Todo byTodoId = todoDao.noteTask(1);
+        assertEquals(byTodoId.getId(),1);
     }
 
 

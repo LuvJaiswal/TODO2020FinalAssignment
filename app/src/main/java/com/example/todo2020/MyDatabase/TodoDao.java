@@ -8,8 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.todo2020.MyDatabase.mytodo;
-
 import java.util.List;
 
 @Dao
@@ -18,13 +16,13 @@ public interface TodoDao {
 //Methods for operations implemented in the Dao
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void Insert(mytodo mytodo);
+    void Insert(Todo Todo);
 
     @Update
-    void Update(mytodo mytodo);
+    void Update(Todo Todo);
 
     @Delete
-    void Delete(mytodo mytodo);
+    void Delete(Todo Todo);
 
     //to delete all notes
     @Query("DELETE FROM myTodoList")
@@ -32,18 +30,18 @@ public interface TodoDao {
 
 
     @Query("SELECT * FROM myTodoList ORDER BY priority DESC")
-    LiveData<List<mytodo>> getAllNotes();
+    LiveData<List<Todo>> getAllNotes();
 
     //will be notified immediately idf changes made
     @Query("Select * from myTodoList where id =:taskId")
-    LiveData<mytodo> loadTaskById(int taskId);
+    LiveData<Todo> loadTaskById(int taskId);
 
 
     @Query("Select * from myTodoList where id =:taskId")
-    mytodo noteTask(int taskId);
+    Todo noteTask(int taskId);
 
 //    @Query("SELECT * FROM myTodoList WHERE title LIKE :searchquery")
-//    public LiveData<List<mytodo>> searchFor(String searchquery);
+//    public LiveData<List<Todo>> searchFor(String searchquery);
 
 
 }

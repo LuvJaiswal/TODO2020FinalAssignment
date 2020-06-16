@@ -7,14 +7,14 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.todo2020.MyDatabase.RepositoryTodo;
-import com.example.todo2020.MyDatabase.mytodo;
+import com.example.todo2020.MyDatabase.Todo;
 
 import java.util.List;
 
 
 public class TodoViewModel extends AndroidViewModel {
     private RepositoryTodo repository;
-    private LiveData<List<mytodo>> allNotes;
+    private LiveData<List<Todo>> allNotes;
 
 
     public TodoViewModel(@NonNull Application application) {
@@ -23,30 +23,27 @@ public class TodoViewModel extends AndroidViewModel {
         allNotes = repository.getAllNotes();
     }
 
-    public void insert(mytodo mytodo) {
-        repository.insert(mytodo);
+    public void insert(Todo Todo) {
+        repository.insert(Todo);
     }
 
-    public void update(mytodo mytodo) {
-        repository.update(mytodo);
+    public void update(Todo Todo) {
+        repository.update(Todo);
     }
 
-    public void delete(mytodo mytodo) {
-        repository.delete(mytodo);
+    public void delete(Todo Todo) {
+        repository.delete(Todo);
     }
 
     public void deleteAllNotes() {
         repository.deleteAllNotes();
     }
 
-    public LiveData<List<mytodo>> getAllNotes() {
+    public LiveData<List<Todo>> getAllNotes() {
         return allNotes;
     }
 
 
-//    public LiveData<List<mytodo>> searchQuery(String query) {
-//        return allNotes;
-//    }
 
 
 }
