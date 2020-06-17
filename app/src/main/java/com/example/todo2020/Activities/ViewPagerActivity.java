@@ -32,7 +32,7 @@ public class ViewPagerActivity extends AppCompatActivity {
 
     private static final String TAG = ViewPagerActivity.class.getSimpleName();
 
-    private int id = DEFAULT_TASK_ID, position = 0;
+    private int id = DEFAULT_TASK_ID, position = 1;
     private PagerAdapter mEditPagerAdapter;
     private ViewPager viewPager;
     private List<Todo> todos;

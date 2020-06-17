@@ -73,7 +73,7 @@ public class AddEditTodoActivityFragment extends Fragment {
     private static final int REQUEST_CODE_SPEECH_INPUT2 = 9000;
 
     // Constant for default task id when not in update mode
-    private static final int DEFAULT_TASK_ID = -1;
+    private static final int DEFAULT_TASK_ID = 1;
 
     private int id = DEFAULT_TASK_ID;
 
@@ -86,14 +86,13 @@ public class AddEditTodoActivityFragment extends Fragment {
     private ImageButton mVoicebuttondes;
 
 
-    public static final String ARGS_ID = "todo_id";
+//    public static final String ARGS_ID = "todo_id";
 
 
     //for view pager  am confused
     public static AddEditTodoActivityFragment newInstance(int id) {
         Bundle args = new Bundle();
-        args.putInt(ARGS_ID, id);
-        Log.d(TAG,"check id log:" +id);
+        args.putInt("ARGS_ID", id);
         AddEditTodoActivityFragment fragmentFirst = new AddEditTodoActivityFragment();
         fragmentFirst.setArguments(args);
         return fragmentFirst;
@@ -116,7 +115,7 @@ public class AddEditTodoActivityFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final int id = getArguments().getInt(ARGS_ID);
+        final int id = getArguments().getInt("ARGS_ID");
         mTodo = RepositoryTodo.getInstance(getActivity()).getNote(id); //get a single note from regular ID
 
     }
@@ -134,9 +133,6 @@ public class AddEditTodoActivityFragment extends Fragment {
 
 
         todoViewModel = ViewModelProviders.of(this).get(TodoViewModel.class);
-
-        System.out.println("TAG = " + TAG);
-        Log.d(TAG, "Check the log here");
 
         todoTitle = (EditText) view.findViewById(R.id.todoTitle);
         mVoicebutton = (ImageButton) view.findViewById(R.id.mic);
@@ -171,7 +167,7 @@ public class AddEditTodoActivityFragment extends Fragment {
 
         int R_REQUEST_CODE = bundle.getInt("ARGS_ID");
         Log.d(TAG,"Value is :  " +R_REQUEST_CODE);
-        if (R_REQUEST_CODE != 1 ) {
+        if (R_REQUEST_CODE != -1 ) {
             getActivity().setTitle("Edit Todo");
             todoTitle.setText(bundle.getString(EXTRA_TITLE, ""));
             todoDescription.setText(bundle.getString(EXTRA_DESCRIPTION, ""));
