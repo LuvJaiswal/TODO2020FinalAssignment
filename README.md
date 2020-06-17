@@ -11,11 +11,14 @@ This is the project based on the developing own version of "TODO" adroid applica
   - Undo delete of task added with snackbar implementation.
   - Can delete All task at once.
   - Swipe functionality for delete of task.
-  - Gmail for feedback 
+  - Speech To Text functionality for adding Task.
+  - Gmail for feedback from users.
   - Google Calendar for task reminder.
   - updated task time and date record shown.
   - Search functionality for number of tasks added.
   - Login functionality using SQLITE DATABASE.
+  - Testing of the database done.
+ 
   
   | REGISTER       | LOGIN             | Login Validation  |
 | ------------- |:-------------:| -----:|
